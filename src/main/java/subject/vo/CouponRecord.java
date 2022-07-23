@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COUPON_RECORD")
+@Table(name = "coupon_record")
 public class CouponRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "COUPON_SERIAL_NUMBER")
+	@Column(name = "coupon_serial_number")
 	private Integer couponserialnumber;
 
 	@Id
-	@Column(name = "MEMBER_SERIAL_NUMBER")
+	@Column(name = "member_serial_number")
 	private Integer memberserialnumber;
 	
-	@Column(name = "COUPON_RECORD_STATUS")
+	@Column(name = "coupon_record_status")
 	private Integer couponrecordstatus;
 
 	public CouponRecord() {

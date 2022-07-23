@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MY_FAVORITE")
+@Table(name = "my_favorite")
 public class MyFavorite {
 	@Id
-	@Column(name = "MY_FAVORITE_NUMBER")
+	@Column(name = "my_favorite_number")
 	private Integer myfavoritenumber;
-	@Column(name = "ITEM_SERIAL_NUMBER")
+	@Column(name = "item_serial_number")
 	private Integer itemserialnumber;
-	@Column(name = "MEMBER_SERIAL_NUMBER")
+	@Column(name = "member_serial_number")
 	private Integer memberserialnumber;
 
 	@Override

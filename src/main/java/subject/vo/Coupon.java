@@ -10,18 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COUPON")
+@Table(name = "coupon")
 public class Coupon {
 	@Id
-	@Column(name = "COUPON_SERIAL_NUMBER") // 建議要寫
+	@Column(name = "coupon_serial_number") // 建議要寫
 	private Integer couponserialnumber;
-	@Column(name = "COUPON_NAME")
+	@Column(name = "coupon_name")
 	private String couponname;
-	@Column(name = "START_DATE")
+	@Column(name = "start_date")
 	private Date startdate;
-	@Column(name = "END_DATE")
+	@Column(name = "end_date")
 	private Date enddate;
-	@Column(name = "REFUND_PERCENT")
+	@Column(name = "refund_percent")
 	private Float refundpercent;
 
 	@Override
