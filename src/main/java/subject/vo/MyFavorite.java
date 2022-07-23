@@ -2,6 +2,8 @@ package subject.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,6 +11,7 @@ import javax.persistence.Table;
 @Table(name = "my_favorite")
 public class MyFavorite {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "my_favorite_number")
 	private Integer myfavoritenumber;
 	@Column(name = "item_serial_number")

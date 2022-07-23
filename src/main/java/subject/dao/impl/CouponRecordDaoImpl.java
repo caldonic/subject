@@ -3,12 +3,19 @@ package subject.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import model.hibernate.HibernateUtil;
 import subject.dao.CouponRecordDao;
+import subject.vo.Coupon;
 import subject.vo.CouponRecord;
 
 public class CouponRecordDaoImpl implements CouponRecordDao {
@@ -23,15 +30,15 @@ public class CouponRecordDaoImpl implements CouponRecordDao {
 	}
 
 //select方法(比對紀錄、查詢該會員使用優惠券狀態)
-	String couponrecordhql = "select couponrecordstatus from CouponRecord where couponserialnumber = :couponserialnumber and memberserialnumber = :memberserialnumber";
+//	String couponrecordhql = "select couponrecordstatus from CouponRecord where couponserialnumber = :couponserialnumber and memberserialnumber = :memberserialnumber";
 
-	@Override
-	public List<Integer> selectbyrecordpk(Integer couponserialnumber, Integer memberserialnumber) {
-		List<Integer> resultscouponrecord = getSession().createQuery(couponrecordhql, Integer.class)
-				.setParameter("couponserialnumber", couponserialnumber)
-				.setParameter("memberserialnumber", memberserialnumber).list();
-		return resultscouponrecord;
-	}
+//	@Override
+//	public List<Integer> selectbyrecordpk(Integer couponserialnumber, Integer memberserialnumber) {
+//		List<Integer> resultscouponrecord = getSession().createQuery(couponrecordhql, Integer.class)
+//				.setParameter("couponserialnumber", couponserialnumber)
+//				.setParameter("memberserialnumber", memberserialnumber).list();
+//		return resultscouponrecord;
+//	}
 
 ////insert方法(消費者使用時新增紀錄)
 	@Override
@@ -52,9 +59,11 @@ public class CouponRecordDaoImpl implements CouponRecordDao {
 
 		Transaction tra = session.beginTransaction();
 		CouponRecordDao dao = new CouponRecordDaoImpl(sessionFactory);
-		List<Integer>T=dao.selectbyrecordpk(1, 1636001);
-		System.out.println("T="+T);
+	
+//		List<Integer> T = dao.selectbyrecordpk(1, 1636001);
+//		System.out.println("T=" + T);
 		tra.commit();
 		HibernateUtil.closeSessionFactory();
 	}
+
 }
