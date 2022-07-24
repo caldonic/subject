@@ -14,9 +14,9 @@ import subject.vo.Coupon;
 public class CouponServiceImpl implements CouponService {
 	private CouponDao dao;
 
-	public CouponServiceImpl() throws NamingException{
-		dao = new CouponDaoImpl();
-	}
+//	public CouponServiceImpl() throws NamingException{
+//		dao = new CouponDaoImpl(sessionFactory);
+//	}
 
 	@Override
 	public String newcoupon(Coupon coupon) {

@@ -10,6 +10,6 @@ public interface CouponRecordDao {
 	CouponRecord insert(CouponRecord couponRecord);
 	//select方法
 //	List<Integer> selectbyrecordpk(Integer couponserialnumber,Integer memberserialnumber);
-
+	Integer selectbyrecordpk(String couponname,Integer memberserialnumber);
 
 }
