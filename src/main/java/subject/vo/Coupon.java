@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "coupon")
 public class Coupon {
 	@Id
-	@Column(name = "coupon_serial_number") 
+	@Column(name = "coupon_serial_number")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer couponserialnumber;
 	@Column(name = "coupon_name")
@@ -47,8 +47,20 @@ public class Coupon {
 			temp2 = spl.format(enddate);
 		}
 
-		return "Coupon [couponserialnumber=" + couponserialnumber + ", couponname=" + couponname + ", startdate="
-				+ temp + ", enddate=" + temp2  + ", refundpercent=" + refundpercent + "]";
+		return "Coupon [couponserialnumber=" + couponserialnumber + ", couponname=" + couponname + ", startdate=" + temp
+				+ ", enddate=" + temp2 + ", refundpercent=" + refundpercent + "]";
+	}
+
+	public Coupon() {
+	}
+
+	public Coupon(Integer couponserialnumber, String couponname, Date startdate, Date enddate, Float refundpercent) {
+		super();
+		this.couponserialnumber = couponserialnumber;
+		this.couponname = couponname;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.refundpercent = refundpercent;
 	}
 
 	public Integer getCouponserialnumber() {

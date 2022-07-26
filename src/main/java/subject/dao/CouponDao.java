@@ -12,6 +12,9 @@ public interface CouponDao {
 	boolean remove(Integer couponserialnumber);
 
 	Integer selectbycouponname(String couponname);
+
+	List<Coupon> selectall();
 	
-//	boolean remove(String string);
+	Coupon selectone(Coupon couponname);
+
 }

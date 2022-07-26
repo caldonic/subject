@@ -23,9 +23,9 @@ import subject.vo.CouponRecord;
 public class CouponRecordDaoImpl implements CouponRecordDao {
 	private SessionFactory sessionFactory;
 
-	public CouponRecordDaoImpl() {
-
-	}
+//	public CouponRecordDaoImpl() {
+//
+//	}
 	public CouponRecordDaoImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -69,20 +69,20 @@ public class CouponRecordDaoImpl implements CouponRecordDao {
 
 
 
-	public static void main(String[] args) {
-		
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.getCurrentSession();
-
-		Transaction tra = session.beginTransaction();
-		CouponRecordDao dao = new CouponRecordDaoImpl(sessionFactory);
-
-		Integer T = dao.selectbyrecordpk("lanternfestival", 1636001);
-		System.out.println("T=" + T);
-		
-		
-		tra.commit();
-		HibernateUtil.closeSessionFactory();
-	}
+//	public static void main(String[] args) {
+//		
+//		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//		Session session = sessionFactory.getCurrentSession();
+//
+//		Transaction tra = session.beginTransaction();
+//		CouponRecordDao dao = new CouponRecordDaoImpl(sessionFactory);
+//
+//		Integer T = dao.selectbyrecordpk("lanternfestival", 1636001);
+//		System.out.println("T=" + T);
+//		
+//		
+//		tra.commit();
+//		HibernateUtil.closeSessionFactory();
+//	}
 
 }
