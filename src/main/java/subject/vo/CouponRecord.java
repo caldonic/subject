@@ -14,7 +14,6 @@ import javax.persistence.Table;
 public class CouponRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "coupon_serial_number")
 	private Integer couponserialnumber;
 

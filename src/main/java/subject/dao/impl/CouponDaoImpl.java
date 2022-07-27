@@ -30,9 +30,7 @@ public class CouponDaoImpl implements CouponDao {
 	}
 
 //select方法(利用名稱查流水號)
-
-//	String couponhql = "select couponserialnumber from Coupon where couponname = :couponname "; //HQL
-	public Integer selectbycouponname(String couponname) {
+	public Integer selectcouponserialnumber(String couponname) {
 		CriteriaBuilder criteriaBuilder = this.getSession().getCriteriaBuilder();
 		CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
 		// FROM Coupon
@@ -47,10 +45,6 @@ public class CouponDaoImpl implements CouponDao {
 		TypedQuery<Integer> typedQuery = this.getSession().createQuery(criteriaQuery);
 		Integer result = typedQuery.getSingleResult();
 		return result;
-
-//		Integer resultscouponid = getSession().createQuery(couponhql, Integer.class)  //HQL
-//				.setParameter("couponname", couponname).uniqueResult();
-//		return resultscouponid;
 	}
 
 	// selectALll
@@ -73,6 +67,17 @@ public class CouponDaoImpl implements CouponDao {
 	public Coupon selectone(Coupon coupon) {
 		Coupon resultone = getSession().createQuery(couponhq2, Coupon.class) // HQL
 				.setParameter("couponname", coupon.getCouponname())
+				.uniqueResult();
+		return resultone;
+	}
+	
+	// selectcouponname
+	String couponhq3 = "select couponname from Coupon where couponname = :couponname "; // HQL
+
+	@Override
+	public String selectcouponname(String couponname) {
+		String resultone = getSession().createQuery(couponhq3, String.class) // HQL
+				.setParameter("couponname",couponname)
 				.uniqueResult();
 		return resultone;
 	}
@@ -109,40 +114,4 @@ public class CouponDaoImpl implements CouponDao {
 		return false;
 	}
 
-//	public static void main(String arg[]) {
-//		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-//		Session session = sessionFactory.getCurrentSession();
-//		Transaction tra = session.beginTransaction();
-//		CouponDao dao = new CouponDaoImpl(sessionFactory);
-//
-//// select測試
-//		Integer ID = dao.selectbycouponname("fathersday");
-//		System.out.println("ID=" + ID);
-//
-//// insert測試
-//		Coupon insert = new Coupon();
-//		insert.setCouponname("hibernateTest10");
-//		insert.setStartdate(new Date(2021 - 07 - 01));
-//		insert.setEnddate(new Date(2022 - 07 - 10)); // java之後 int 支援(123,123,123)=(123-123-123),因此出現不可輸入int參數
-//		insert.setRefundpercent((float) 0.03);
-//		Coupon insetResult = dao.insert(insert);
-//		System.out.println("insetResult=" + insetResult);
-//
-//// update測試
-////		Coupon update = new Coupon();
-////		update.setCouponserialnumber(12);
-////		update.setCouponname("marry");
-////		update.setStartdate(new Date(2022 - 07 - 01));
-////		update.setEnddate(new Date(2022 - 07 - 10)); // java之後 int 支援(123,123,123)=(123-123-123),因此出現不可輸入int參數
-////		update.setRefundpercent((float) 0.03);
-////		Coupon updateResult = dao.update(update);
-////		System.out.println("updateResult=" + updateResult);
-//
-////delete測試(Error)
-//		boolean remove = dao.remove(12);
-//		System.out.println("remove=" + remove);
-//
-//		tra.commit();
-//		HibernateUtil.closeSessionFactory();
-//	}
 }
