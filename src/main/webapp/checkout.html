@@ -413,43 +413,57 @@
                       <span class="checkmark"></span>
                     </label>
                   </div> -->
-                  <!-- 鎮鴻改-隱藏以上英文  -->
+                  <!-- 鎮鴻改-隱藏以上英文  -->         
                   <button type="submit" class="site-btn">結帳</button>
                   <button type="submit" id="former_page" class="site-btn">
                     回到上頁
                   </button>
                   <!-- 鎮鴻改-新增回到上頁按鈕  -->
-                    <!-- 鎮鴻改-以上五行 -->
-          </div>
-          <div class="col-lg-6">
-            <div class="shoping__continue">
-              <div class="shoping__discount">
-                <h5>Coupon券</h5>
-                <form action="#">
-                  <input
-                    id="coupon_val"
-                    name="couponname"
-                    class="SELECT_COUPON_NAME"
-                    type="text"
-                    placeholder="請輸入優惠券名稱"
-                    pattern="[a-zA-Z]{0,}"
-                  />
-                  <!-- pattern="[a-zA-Z]{0,}" -->
-                  <!-- 鎮鴻改-->
-                  <input type="button" class="site-btn" id="coupon_use" value="使用" >
-                  </input>
-                  <!-- 鎮鴻改-綁使用存在local -->
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- 鎮鴻改-以上為Discount Codes  -->
+                  <div class="col-lg-12">
+                    <div class="shoping__continue">
+                      <div class="shoping__discount">
+                        <h5>優惠券(Coupon券)</h5>
+                          <input
+                            id="coupon_val"
+                            name="couponname"
+                            class="SELECT_COUPON_NAME"
+                            type="text"
+                            placeholder="請輸入優惠券名稱"
+                            pattern="[a-zA-Z]{0,}"
+                          />
+                          <input type="button" class="site-btn" id="coupon_use" value="使用" >
+                          </input>
+                          
+                          <h5>購物金</h5>
+                              <!-- 跟維爾比對2 -->
+                              <input
+                                id="golden_val"
+                                name="goldremaining"  
+                                type="text"
+                                placeholder="請輸入購物金金額"
+                                pattern="\d{0,}"
+                              />
+                              <!-- 鎮鴻改-新增正規化驗證 -->
+                              <input
+                                type="button"
+                                class="site-btn"
+                                id="golden_use"
+                                value="使用"
+                              />  </input>
+                              <!-- 鎮鴻改-綁使用存在local -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 鎮鴻改-以上為Discount Codes  -->
+                    <!-- 鎮鴻改-以上五行 -->        
+                  </div>
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>
+    </div>
     </section>
     <!-- Checkout Section End -->
 
@@ -592,6 +606,36 @@
           });
         }
       });
+
+////購物金使用按鈕連結localstorage
+$("#golden_use").on("click", () => {
+          let golden_val = $("#golden_val").val();
+          localStorage.setItem("GOLD_ADJUSTMENT_AMOUNT", golden_val);
+        ////傳送購物金到後端驗證
+          // const url = "GoldRemainingCheck";
+          //   const goldremainingCheck = $("#golden_val").val()||null;
+          //     fetch(url, {
+          //   method: "POST",
+          //   headers: {
+          //     "content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify({
+          //     goldremaining: goldRemainingCheck   //要跟維爾比對1
+          //     //這裡要跟java實體變數一樣
+          //   }),
+          // })
+          //   .then((res) => res.json()) //使用 .json() 解析資料
+          //   .then((body) => {
+          //     const msg = body.Msg;
+          //     alert(msg);
+          //     const goldRemainingCheckStr=body.goldRemainingCheckStr;  //coupon流水號
+          //     console.log("coupon流水號="+goldRemainingCheckStr);
+          //     localStorage.setItem("goldRemainingCheckStr", goldRemainingCheckStr);//流水號存到local
+          //   })
+            console.log(typeof golden_val);
+            location.reload(); //網頁重整
+        });
+
        //// 優惠券使用按鈕連結localstorage
        $("#coupon_use").on("click", () => {
           let coupon_val = $("#coupon_val").val()||null;
@@ -620,8 +664,6 @@
               console.log("coupon流水號="+serialnumberStr);
               localStorage.setItem("serialnumberStr", serialnumberStr);//流水號存到local
             })
-         
-        
         });
         ////確保localstorage資料顯示於格內
 

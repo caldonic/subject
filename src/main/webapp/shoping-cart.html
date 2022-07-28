@@ -491,7 +491,7 @@
               >
             </div> -->
             <!-- 鎮鴻改-以上五行 -->
-          </div>
+          <!-- </div> -->
           <!-- <div class="col-lg-3">
             <div class="shoping__continue">
               <div class="shoping__discount">
@@ -514,7 +514,7 @@
             </div>
           </div> -->
           <!-- 鎮鴻改-以上為Discount Codes  -->
-          <div class="col-lg-3">
+          <!-- <div class="col-lg-3">
             <div class="shoping__continue">
               <div class="shoping__discount">
                 <h5>購物金</h5>
@@ -524,21 +524,21 @@
                     type="text"
                     placeholder="請輸入使用之購物金金額"
                     pattern="\d{0,}"
-                  />
+                  /> -->
                   <!-- 鎮鴻改-新增正規化驗證pattern數字四碼 -->
-                  <input
+                  <!-- <input
                     type="button"
                     class="site-btn"
                     id="golden_use"
                     value="使用"
-                  />  </input>
+                  />  </input> -->
                   <!-- 鎮鴻改-綁使用存在local -->
-                </form>
+                <!-- </form>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- 鎮鴻改-以上為購物金使用金額-->
-          <div class="col-lg-9">
+          <div class="col-lg-">
             <div class="shoping__checkout">
               <ul>
                 <!-- <li>Subtotal <span>$454.98</span></li> -->
@@ -757,11 +757,32 @@
           }
         });
 
-        ////購物金使用按鈕連結localstorage
-        $("#golden_use").on("click", () => {
-          let golden_val = $("#golden_val").val();
-          localStorage.setItem("GOLD_ADJUSTMENT_AMOUNT", golden_val);
-        });
+        // ////購物金使用按鈕連結localstorage
+        // $("#golden_use").on("click", () => {
+        //   let golden_val = $("#golden_val").val();
+        //   localStorage.setItem("GOLD_ADJUSTMENT_AMOUNT", golden_val);
+        // ////傳送購物金到後端驗證
+        //   const url = "GoldRemainingCheck";
+        //     const goldremainingCheck = $("#golden_val").val()||null;
+        //       fetch(url, {
+        //     method: "POST",
+        //     headers: {
+        //       "content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       goldremaining: goldRemainingCheck   //要跟維爾比對1
+        //       //這裡要跟java實體變數一樣
+        //     }),
+        //   })
+        //     .then((res) => res.json()) //使用 .json() 解析資料
+        //     .then((body) => {
+        //       const msg = body.Msg;
+        //       alert(msg);
+        //       const goldRemainingCheckStr=body.goldRemainingCheckStr;  //coupon流水號
+        //       console.log("coupon流水號="+goldRemainingCheckStr);
+        //       localStorage.setItem("goldRemainingCheckStr", goldRemainingCheckStr);//流水號存到local
+        //     })
+        // });
 
         // //// 優惠券使用按鈕連結localstorage
         // $("#coupon_use").on("click", () => {
