@@ -555,7 +555,7 @@
         //顯示即將結帳畫面
         if (localStorage.getItem("memcart_data")) {
           var memcart = JSON.parse(localStorage.getItem("memcart_data"));
-          console.log(memcart);
+          // console.log(memcart);
           var price = 0;
           var total = 0;
           let a;
@@ -579,7 +579,7 @@
             //計算總價
             total += price;
             $("#total_ori").html(total);
-            console.log(a);
+            // console.log(a);
             $("#ul_order").append(html);
           }
           //減掉購物金後總價
@@ -612,11 +612,26 @@
           })
             .then((res) => res.json()) //使用 .json() 解析資料
             .then((body) => {
-              const msg = body.errMsg ?? "新增成功";
+              const msg = body.Msg;
               alert(msg);
-            });
+              const refundpercentStr=body.refundpercentStr;  //回饋趴數
+              console.log("回饋趴數="+refundpercentStr);
+              const serialnumberStr=body.serialnumberStr;  //coupon流水號
+              console.log("coupon流水號="+serialnumberStr);
+              localStorage.setItem("serialnumberStr", serialnumberStr);//流水號存到local
+            })
+         
         
         });
+        ////確保localstorage資料顯示於格內
+
+        let GOLD_ADJUSTMENT_AMOUNT = localStorage.getItem(
+          "GOLD_ADJUSTMENT_AMOUNT"
+        );
+        let COUPON_NAME = localStorage.getItem("COUPON_NAME");
+        $("#golden_val").val(GOLD_ADJUSTMENT_AMOUNT);
+        $("#coupon_val").val(COUPON_NAME);
+    
 
       //結帳按鈕連結java
       // $(".site-btn").on("click", () => {

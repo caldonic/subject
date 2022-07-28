@@ -73,13 +73,22 @@ public class CouponDaoImpl implements CouponDao {
 	
 	// selectcouponname
 	String couponhq3 = "select couponname from Coupon where couponname = :couponname "; // HQL
-
 	@Override
 	public String selectcouponname(String couponname) {
 		String resultone = getSession().createQuery(couponhq3, String.class) // HQL
 				.setParameter("couponname",couponname)
 				.uniqueResult();
 		return resultone;
+	}
+	
+	// selectcoupon refundpercent
+	String couponhq4 = "select refundpercent from Coupon where couponname = :couponname "; // HQL
+	@Override
+	public Float selectcouporefundpercent(String couponname) {
+		Float resultrefundpercent= getSession().createQuery(couponhq4, Float.class) // HQL
+				.setParameter("couponname",couponname)
+				.uniqueResult();
+		return resultrefundpercent;
 	}
 
 //insert方法

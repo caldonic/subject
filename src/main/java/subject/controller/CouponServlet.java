@@ -51,9 +51,8 @@ public class CouponServlet extends HttpServlet {
 		res.setContentType("application//json;charset=UTF-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		CouponDao dao;
-		SessionFactory sessionFactory= HibernateUtil.getSessionFactory();
 		try {
-			dao = new CouponDaoImpl(sessionFactory);
+			dao = new CouponDaoImpl();
 			List<Coupon>coupon=dao.selectall();
 			String resS = gson.toJson(coupon);
 			res.getWriter().append(resS);

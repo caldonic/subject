@@ -19,4 +19,6 @@ public interface CouponDao {
 
 	String selectcouponname(String couponname);
 
+	Float selectcouporefundpercent(String couponname);
+
 }
