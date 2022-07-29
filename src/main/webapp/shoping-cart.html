@@ -403,7 +403,7 @@
       </div>
     </section>
     <!-- Breadcrumb Section End -->
-
+ <button id="oneprice"></button>         <!--一鍵購物車 -->
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
       <div class="container">
@@ -842,6 +842,58 @@
       //     $button.parent().find("input").val(newVal);
       //   });
       // });
+
+      //// 一鍵入魂處理購物車
+      $("#oneprice").on("click",()=>{
+  //只要抓一次的資料
+  let memInfoitem = {
+          CART_SERIAL_NUMBER: 10,
+          MEMBER_SERIAL_NUMBER: 1636001,
+          CART_CREATE_TIME: new Date(),
+        };
+        //Tue Jul 12 2016 11:35:48 GMT+0800 (CST)
+        //CART_CREATE_TIME:new Date().getTime()   時間戳
+        //https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part3/datetime.html
+
+        //商品資料
+        let item1 = {
+          ITEM_SERIAL_NUMBER: "87878701",
+          ITEM_NAME: "尾玉牛肉麵",
+          ITEM_PRICE: 187,
+          ITEM_QUANTITY: 3,
+        };
+
+        let item2 = {
+          ITEM_SERIAL_NUMBER: "87878702",
+          ITEM_NAME: "夏慕妮妮餐券",
+          ITEM_PRICE: 1250,
+          ITEM_QUANTITY: 1,
+        };
+
+        let item3 = {
+          ITEM_SERIAL_NUMBER: "87878702",
+          ITEM_NAME: "喜賓登餐券",
+          ITEM_PRICE: 1250,
+          ITEM_QUANTITY: 1,
+        };
+
+        //儲存一次性的陣列(可不用存進陣列)
+        // let memInfo = [];
+        //儲存商品的陣列
+        let memcart = [];
+
+        // memInfo.push(memInfoitem);
+        memcart.push(item1);
+        memcart.push(item2);
+        memcart.push(item3);
+
+        console.log(memInfoitem); //方便測試
+        console.log(memcart);
+
+        localStorage.setItem("memcart_data", JSON.stringify(memcart));
+        localStorage.setItem("memInfo", JSON.stringify(memInfoitem));
+        location.reload(); //網頁重整
+      })
     </script>
   </body>
 </html>
