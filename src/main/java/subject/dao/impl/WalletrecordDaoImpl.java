@@ -27,11 +27,58 @@ public class WalletrecordDaoImpl implements WalletrecordDao{
 	}
 
 	private static final String selectGoldremaining =
-			"Select * from member where gold_remaining = '?';";
+			"select gold_remaining from member where member_serial_number = ?;";
 	@Override
 	public Walletrecord selectGoldremaining(Integer goldremaining) {
-		return null;
+		Walletrecord walletrecord = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(selectGoldremaining);
+
+			pstmt.setInt(1, goldremaining);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				walletrecord = new Walletrecord();
+				walletrecord.setGoldremaining(rs.getInt("gold_remaining"));
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return walletrecord;
 	}
+
+	
 	
 	
 	
