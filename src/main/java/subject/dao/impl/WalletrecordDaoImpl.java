@@ -26,6 +26,15 @@ public class WalletrecordDaoImpl implements WalletrecordDao{
 		}
 	}
 
+	private static final String selectGoldremaining =
+			"Select * from member where gold_remaining = '?';";
+	@Override
+	public Walletrecord selectGoldremaining(Integer goldremaining) {
+		return null;
+	}
+	
+	
+	
 	private static final String GET_ALL_STMT = 
 			"SELECT w.*, m.gold_remaining from wallet_record w join member m on w.member_serial_number = m.member_serial_number;";
 
