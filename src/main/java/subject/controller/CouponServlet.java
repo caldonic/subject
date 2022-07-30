@@ -46,7 +46,7 @@ public class CouponServlet extends HttpServlet {
 		res.getWriter().append(gson.toJson(resObj));
 	}
 
-	@Override // Coupon_selectAll(good)
+	@Override // Coupon_selectAll
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("application//json;charset=UTF-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();

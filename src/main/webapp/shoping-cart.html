@@ -669,8 +669,8 @@
         //// 鎮鴻改-以上為購物車localstorage
 
         ////購物車項目
-        if (localStorage.getItem("memcart_data")) {
-          var memcart = JSON.parse(localStorage.getItem("memcart_data"));
+        if (sessionStorage.getItem("memcart_data")) {
+          var memcart = JSON.parse(sessionStorage.getItem("memcart_data"));
           console.log(memcart);
           var price = 0;
           var total = 0;
@@ -693,7 +693,7 @@
                     <div class="pro-qty add_cart">
                       <input type="text" value=" ${
                         memcart[i].ITEM_QUANTITY
-                      }" class="qy_val amount" />
+                      }" class="qy_val amount" data="${i}"/>
                  </div>
                       </div></td>
                       <td class="shoping__cart__total">
@@ -711,18 +711,24 @@
             $("#cart_body").append(html);
             $("#total_cart").html(total);
           }
-          ///數量更新
-          $(".qy_val").on("change", () => {
-            alert("修改成功");
-            memcart[i].ITEM_QUANTITY += $(this)
+           ///數量更新
+           $(".qy_val").on("change", 
+            function (e) {
+              let c = confirm("確認是否更新此項商品?");
+              if (c) {
+                $(this)
               .closest("#tr_cart")
               .find(".qy_val")
               .val();
-            console.log(memcart[i].ITEM_QUANTITY);
 
-            localStorage.setItem("memcart_data", JSON.stringify(memcart)); //更新localstorage
-            location.reload(); //網頁重整
-          });
+              var index = this.getAttribute("data");
+              memcart[index]["ITEM_QUANTITY"]=Number(this.value);
+              console.log("======",memcart)
+            
+            sessionStorage.setItem("memcart_data", JSON.stringify(memcart)); //更新sessionStorage
+             location.reload(); //網頁重整
+            }}
+          );
           ////移除商品
           $("td.shoping__cart__item__close").on(
             "click",
@@ -737,10 +743,10 @@
                     // console.log(memcart[i]);
                     // console.log(i);
                     memcart.splice(memcart.indexOf("memcart[i]"), 1); //刪除陣列單項商品
-                    localStorage.setItem(
+                    sessionStorage.setItem(
                       "memcart_data",
                       JSON.stringify(memcart)
-                    ); //更新localstorage
+                    ); //sessionStorage
                     location.reload(); //網頁重整
                   });
               }
@@ -752,15 +758,15 @@
         $("#clear").click(() => {
           let c = confirm("請確認是否清空購物車?");
           if (c) {
-            localStorage.removeItem("memcart_data");
+            sessionStorage.removeItem("memcart_data");
             location.reload();
           }
         });
 
-        // ////購物金使用按鈕連結localstorage
+        // ////購物金使用按鈕連結sessionStorage
         // $("#golden_use").on("click", () => {
         //   let golden_val = $("#golden_val").val();
-        //   localStorage.setItem("GOLD_ADJUSTMENT_AMOUNT", golden_val);
+        //   sessionStorage.setItem("GOLD_ADJUSTMENT_AMOUNT", golden_val);
         // ////傳送購物金到後端驗證
         //   const url = "GoldRemainingCheck";
         //     const goldremainingCheck = $("#golden_val").val()||null;
@@ -780,14 +786,14 @@
         //       alert(msg);
         //       const goldRemainingCheckStr=body.goldRemainingCheckStr;  //coupon流水號
         //       console.log("coupon流水號="+goldRemainingCheckStr);
-        //       localStorage.setItem("goldRemainingCheckStr", goldRemainingCheckStr);//流水號存到local
+        //       sessionStorage.setItem("goldRemainingCheckStr", goldRemainingCheckStr);//流水號存到local
         //     })
         // });
 
-        // //// 優惠券使用按鈕連結localstorage
+        // //// 優惠券使用按鈕連結sessionStorage
         // $("#coupon_use").on("click", () => {
         //   let coupon_val = $("#coupon_val").val()||null;
-        //   localStorage.setItem("COUPON_NAME", coupon_val);
+        //   sessionStorage.setItem("COUPON_NAME", coupon_val);
         // //傳送couponname到後端驗證
         //     const url = "CouponVerify";
         //     const couponName = $("#coupon_val").val()||null;
@@ -810,12 +816,12 @@
 
         // });
 
-        ////確保localstorage資料顯示於格內
+        ////確保sessionStorage資料顯示於格內
 
-        let GOLD_ADJUSTMENT_AMOUNT = localStorage.getItem(
+        let GOLD_ADJUSTMENT_AMOUNT = sessionStorage.getItem(
           "GOLD_ADJUSTMENT_AMOUNT"
         );
-        let COUPON_NAME = localStorage.getItem("COUPON_NAME");
+        let COUPON_NAME = sessionStorage.getItem("COUPON_NAME");
         $("#golden_val").val(GOLD_ADJUSTMENT_AMOUNT);
         $("#coupon_val").val(COUPON_NAME);
       });
@@ -860,7 +866,7 @@
           ITEM_SERIAL_NUMBER: "87878701",
           ITEM_NAME: "尾玉牛肉麵",
           ITEM_PRICE: 187,
-          ITEM_QUANTITY: 3,
+          ITEM_QUANTITY: 2,
         };
 
         let item2 = {
@@ -890,8 +896,8 @@
         console.log(memInfoitem); //方便測試
         console.log(memcart);
 
-        localStorage.setItem("memcart_data", JSON.stringify(memcart));
-        localStorage.setItem("memInfo", JSON.stringify(memInfoitem));
+        sessionStorage.setItem("memcart_data", JSON.stringify(memcart));
+        sessionStorage.setItem("memInfo", JSON.stringify(memInfoitem));
         location.reload(); //網頁重整
       })
     </script>
