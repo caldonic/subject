@@ -740,14 +740,14 @@
                   .closest("#tr_cart")
                   .fadeOut(100, () => {
                     $(this).remove(); //移除網頁上被指定項目
-                    // console.log(memcart[i]);
+                    console.log(memcart[i]);
                     // console.log(i);
-                    memcart.splice(memcart.indexOf("memcart[i]"), 1); //刪除陣列單項商品
+                    memcart.splice(memcart.indexOf("memcart[i]")); //刪除陣列單項商品
                     sessionStorage.setItem(
                       "memcart_data",
                       JSON.stringify(memcart)
                     ); //sessionStorage
-                    location.reload(); //網頁重整
+                    location.reload(); //網頁重整(只能從最後一個刪)
                   });
               }
             }
@@ -762,68 +762,9 @@
             location.reload();
           }
         });
+      
 
-        // ////購物金使用按鈕連結sessionStorage
-        // $("#golden_use").on("click", () => {
-        //   let golden_val = $("#golden_val").val();
-        //   sessionStorage.setItem("GOLD_ADJUSTMENT_AMOUNT", golden_val);
-        // ////傳送購物金到後端驗證
-        //   const url = "GoldRemainingCheck";
-        //     const goldremainingCheck = $("#golden_val").val()||null;
-        //       fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //       "content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       goldremaining: goldRemainingCheck   //要跟維爾比對1
-        //       //這裡要跟java實體變數一樣
-        //     }),
-        //   })
-        //     .then((res) => res.json()) //使用 .json() 解析資料
-        //     .then((body) => {
-        //       const msg = body.Msg;
-        //       alert(msg);
-        //       const goldRemainingCheckStr=body.goldRemainingCheckStr;  //coupon流水號
-        //       console.log("coupon流水號="+goldRemainingCheckStr);
-        //       sessionStorage.setItem("goldRemainingCheckStr", goldRemainingCheckStr);//流水號存到local
-        //     })
-        // });
-
-        // //// 優惠券使用按鈕連結sessionStorage
-        // $("#coupon_use").on("click", () => {
-        //   let coupon_val = $("#coupon_val").val()||null;
-        //   sessionStorage.setItem("COUPON_NAME", coupon_val);
-        // //傳送couponname到後端驗證
-        //     const url = "CouponVerify";
-        //     const couponName = $("#coupon_val").val()||null;
-        //       fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //       "content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       // couponserialnumber: COUPONSERIALNUMBER,
-        //       couponname: couponName
-        //       //這裡要跟java實體變數一樣
-        //     }),
-        //   })
-        //     .then((res) => res.json()) //使用 .json() 解析資料
-        //     .then((body) => {
-        //       const msg = body.errMsg ?? "新增成功";
-        //       alert(msg);
-        //     });
-
-        // });
-
-        ////確保sessionStorage資料顯示於格內
-
-        let GOLD_ADJUSTMENT_AMOUNT = sessionStorage.getItem(
-          "GOLD_ADJUSTMENT_AMOUNT"
-        );
-        let COUPON_NAME = sessionStorage.getItem("COUPON_NAME");
-        $("#golden_val").val(GOLD_ADJUSTMENT_AMOUNT);
-        $("#coupon_val").val(COUPON_NAME);
+      
       });
       /*-------------------
             	Quantity change

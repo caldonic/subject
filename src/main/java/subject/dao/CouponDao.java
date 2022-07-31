@@ -15,10 +15,12 @@ public interface CouponDao {
 
 	List<Coupon> selectall();
 
-	Coupon selectone(Coupon couponname);
+	Coupon selectone(Coupon coupon);
 
 	String selectcouponname(String couponname);
 
 	Float selectcouporefundpercent(String couponname);
+
+	Float selectbyCouponId(Integer couponserialnumber);
 
 }

@@ -6,6 +6,6 @@ public interface CouponVerifyService {
 
 	String Couponverify(String couponname);
 	Float Couponrefundpercent(String couponname);
-	Integer Couponserialnumber(String couponname);
+	String Couponnamestr(String couponname);
 
 }

@@ -414,7 +414,8 @@
                     </label>
                   </div> -->
                   <!-- 鎮鴻改-隱藏以上英文  -->         
-                  <button type="submit" class="site-btn">結帳</button>
+                  <!-- <button type="submit" class="site-btn">結帳</button> -->
+                  <input type="button" class="site-btn" value="結帳" ></input>
                   <button type="submit" id="former_page" class="site-btn">
                     回到上頁
                   </button>
@@ -643,7 +644,7 @@ $("#golden_use").on("click", () => {
        //// 優惠券使用按鈕連結sessionStorage
        $("#coupon_use").on("click", () => {
           let coupon_val = $("#coupon_val").val()||null;
-          sessionStorage.setItem("COUPON_NAME", coupon_val);
+          // sessionStorage.setItem("COUPON_NAME", coupon_val);
         //傳送couponname到後端驗證
             const url = "CouponVerify";
             const couponName = $("#coupon_val").val()||null;
@@ -662,47 +663,55 @@ $("#golden_use").on("click", () => {
             .then((body) => {
               const msg = body.Msg;
               alert(msg);
-              const refundpercentStr=body.refundpercentStr;  //回饋趴數
-              console.log("回饋趴數="+refundpercentStr);
-              const serialnumberStr=body.serialnumberStr;  //coupon流水號
-              console.log("coupon流水號="+serialnumberStr);
-              sessionStorage.setItem("serialnumberStr", serialnumberStr);//流水號存到local
+              // const refundpercentStr=body.refundpercentStr;  //回饋趴數
+              // console.log("回饋趴數="+refundpercentStr);
+              const couponnamejstr=body.couponnamejstr;  //coupon流水號
+              console.log("couponname="+couponnamejstr);
+              // var serialnumber=Number(serialnumberStr);無用
+              sessionStorage.setItem("couponnamejstr", couponnamejstr);//流水號存到local
             })
         });
         ////確保sessionStorage資料顯示於格內
 
-        let GOLD_ADJUSTMENT_AMOUNT = sessionStoragee.getItem(
+        let GOLD_ADJUSTMENT_AMOUNT = sessionStorage.getItem(
           "GOLD_ADJUSTMENT_AMOUNT"
-        );
-        let COUPON_NAME = sessionStorage.getItem("COUPON_NAME");
+        ); 
         $("#golden_val").val(GOLD_ADJUSTMENT_AMOUNT);
-        $("#coupon_val").val(COUPON_NAME);
+        // let COUPON_NAME = sessionStorage.getItem("COUPON_NAME");
+       
+        // $("#coupon_val").val(COUPON_NAME);
     
 
-      //結帳按鈕連結java
-      // $(".site-btn").on("click", () => {
-      //   fetch("", {
-      //     method: "post",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: {
-      //       cartserialnumber: 1,
-      //       memberserialnumber: Memberserialnumber.val(),
-      //       itemserialnumber: Itemserialnumber.val(),
-      //       // nonmemberserialnumber: nonmemberserialnumber.val(),
-      //       cartitemquantity: Cartitemquantity.val(),
-      //       cartcreatetime: Cartcreatetime.val(),
-      //       //這裡要跟java實體變數一樣
-      //     },
-      //   })
-      //     .then((res) => {
-      //       return res.json();
-      //     }) //使用 .json() 解析資料
-      //     .then((res) => {
-      //       console.log(res);
-      //     });
-      // });
+      // 結帳按鈕連結java
+      $(".site-btn").on("click", () => {
+        var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
+        // var couponserialnumberStr1 = JSON.stringify(sessionStorage.getItem("couponserialnumberStr"));
+        var couponnamejstr = sessionStorage.getItem("couponnamejstr")||null;
+       
+        fetch("CartServlet", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+           
+            couponname:couponnamejstr,
+            cartobj: memcart,
+            // memberserialnumber: Memberserialnumber.val(),
+            // itemserialnumber: Itemserialnumber.val(),
+            // nonmemberserialnumber: nonmemberserialnumber.val(),
+            // cartitemquantity: Cartitemquantity.val(),
+            // cartcreatetime: Cartcreatetime.val(),
+            //這裡要跟java實體變數一樣
+          }),
+        })
+          // .then((res) => {
+          //   return res.json();
+          // }) //使用 .json() 解析資料
+          // .then((res) => {
+          //   console.log(res);
+          // });
+      });
     </script>
   </body>
 </html>

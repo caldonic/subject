@@ -37,15 +37,16 @@ public class CouponVerifyServiceImpl implements CouponVerifyService {
 	}
 
 	@Override
-	public Float Couponrefundpercent(String couponname) { // 用couponname呼叫selectcouporefundpercent查編號
+	public Float Couponrefundpercent(String couponname) { // 用couponname呼叫selectcouporefundpercent查饋數
 		Float refundpercent = couponDao.selectcouporefundpercent(couponname);
 		return refundpercent;
 	}
 
+	
 	@Override
-	public Integer Couponserialnumber(String couponname) { // 用couponname呼叫selectcouponserialnumber查流水號
-		Integer serialnumber = couponDao.selectcouponserialnumber(couponname);
-		return serialnumber;
+	public String Couponnamestr(String couponname) { // 用couponname呼叫selectcouponname丟到前端 
+		String couponnamestr = couponDao.selectcouponname(couponname);
+		return couponnamestr;
 	}
 
 }
