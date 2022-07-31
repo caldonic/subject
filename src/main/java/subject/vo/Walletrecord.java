@@ -1,7 +1,7 @@
 package subject.vo;
 
 import java.sql.Date;
-
+ 
 public class Walletrecord {
 	private Integer walletrecordnumber;
 	private Integer memberserialnumber;
