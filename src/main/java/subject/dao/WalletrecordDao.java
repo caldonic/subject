@@ -8,4 +8,4 @@ public interface WalletrecordDao {
 	
 	public List<Walletrecord> getAll();
 	public Walletrecord selectGoldremaining(Integer goldremaining);
-}
+} 
