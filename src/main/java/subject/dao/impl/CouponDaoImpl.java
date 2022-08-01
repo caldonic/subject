@@ -29,7 +29,7 @@ public class CouponDaoImpl implements CouponDao {
 	public CouponDaoImpl() {
 	}
 
-//select方法(利用名稱查流水號)
+//select方法(利用名稱查流水號,新增coupon紀錄使用)
 	public Integer selectcouponserialnumber(String couponname) {
 		CriteriaBuilder criteriaBuilder = this.getSession().getCriteriaBuilder();
 		CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
@@ -47,7 +47,7 @@ public class CouponDaoImpl implements CouponDao {
 		return result;
 	}
 
-	// selectALll
+	// selectALll(維護人員觀看使用)
 	@Override
 	public List<Coupon> selectall() {
 		CriteriaBuilder criteriaBuilder = this.getSession().getCriteriaBuilder();
@@ -60,9 +60,8 @@ public class CouponDaoImpl implements CouponDao {
 		return result;
 	}
 
-	// selectone
+	// selectone(目前無使用)
 	String couponhq2 = "from Coupon where couponname = :couponname "; // HQL
-
 	@Override
 	public Coupon selectone(Coupon coupon) {
 		Coupon resultone = getSession().createQuery(couponhq2, Coupon.class) // HQL
@@ -71,7 +70,7 @@ public class CouponDaoImpl implements CouponDao {
 		return resultone;
 	}
 	
-	// selectcouponname
+	// selectcouponname(與前端輸入進行比對)
 	String couponhq3 = "select couponname from Coupon where couponname = :couponname "; // HQL
 	@Override
 	public String selectcouponname(String couponname) {
@@ -81,7 +80,7 @@ public class CouponDaoImpl implements CouponDao {
 		return resultone;
 	}
 	
-	// selectcoupon refundpercent
+	// selectcoupon refundpercent(顯示於網頁)
 	String couponhq4 = "select refundpercent from Coupon where couponname = :couponname "; // HQL
 	@Override
 	public Float selectcouporefundpercent(String couponname) {
@@ -89,6 +88,16 @@ public class CouponDaoImpl implements CouponDao {
 				.setParameter("couponname",couponname)
 				.uniqueResult();
 		return resultrefundpercent;
+	}
+	
+	// select selectbycouponId  (給訂單主檔抓回饋數使用)
+	String couponhq5 = "select refundpercent from Coupon where couponserialnumber = :couponserialnumber "; // HQL
+	@Override
+	public Float selectbyCouponId(Integer couponserialnumber) {
+		Float resultrefundpercentbyid= getSession().createQuery(couponhq5, Float.class) // HQL
+				.setParameter("couponserialnumber",couponserialnumber)
+				.uniqueResult();
+		return resultrefundpercentbyid;
 	}
 
 //insert方法
