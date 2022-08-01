@@ -17,5 +17,6 @@
 		<mapping class="subject.vo.Coupon" />
 		<mapping class="subject.vo.CouponRecord" />
 		<mapping class="subject.vo.MyFavorite" />
+		<mapping class="subject.vo.MemberHibernate" />
 	</session-factory>
 </hibernate-configuration>
