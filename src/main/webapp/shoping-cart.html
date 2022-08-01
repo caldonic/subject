@@ -679,33 +679,33 @@
           for (i = 0; i < memcart.length; i++) {
             var html = "";
             html += `
-            <tr id="tr_cart" class="${memcart[i].ITEM_SERIAL_NUMBER}">
+            <tr id="tr_cart" class="${memcart[i].itemserialnumber}">
                 <td class="shoping__cart__item">
                   <h5><span id="product_name" class="card-title">${
-                    memcart[i].ITEM_NAME
+                    memcart[i].itemname
                   }</span></h5></td>
                 <td class="shoping__cart__price">
                   <span id="price" class="card-text">${
-                    memcart[i].ITEM_PRICE
+                    memcart[i].itemprice
                   }元</span></td>
                 <td class="shoping__cart__quantity">
                   <div class="quantity">
                     <div class="pro-qty add_cart">
                       <input type="text" value=" ${
-                        memcart[i].ITEM_QUANTITY
+                        memcart[i].itemquantity
                       }" class="qy_val amount" data="${i}"/>
                  </div>
                       </div></td>
                       <td class="shoping__cart__total">
                       <span id="price_total"></span>${
-                        memcart[i].ITEM_PRICE * memcart[i].ITEM_QUANTITY
+                        memcart[i].itemprice * memcart[i].itemquantity
                       } </td>
                           <td class="shoping__cart__item__close">
                       <span class="icon_close"></span>
                     </td>
                           </tr>  `;
             ////計算單項商品總價
-            price = memcart[i].ITEM_PRICE * memcart[i].ITEM_QUANTITY;
+            price = memcart[i].itemprice * memcart[i].itemquantity;
             ////計算購物車總價
             total += price;
             $("#cart_body").append(html);
@@ -722,7 +722,7 @@
               .val();
 
               var index = this.getAttribute("data");
-              memcart[index]["ITEM_QUANTITY"]=Number(this.value);
+              memcart[index]["itemquantity"]=Number(this.value);
               console.log("======",memcart)
             
             sessionStorage.setItem("memcart_data", JSON.stringify(memcart)); //更新sessionStorage
@@ -794,9 +794,9 @@
       $("#oneprice").on("click",()=>{
   //只要抓一次的資料
   let memInfoitem = {
-          CART_SERIAL_NUMBER: 10,
-          MEMBER_SERIAL_NUMBER: 1636001,
-          CART_CREATE_TIME: new Date(),
+          cartserialnumber: 10,
+          memberserialnumber: 1636001,
+          cartcreatetime: new Date(),
         };
         //Tue Jul 12 2016 11:35:48 GMT+0800 (CST)
         //CART_CREATE_TIME:new Date().getTime()   時間戳
@@ -804,24 +804,24 @@
 
         //商品資料
         let item1 = {
-          ITEM_SERIAL_NUMBER: "87878701",
-          ITEM_NAME: "尾玉牛肉麵",
-          ITEM_PRICE: 187,
-          ITEM_QUANTITY: 2,
+          itemserialnumber: "87878701",
+          itemname: "尾玉牛肉麵",
+          itemprice: 187,
+          itemquantity: 2,
         };
 
         let item2 = {
-          ITEM_SERIAL_NUMBER: "87878702",
-          ITEM_NAME: "夏慕妮妮餐券",
-          ITEM_PRICE: 1250,
-          ITEM_QUANTITY: 1,
+          itemserialnumber: "87878702",
+          itemname: "夏慕妮妮餐券",
+          itemprice: 1250,
+          itemquantity: 1,
         };
 
         let item3 = {
-          ITEM_SERIAL_NUMBER: "87878702",
-          ITEM_NAME: "喜賓登餐券",
-          ITEM_PRICE: 1250,
-          ITEM_QUANTITY: 1,
+          itemserialnumber: "87878702",
+          itemname: "喜賓登餐券",
+          itemprice: 1250,
+          itemquantity: 1,
         };
 
         //儲存一次性的陣列(可不用存進陣列)
