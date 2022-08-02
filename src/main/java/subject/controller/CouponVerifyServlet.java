@@ -41,7 +41,7 @@ public class CouponVerifyServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			resObj.addProperty("Msg", "請輸入優惠券名稱");
+			resObj.addProperty("Msg", "系統錯誤");
 		}
 		res.getWriter().append(gson.toJson(resObj));
 	}

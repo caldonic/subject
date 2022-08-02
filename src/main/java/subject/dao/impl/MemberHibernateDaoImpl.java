@@ -22,7 +22,7 @@ public class MemberHibernateDaoImpl implements MemberHibernateDao {
 	}
 	
 	//select購物金存量方法(利用會員ID)
-	String Memberhq1 = "from MemberHibernate where memberserialnumber = :memberserialnumber "; // HQL
+	String Memberhq1 = "select goldremaining from MemberHibernate where memberserialnumber = :memberserialnumber "; // HQL
 	@Override
 	public Integer selectgoldremaininghibernate(Integer memberserialnumber) {
 		Integer resultone = getSession().createQuery(Memberhq1, Integer.class) // HQL

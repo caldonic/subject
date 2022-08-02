@@ -8,19 +8,21 @@ import subject.vo.MemberHibernate;
 public class GoldRemainingCheckServiceImpl implements GoldRemainingCheckService {
 	private MemberHibernateDao memberHibernateDao;
 	MemberHibernate memberHibernate;
-	
+
 	public GoldRemainingCheckServiceImpl() {
 		memberHibernateDao = new MemberHibernateDaoImpl();
 	}
 
 	@Override
 	public String CouponverifyGoldRemaining(Integer goldremaining) {
-		if (goldremaining <= memberHibernateDao.selectgoldremaininghibernate(goldremaining)) {
-			return"購物金使用成功";
-		}
-		else {
-			return"購物金餘額不足";
+		if (goldremaining != null) {
+			if (goldremaining <= memberHibernateDao.selectgoldremaininghibernate(goldremaining)) {
+				return "購物金使用成功";
+			} else {
+				return "購物金餘額不足";
+			}
+		} else {
+			return "請輸入欲使用購物金金額";
 		}
 	}
-
 }

@@ -621,38 +621,38 @@
           console.log(total);
           $("#total_checkout").html(total);
           //結帳按鈕儲存總價至local
-          $(".site-btn").on("click", () => {
-            sessionStorage.setItem("cart_total", total);
-          });
+          // $(".site-btn").on("click", () => {
+          //   sessionStorage.setItem("cart_total", total);
+          // });
         }
       });
 
 ////購物金使用按鈕連結sessionStorage
 $("#golden_use").on("click", () => {
-          let golden_val = $("#golden_val").val();
-          sessionStorage.setItem("goldadjustmentamount", golden_val);
-        ////傳送購物金到後端驗證
-          // const url = "GoldRemainingCheck";
-          //   const goldremainingCheck = $("#golden_val").val()||null;
-          //     fetch(url, {
-          //   method: "POST",
-          //   headers: {
-          //     "content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify({
-          //     goldremaining: goldRemainingCheck   //要跟維爾比對1
-          //     //這裡要跟java實體變數一樣
-          //   }),
-          // })
-          //   .then((res) => res.json()) //使用 .json() 解析資料
-          //   .then((body) => {
-          //     const msg = body.Msg;
-          //     alert(msg);
-          //     const goldRemainingCheckStr=body.goldRemainingCheckStr;  //coupon流水號
-          //     console.log("coupon流水號="+goldRemainingCheckStr);
-          //     sessionStorage.setItem("goldRemainingCheckStr", goldRemainingCheckStr);//流水號存到local
-          //   })
-            console.log(typeof golden_val);
+          let golden_val = parseInt($("#golden_val").val()); //因會顯示於前端不能寫null
+          let golden_valback=parseInt($("#golden_val").val())||null;
+          
+          // sessionStorage.setItem("goldadjustmentamount", golden_val);
+        //傳送購物金到後端驗證
+          const url = "GoldRemainingCheck";
+              fetch(url, {
+            method: "POST",
+            headers: {
+              "content-Type": "application/json;charset=UTF-8",
+            },
+            body: JSON.stringify({
+              goldremaining: golden_valback   
+              //這裡要跟java實體變數一樣
+            }),
+          })
+            .then((res) => res.json()) //使用 .json() 解析資料
+            .then((body) => {
+              const msg = body.Msg;
+              alert(msg);
+              if(body.Msg="購物金使用成功"){
+                sessionStorage.setItem("golden_valback", golden_valback);//金額存到local
+              }
+            })
             // location.reload(); //網頁重整
         });
 
@@ -666,7 +666,7 @@ $("#golden_use").on("click", () => {
               fetch(url, {
             method: "POST",
             headers: {
-              "content-Type": "application/json",
+              "content-Type": "application/json;charset=UTF-8",
             },
             body: JSON.stringify({
               // couponserialnumber: COUPONSERIALNUMBER,
@@ -678,39 +678,35 @@ $("#golden_use").on("click", () => {
             .then((body) => {
               const msg = body.Msg;
               alert(msg);
-              // const refundpercentStr=body.refundpercentStr;  //回饋趴數
-              // console.log("回饋趴數="+refundpercentStr);
               const couponnamejstr=body.couponnamejstr;  //coupon流水號
               console.log("couponname="+couponnamejstr);
-              // var serialnumber=Number(serialnumberStr);無用
               sessionStorage.setItem("couponnamejstr", couponnamejstr);//流水號存到local
             })
         });
-        ////確保sessionStorage資料顯示於格內
 
+        ////確保sessionStorage資料顯示於格內
         let goldadjustmentamount = sessionStorage.getItem(
-          "goldadjustmentamount"
+          "golden_valback"
         ); 
         $("#golden_val").val(goldadjustmentamount);
-        // let COUPON_NAME = sessionStorage.getItem("COUPON_NAME");
-       
-        // $("#coupon_val").val(COUPON_NAME);
+        // let couponname = sessionStorage.getItem("couponnamejstr");
+        // $("#coupon_val").val(couponname);
     
 
       // 結帳按鈕連結java
-      $(".site-btn").on("click", () => {
+      $("#checkoutgo").on("click", () => {
         var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
         // var couponserialnumberStr1 = JSON.stringify(sessionStorage.getItem("couponserialnumberStr"));
         var couponnamejstr = sessionStorage.getItem("couponnamejstr")||null;
-       
+        var golden_valnum=sessionStorage.getItem("golden_valback")||null;
         fetch("CartServlet", {
           method: "post",
           headers: {
             "Content-Type": "application/json;charset=UTF-8",
           },
           body: JSON.stringify({
-           
             couponname:couponnamejstr,
+            goldremaining:golden_valnum,
             cartlist: memcart,
             // memberserialnumber: Memberserialnumber.val(),
             // itemserialnumber: Itemserialnumber.val(),
@@ -720,12 +716,6 @@ $("#golden_use").on("click", () => {
             //這裡要跟java實體變數一樣
           }),
         })
-          // .then((res) => {
-          //   return res.json();
-          // }) //使用 .json() 解析資料
-          // .then((res) => {
-          //   console.log(res);
-          // });
       });
     </script>
   </body>
