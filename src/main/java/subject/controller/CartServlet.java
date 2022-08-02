@@ -23,13 +23,13 @@ public class CartServlet extends HttpServlet {
 		Gson gson = new Gson();
 		Cart cart = gson.fromJson(req.getReader(), Cart.class);
 		System.out.println("couponname=" + cart.couponname);
-
+		System.out.println("goldremaining=" + cart.goldremaining);
 //		for (int i = 0; i < cart.cartlist.size(); i++) {     //一般用法
 //			System.out.println("cartobj=" + cart.cartlist);
 //
 //		}
 
-		for (Cartlist cartlist : cart.cartlist) { // 疊代用法
+		for (Cartlist cartlist : cart.cartlist) { // 商品(疊代用法)
 			System.out.println("cartobj=" + cartlist);
 
 		}
