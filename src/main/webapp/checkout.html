@@ -27,6 +27,19 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- <style>
+      #checkoutgo {
+        text-align: right;
+          font-size: 14px !important;
+          color: #ffffff !important;
+          font-weight: 800 !important;
+          text-transform: uppercase !important;
+          display: inline-block !important;
+          padding: 13px 30px 12px !important;
+          background: #7fad39 !important;
+          border: none !important;
+       }
+    </style> -->
   </head>
 
   <body>
@@ -413,43 +426,65 @@
                       <span class="checkmark"></span>
                     </label>
                   </div> -->
-                  <!-- 鎮鴻改-隱藏以上英文  -->
-                  <button type="submit" class="site-btn">結帳</button>
-                  <button type="submit" id="former_page" class="site-btn">
+                  <!-- 鎮鴻改-隱藏以上英文  -->         
+                  <!-- <button type="submit" class="site-btn">結帳</button> -->
+                  <input type="button" class="site-btn" value="                                       回到上頁                                        " id="former_page"></input>
+                  <input type="button" class="site-btn" value="                                                                                                          結帳                                                                                               " id="checkoutgo" ></input>
+                 
+                  <!-- <button type="submit" id="former_page" class="site-btn">
                     回到上頁
-                  </button>
+                  </button> -->
                   <!-- 鎮鴻改-新增回到上頁按鈕  -->
-                    <!-- 鎮鴻改-以上五行 -->
-          </div>
-          <div class="col-lg-6">
-            <div class="shoping__continue">
-              <div class="shoping__discount">
-                <h5>Coupon券</h5>
-                <form action="#">
-                  <input
-                    id="coupon_val"
-                    name="couponname"
-                    class="SELECT_COUPON_NAME"
-                    type="text"
-                    placeholder="請輸入優惠券名稱"
-                    pattern="[a-zA-Z]{0,}"
-                  />
-                  <!-- pattern="[a-zA-Z]{0,}" -->
-                  <!-- 鎮鴻改-->
-                  <input type="button" class="site-btn" id="coupon_use" value="使用" >
-                  </input>
-                  <!-- 鎮鴻改-綁使用存在local -->
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- 鎮鴻改-以上為Discount Codes  -->
+                  <div class="col-lg-6">
+                    <div class="shoping__continue" >
+                      <div class="shoping__discount" style="display: flex">
+                      
+                          <!-- <div class="shoping__discount"> -->
+                          <div>
+                          <h5>購物金</h5>
+                              <!-- 跟維爾比對2 -->
+                              <input
+                                id="golden_val"
+                                name="goldremaining"  
+                                type="text"
+                                placeholder="請輸入購物金金額"
+                                pattern="\d{0,}"
+                              />
+                              <!-- 鎮鴻改-新增正規化驗證 -->
+                              <input
+                                type="button"
+                                class="site-btn"
+                                id="golden_use"
+                                value="使用"
+                              />  </input>
+                              <!-- 鎮鴻改-綁使用存在local -->
+                             </div> 
+                             <div>
+                              <h5>優惠券(Coupon券)</h5>
+                                <input
+                                  id="coupon_val"
+                                  name="couponname"
+                                  class="SELECT_COUPON_NAME"
+                                  type="text"
+                                  placeholder="請輸入優惠券名稱"
+                                  pattern="[a-zA-Z]{0,}"
+                                />
+                                <input type="button" class="site-btn" id="coupon_use" value="使用" >
+                                </input>
+                                </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 鎮鴻改-以上為Discount Codes  -->
+                    <!-- 鎮鴻改-以上五行 -->        
+                  </div>
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>
+    </div>
     </section>
     <!-- Checkout Section End -->
 
@@ -553,8 +588,8 @@
       });
       $(function () {
         //顯示即將結帳畫面
-        if (localStorage.getItem("memcart_data")) {
-          var memcart = JSON.parse(localStorage.getItem("memcart_data"));
+        if (sessionStorage.getItem("memcart_data")) {
+          var memcart = JSON.parse(sessionStorage.getItem("memcart_data"));
           // console.log(memcart);
           var price = 0;
           var total = 0;
@@ -563,23 +598,21 @@
           for (var i = 0; i < memcart.length; i++) {
             var html = "";
             html += `
-            <li>${memcart[i].ITEM_NAME}<span>${
-              memcart[i].ITEM_PRICE * memcart[i].ITEM_QUANTITY
+            <li>${memcart[i].itemname}<span>${
+              memcart[i].itemprice * memcart[i].itemquantity
             }</span></li>`;
 
             // 抓取購物車頁面時填入之購物金金額資料並且顯示
-            let GOLD_ADJUSTMENT_AMOUNT = localStorage.getItem(
-              "GOLD_ADJUSTMENT_AMOUNT"
+            let goldadjustmentamount = sessionStorage.getItem(
+              "golden_valback"
             );
-            a = GOLD_ADJUSTMENT_AMOUNT;
             //顯示購物金於頁面
-            $("#golden_use_thistime").text(GOLD_ADJUSTMENT_AMOUNT);
+            $("#golden_use_thistime").text(goldadjustmentamount);
             //計算單項商品總價
-            price = memcart[i].ITEM_PRICE * memcart[i].ITEM_QUANTITY;
+            price = memcart[i].itemprice * memcart[i].itemquantity;
             //計算總價
             total += price;
             $("#total_ori").html(total);
-            // console.log(a);
             $("#ul_order").append(html);
           }
           //減掉購物金後總價
@@ -587,22 +620,52 @@
           console.log(total);
           $("#total_checkout").html(total);
           //結帳按鈕儲存總價至local
-          $(".site-btn").on("click", () => {
-            localStorage.setItem("cart_total", total);
-          });
+          // $(".site-btn").on("click", () => {
+          //   sessionStorage.setItem("cart_total", total);
+          // });
         }
       });
-       //// 優惠券使用按鈕連結localstorage
+
+////購物金使用按鈕連結sessionStorage
+$("#golden_use").on("click", () => {
+          let golden_val = parseInt($("#golden_val").val()); //因會顯示於前端不能寫null
+          let golden_valback=parseInt($("#golden_val").val())||null;
+          
+          // sessionStorage.setItem("goldadjustmentamount", golden_val);
+        //傳送購物金到後端驗證
+          const url = "GoldRemainingCheck";
+              fetch(url, {
+            method: "POST",
+            headers: {
+              "content-Type": "application/json;charset=UTF-8",
+            },
+            body: JSON.stringify({
+              goldremaining: golden_valback   
+              //這裡要跟java實體變數一樣
+            }),
+          })
+            .then((res) => res.json()) //使用 .json() 解析資料
+            .then((body) => {
+              const msg = body.Msg;
+              alert(msg);
+              if(body.Msg="購物金使用成功"){
+                sessionStorage.setItem("golden_valback", golden_valback);//金額存到local
+              }
+            })
+            location.reload(); //網頁重整
+        });
+
+       //// 優惠券使用按鈕連結sessionStorage
        $("#coupon_use").on("click", () => {
           let coupon_val = $("#coupon_val").val()||null;
-          localStorage.setItem("COUPON_NAME", coupon_val);
+          // sessionStorage.setItem("COUPON_NAME", coupon_val);
         //傳送couponname到後端驗證
             const url = "CouponVerify";
             const couponName = $("#coupon_val").val()||null;
               fetch(url, {
             method: "POST",
             headers: {
-              "content-Type": "application/json",
+              "content-Type": "application/json;charset=UTF-8",
             },
             body: JSON.stringify({
               // couponserialnumber: COUPONSERIALNUMBER,
@@ -614,49 +677,45 @@
             .then((body) => {
               const msg = body.Msg;
               alert(msg);
-              const refundpercentStr=body.refundpercentStr;  //回饋趴數
-              console.log("回饋趴數="+refundpercentStr);
-              const serialnumberStr=body.serialnumberStr;  //coupon流水號
-              console.log("coupon流水號="+serialnumberStr);
-              localStorage.setItem("serialnumberStr", serialnumberStr);//流水號存到local
+              const couponnamejstr=body.couponnamejstr;  //coupon流水號
+              console.log("couponname="+couponnamejstr);
+              sessionStorage.setItem("couponnamejstr", couponnamejstr);//流水號存到local
             })
-         
-        
         });
-        ////確保localstorage資料顯示於格內
 
-        let GOLD_ADJUSTMENT_AMOUNT = localStorage.getItem(
-          "GOLD_ADJUSTMENT_AMOUNT"
-        );
-        let COUPON_NAME = localStorage.getItem("COUPON_NAME");
-        $("#golden_val").val(GOLD_ADJUSTMENT_AMOUNT);
-        $("#coupon_val").val(COUPON_NAME);
+        ////確保sessionStorage資料顯示於格內
+        let goldadjustmentamount = sessionStorage.getItem(
+          "golden_valback"
+        ); 
+        $("#golden_val").val(goldadjustmentamount);
+        let couponname = sessionStorage.getItem("couponnamejstr");
+        $("#coupon_val").val(couponname);
     
 
-      //結帳按鈕連結java
-      // $(".site-btn").on("click", () => {
-      //   fetch("", {
-      //     method: "post",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: {
-      //       cartserialnumber: 1,
-      //       memberserialnumber: Memberserialnumber.val(),
-      //       itemserialnumber: Itemserialnumber.val(),
-      //       // nonmemberserialnumber: nonmemberserialnumber.val(),
-      //       cartitemquantity: Cartitemquantity.val(),
-      //       cartcreatetime: Cartcreatetime.val(),
-      //       //這裡要跟java實體變數一樣
-      //     },
-      //   })
-      //     .then((res) => {
-      //       return res.json();
-      //     }) //使用 .json() 解析資料
-      //     .then((res) => {
-      //       console.log(res);
-      //     });
-      // });
+      // 結帳按鈕連結java
+      $("#checkoutgo").on("click", () => {
+        var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
+        // var couponserialnumberStr1 = JSON.stringify(sessionStorage.getItem("couponserialnumberStr"));
+        var couponnamejstr = sessionStorage.getItem("couponnamejstr")||null;
+        var golden_valnum=sessionStorage.getItem("golden_valback")||null;
+        fetch("CartServlet", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json;charset=UTF-8",
+          },
+          body: JSON.stringify({
+            couponname:couponnamejstr,
+            goldremaining:golden_valnum,
+            cartlist: memcart,
+            // memberserialnumber: Memberserialnumber.val(),
+            // itemserialnumber: Itemserialnumber.val(),
+            // nonmemberserialnumber: nonmemberserialnumber.val(),
+            // cartitemquantity: Cartitemquantity.val(),
+            // cartcreatetime: Cartcreatetime.val(),
+            //這裡要跟java實體變數一樣
+          }),
+        })
+      });
     </script>
   </body>
 </html>

@@ -23,7 +23,7 @@ import subject.vo.Coupon;
 public class CouponSelectServerlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// 接參數OR塞參數進SQL方法.(error)
+	// 輸入COUPONNAME return資訊(接參數OR塞參數進SQL方法)
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("application/json;charset=UTF-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
