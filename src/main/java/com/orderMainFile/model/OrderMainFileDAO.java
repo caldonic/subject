@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,6 +16,10 @@ import javax.sql.DataSource;
 import com.orderDetail.model.OrderDetailDAO;
 import com.orderDetail.model.OrderDetailVO;
 
+import subject.dao.CouponDao;
+import subject.dao.impl.CouponDaoImpl;
+import suject.cart.Cart;
+
 public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -22,7 +27,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/object");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -206,11 +211,25 @@ stmt.executeUpdate("set auto_increment_increment=1;"); //自增主鍵-遞增
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
+//		Cart cart = new Cart();
+//		CouponDao couponDao=new CouponDaoImpl();
 
 		try {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
+			
+//			pstmt.setInt(1, 1636001);
+//			pstmt.setInt(2, 1000);
+//			pstmt.setString(3, "1");
+//			pstmt.setInt(4, couponDao.selectcouponserialnumber(cart.couponname));
+//			pstmt.setInt(5, 1);
+//			pstmt.setInt(6, 1);
+//			pstmt.setString(7, "121");
+//			pstmt.setString(8, "111");
+////			pstmt.setBytes(9, orderMainFileVO.getMemberevaluationphoto());
+//			pstmt.setInt(9, 99999);
+			
 
 			pstmt.setInt(1, orderMainFileVO.getMemberserialnumber());
 			pstmt.setInt(2, orderMainFileVO.getSellerserialnumber());
