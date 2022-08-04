@@ -19,7 +19,7 @@ import com.orderMainFile.model.OrderMainFileService;
 import com.orderMainFile.model.OrderMainFileVO;
 
 @WebServlet("/orderMainFile/orderMainFile.do")
-public class OrderMainFileServlet extends HttpServlet {
+public class OrderMainFileController extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
@@ -43,61 +43,32 @@ public class OrderMainFileServlet extends HttpServlet {
 		
 		
 		
-		// 需修正!!!!!!!!
+		// 用訂單流水編號查看訂單細項
 		if ("getDetail_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println("1");
 
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer orderserialnumber = Integer.valueOf(req.getParameter("orderserialnumber"));
-//				if (str == null || (str.trim()).length() == 0) {
-//					errorMsgs.add("請輸入訂單編號");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/orderMainFile/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
-//				try {
-//					orderserialnumber = Integer.valueOf(str);
-//				} catch (Exception e) {
-//					errorMsgs.add("訂單編號格式不正確");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/orderMainFile/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
+				System.out.println(orderserialnumber);
 				
 				/***************************2.開始查詢資料*****************************************/
-				
+				System.out.println("5");
 				OrderMainFileService orderMainFileSvc = new OrderMainFileService();
-				List<OrderDetailVO> list = orderMainFileSvc.findByOrderDetail(orderserialnumber);
-//				if (orderDetailVO == null) {
-//					errorMsgs.add("查無資料");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/orderMainFile/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
+				System.out.println("6");
+				OrderMainFileVO OrderMainFileVO = orderMainFileSvc.getOneOrderMainFile(orderserialnumber);
+
+				System.out.println("2");
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("orderMainFileVO", list); // 資料庫取出的orderMainFileVO物件,存入req
-				String url = "/orderDetail/listAllOrderDetail.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				req.setAttribute("OrderMainFileVO", OrderMainFileVO); // 資料庫取出的orderMainFileVO物件,存入req
+				String url = "/orderMainFile/show_order_detail.jsp";
+				System.out.println("3");
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 show_order_detail.jsp
 				successView.forward(req, res);
 		}
-		
-		
-		
 		
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
@@ -151,7 +122,7 @@ public class OrderMainFileServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("orderMainFileVO", orderMainFileVO); // 資料庫取出的orderMainFileVO物件,存入req
 				String url = "/orderMainFile/listOneOrderMainFlie.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneOrderMainFlie.jsp
 				successView.forward(req, res);
 		}
 		
@@ -199,45 +170,6 @@ public class OrderMainFileServlet extends HttpServlet {
 				Integer orderamount = Integer.valueOf(req.getParameter("orderamount").trim());
 				java.sql.Date orderdate = java.sql.Date.valueOf(req.getParameter("orderdate").trim());
 				
-//				String ename = req.getParameter("ename");
-//				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//				if (ename == null || ename.trim().length() == 0) {
-//					errorMsgs.add("員工姓名: 請勿空白");
-//				} else if(!ename.trim().matches(enameReg)) { //以下練習正則(規)表示式(regular-expression)
-//					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-//	            }
-//				
-//				String job = req.getParameter("job").trim();
-//				if (job == null || job.trim().length() == 0) {
-//					errorMsgs.add("職位請勿空白");
-//				}	
-//				
-//				java.sql.Date hiredate = null;
-//				try {
-//					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-//				} catch (IllegalArgumentException e) {
-//					hiredate=new java.sql.Date(System.currentTimeMillis());
-//					errorMsgs.add("請輸入日期!");
-//				}
-//
-//				Double sal = null;
-//				try {
-//					sal = Double.valueOf(req.getParameter("sal").trim());
-//				} catch (NumberFormatException e) {
-//					sal = 0.0;
-//					errorMsgs.add("薪水請填數字.");
-//				}
-//
-//				Double comm = null;
-//				try {
-//					comm = Double.valueOf(req.getParameter("comm").trim());
-//				} catch (NumberFormatException e) {
-//					comm = 0.0;
-//					errorMsgs.add("獎金請填數字.");
-//				}
-
-//				Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
-
 				OrderMainFileVO orderMainFileVO = new OrderMainFileVO();
 				orderMainFileVO.setOrderserialnumber(orderserialnumber);
 				orderMainFileVO.setMemberserialnumber(memberserialnumber);

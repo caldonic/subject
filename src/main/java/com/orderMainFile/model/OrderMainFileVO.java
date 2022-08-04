@@ -19,6 +19,9 @@ public class OrderMainFileVO implements Serializable {
 //	private byte[] memberevaluationphoto;
 	private Integer orderamount;
 	private Date orderdate;
+	
+	public OrderMainFileVO() {
+	}
 
 	public Integer getOrderserialnumber() {
 		return orderserialnumber;
