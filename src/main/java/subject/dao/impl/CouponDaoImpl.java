@@ -31,6 +31,7 @@ public class CouponDaoImpl implements CouponDao {
 
 //select方法(利用名稱查流水號,新增coupon紀錄使用)
 	public Integer selectcouponserialnumber(String couponname) {
+		
 		CriteriaBuilder criteriaBuilder = this.getSession().getCriteriaBuilder();
 		CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
 		// FROM Coupon
@@ -41,7 +42,6 @@ public class CouponDaoImpl implements CouponDao {
 		Predicate p1 = criteriaBuilder.equal(root.get("couponname"), couponname);
 		// where couponname
 		criteriaQuery = criteriaQuery.where(p1);
-
 		TypedQuery<Integer> typedQuery = this.getSession().createQuery(criteriaQuery);
 		Integer result = typedQuery.getSingleResult();
 		return result;

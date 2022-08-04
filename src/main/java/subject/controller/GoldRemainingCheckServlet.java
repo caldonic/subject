@@ -15,7 +15,6 @@ import subject.service.GoldRemainingCheckService;
 import subject.service.impl.GoldRemainingCheckServiceImpl;
 import subject.vo.MemberHibernate;
 
-
 @WebServlet("/GoldRemainingCheck")
 public class GoldRemainingCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,12 +29,6 @@ public class GoldRemainingCheckServlet extends HttpServlet {
 			GoldRemainingCheckService goldRemainingCheckService = new GoldRemainingCheckServiceImpl();
 			final String Msg = goldRemainingCheckService.CouponverifyGoldRemaining(memberHibernate.getGoldremaining()); // 傳入之參數交給couponVerifyService處理
 			resObj.addProperty("Msg", Msg);
-//			if(Msg.equals("購物金使用成功")) {
-//				Integer getGoldremainingnum = String.valueOf(memberHibernate.getGoldremaining());
-//				Integer getGoldremainingjstr = gson.toJson(getGoldremainingnum);
-//				resObj.addProperty("getGoldremainingjstr", getGoldremainingjstr);
-//			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			resObj.addProperty("Msg", "系統錯誤");
