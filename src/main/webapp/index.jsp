@@ -811,7 +811,7 @@ li:last-child > .widget-list-link2 {
                                         <table>
     	<c:forEach var="Frontpage_announcement_VO" items="${frontpagelist}" begin="${offset}" end="<%=frontpagelist.size()%>">
     	
-		${Frontpage_announcement_VO.frontpage_announcement_serial_number}<span>為優惠券號碼</span>
+<%-- 		${Frontpage_announcement_VO.frontpage_announcement_serial_number}<span>為優惠券號碼</span> --%>
 		${Frontpage_announcement_VO.frontpage_announcement_description}
 		
 		<br>
