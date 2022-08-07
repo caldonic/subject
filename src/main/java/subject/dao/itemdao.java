@@ -20,7 +20,7 @@ public class itemdao implements Itemdaointerface{
 			static {
 				try {
 					Context ctx = new InitialContext();
-					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/letitgo");
+					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}

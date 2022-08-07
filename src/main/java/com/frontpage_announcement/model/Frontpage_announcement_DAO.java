@@ -16,7 +16,7 @@ public class Frontpage_announcement_DAO implements Frontpage_announcement_DAO_in
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/letitgo");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

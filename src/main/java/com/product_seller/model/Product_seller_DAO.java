@@ -16,7 +16,7 @@ public class Product_seller_DAO implements Product_seller_DAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/letitgo");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
