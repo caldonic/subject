@@ -8,11 +8,14 @@ import com.orderDetail.model.OrderDetailVO;
 
 import subject.dao.CouponDao;
 import subject.dao.impl.CouponDaoImpl;
+import suject.cart.Cart;
+import suject.cart.Cartlist;
 
 public class OrderMainFileServiceNew {
 	OrderMainFileDAO dao;
 	OrderMainFileVO orderMainFileVO;
 	private CouponDao couponDao;
+	private Cart cart;
 	
 	public OrderMainFileServiceNew() {
 //		public static void main(String[] args) {
@@ -22,7 +25,7 @@ public class OrderMainFileServiceNew {
 		orderMainFileVO = new OrderMainFileVO();
 		couponDao = new CouponDaoImpl();
 	}
-	public String insertWithOrderDetail(String couponname) {
+	public String insertWithOrderDetail(String couponname,Integer itemserialnumber,String itemname,Integer itemquantity,Integer itemprice) {
 		if (couponname == null || Objects.equals(couponname, "")) {
 		orderMainFileVO.setMemberserialnumber(1636001);
 		orderMainFileVO.setSellerserialnumber(1000);
@@ -51,7 +54,13 @@ public class OrderMainFileServiceNew {
 	
 		List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>(); // 準備置入orderdetail筆數
 		OrderDetailVO odXX = new OrderDetailVO();   // orderdetail1
-		odXX.setItemserialnumber(87878701);
+		
+//		Integer itemserialnumber=null;
+		for (Cartlist cartlist : cart.cartlist) { //測試商品接收(疊代用法)
+			System.out.println("cartobj=" + cartlist);
+			itemserialnumber=cartlist.itemserialnumber;		
+		}
+		odXX.setItemserialnumber(itemserialnumber);
 		odXX.setOrderdetailprice(2000);
 		odXX.setOrderdetailquantity(2);
 		odXX.setRefundreason("");
