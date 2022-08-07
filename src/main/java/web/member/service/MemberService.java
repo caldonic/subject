@@ -8,4 +8,9 @@ public interface MemberService {
 	
 	Integer register(Member member);
 
+	Integer changePassword(Member member);
+
+	Member checkAccount(Member member);
+
+
 }

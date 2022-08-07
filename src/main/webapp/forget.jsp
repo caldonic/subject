@@ -1,16 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>register-seller</title>
+    <title>forget</title>
     <!-- <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-      crossorigin="anonymous"
-    /> -->
+		  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+		  rel="stylesheet"
+		  integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+		  crossorigin="anonymous"
+		/> -->
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
@@ -18,14 +20,11 @@
     />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/adminlte.min.css" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      rel="stylesheet"
     />
+    <!--自然改-->
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
     <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
@@ -36,12 +35,26 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <style>
       /* .header {
-        height: 100px;
-        border: 2px solid red;
-      } */
+			height: 100px;
+			border: 2px solid red;
+		  } */
       .content {
-        padding-right: 17%;
-        padding-left: 17%;
+        /* height: 600px; */
+        height: 100%;
+        background-image: url(./img/login-1.jpg);
+        background-size: cover;
+      }
+      .let-it-go {
+        margin: 20% 0;
+      }
+      h1,
+      h3 {
+        text-align: center;
+        color: antiquewhite;
+      }
+      .login {
+        background-color: white;
+        height: 440px;
       }
     </style>
   </head>
@@ -76,7 +89,7 @@
             </li>
             <!--自然改--><!--這個圖示用來做我的票券-->
             <li>
-              <a href="https://www.google.com.tw/"><i class="fa-solid fa-person"></i></a>
+              <a href="#"><i class="fa-solid fa-person"></i></a>
             </li>
             <!--自然改--><!--這個圖示用來做登入-->
           </ul>
@@ -84,22 +97,22 @@
         </div>
         <div class="humberger__menu__widget">
           <!-- <div class="header__top__right__language">
-                  <img src="img/language.png" alt="">
-                  <div>English</div>
-                  <span class="arrow_carrot-down"></span> -->
+					  <img src="img/language.png" alt="">
+					  <div>English</div>
+					  <span class="arrow_carrot-down"></span> -->
           <!-- <ul>
-                      <li><a href="#">Spanis</a></li>
-                      <li><a href="#">English</a></li>
-                  </ul> -->
+						  <li><a href="#">Spanis</a></li>
+						  <li><a href="#">English</a></li>
+					  </ul> -->
           <!-- </div> -->
           <!-- <div class="header__top__right__auth">
-                  <a href="#"><i class="fa fa-user"></i> Login</a>
-              </div> -->
+					  <a href="#"><i class="fa fa-user"></i> Login</a>
+				  </div> -->
         </div>
         <nav class="humberger__menu__nav mobile-menu">
           <ul>
             <!-- <li class="active"><a href="./index.html">Home</a></li>
-                  <li><a href="./shop-grid.html">Shop</a></li> -->
+					  <li><a href="./shop-grid.html">Shop</a></li> -->
             <li>
               <a href="#">會員中心</a>
               <ul class="header__menu__dropdown">
@@ -137,61 +150,61 @@
               </ul>
             </li>
             <!-- <li><a href="./blog.html">Blog</a></li>
-                  <li><a href="./contact.html">Contact</a></li> -->
+					  <li><a href="./contact.html">Contact</a></li> -->
           </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
         <!-- <div class="header__top__right__social">
-              <a href="#"><i class="fa fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-linkedin"></i></a>
-              <a href="#"><i class="fa fa-pinterest-p"></i></a>
-          </div> -->
+				  <a href="#"><i class="fa fa-facebook"></i></a>
+				  <a href="#"><i class="fa fa-twitter"></i></a>
+				  <a href="#"><i class="fa fa-linkedin"></i></a>
+				  <a href="#"><i class="fa fa-pinterest-p"></i></a>
+			  </div> -->
         <!-- <div class="humberger__menu__contact">
-              <ul>
-                  <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                  <li>Free Shipping for all Order of $99</li>
-              </ul>
-          </div> -->
+				  <ul>
+					  <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+					  <li>Free Shipping for all Order of $99</li>
+				  </ul>
+			  </div> -->
       </div>
       <!-- Humberger End -->
 
       <!-- <div class="header__top">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-lg-6 col-md-6">
-                          <div class="header__top__left">
-                              <ul>
-                                  <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                  <li>Free Shipping for all Order of $99</li>
-                              </ul>
-                          </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6">
-                          <div class="header__top__right">
-                              <div class="header__top__right__social">
-                                  <a href="#"><i class="fa fa-facebook"></i></a>
-                                  <a href="#"><i class="fa fa-twitter"></i></a>
-                                  <a href="#"><i class="fa fa-linkedin"></i></a>
-                                  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                              </div>
-                              <div class="header__top__right__language">
-                                  <img src="img/language.png" alt="">
-                                  <div>English</div>
-                                  <span class="arrow_carrot-down"></span>
-                                  <ul>
-                                      <li><a href="#">Spanis</a></li>
-                                      <li><a href="#">English</a></li>
-                                  </ul>
-                              </div>
-                              <div class="header__top__right__auth">
-                                  <a href="#"><i class="fa fa-user"></i> Login</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div> -->
+				  <div class="container">
+					  <div class="row">
+						  <div class="col-lg-6 col-md-6">
+							  <div class="header__top__left">
+								  <ul>
+									  <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+									  <li>Free Shipping for all Order of $99</li>
+								  </ul>
+							  </div>
+						  </div>
+						  <div class="col-lg-6 col-md-6">
+							  <div class="header__top__right">
+								  <div class="header__top__right__social">
+									  <a href="#"><i class="fa fa-facebook"></i></a>
+									  <a href="#"><i class="fa fa-twitter"></i></a>
+									  <a href="#"><i class="fa fa-linkedin"></i></a>
+									  <a href="#"><i class="fa fa-pinterest-p"></i></a>
+								  </div>
+								  <div class="header__top__right__language">
+									  <img src="img/language.png" alt="">
+									  <div>English</div>
+									  <span class="arrow_carrot-down"></span>
+									  <ul>
+										  <li><a href="#">Spanis</a></li>
+										  <li><a href="#">English</a></li>
+									  </ul>
+								  </div>
+								  <div class="header__top__right__auth">
+									  <a href="#"><i class="fa fa-user"></i> Login</a>
+								  </div>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+			  </div> -->
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
@@ -279,106 +292,27 @@
       </div>
     </header>
     <!-- Header Section End -->
-
-    <section class="container mt-4 mb-5 content">
-      <h1 class="d-flex justify-content-center mb-5">賣家註冊</h1>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="account">帳號</label>
-            <input
-              type="text"
-              class="form-control"
-              id="account"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label for="password">密碼</label>
-            <input type="password" class="form-control" id="password" />
-          </div>
+    <section class="container-fluid content">
+      <div class="row justify-content-center">
+        <div
+          class="col-4 p-5 rounded"
+          style="background-color: white; margin-top: 30vh"
+        >
+          <form action="<%=request.getContextPath()%>/forget" method="get">
+            <h4 class="text-center mb-3">重新設定密碼</h4>
+            <div class="d-flex justify-content-center">
+              <label class="mr-2 mt-2" for="email">e-mail: </label>
+              <input type="email" name="email" id="email" />
+              <button class="btn btn-warning text-white" id="btn" type="submit">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="name">公司名稱</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              aria-describedby="emailHelp"
-            />
-          </div>
-
-          <div class="form-group col-6">
-            <label for="idnumber">統一編號</label>
-            <input
-              type="text"
-              class="form-control"
-              id="idnumber"
-              aria-describedby="emailHelp"
-            />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-            />
-            <small id="emailHelp" class="form-text text-muted"
-              >We'll never share your email with anyone else.</small
-            >
-          </div>
-
-          <div class="form-group col-6">
-            <label for="phone">公司電話</label>
-            <input type="tel" class="form-control" id="phone" />
-            <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="holder">公司負責人</label>
-            <input type="text" class="form-control" id="holder" required />
-          </div>
-
-          <div class="form-group col-6">
-            <label for="holderid">負責人身分證字號</label>
-            <input type="text" class="form-control" id="holderid" required />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-12">
-            <label for="mainaddress">登記地址</label>
-            <input type="text" class="form-control" id="mainaddress" required />
-            <div class="invalid-feedback">請輸入地址</div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-12">
-            <label for="description">公司介紹</label>
-            <textarea
-              class="form-control"
-              name="introduce"
-              id="description"
-              cols="30"
-              rows="5"
-            ></textarea>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" id="btn" type="button">Submit</button>
-      </form>
+      </div>
     </section>
 
+    <!-- <h1>Footer</h1> -->
     <!-- Footer Section Begin -->
     <footer class="footer spad">
       <div class="container">
@@ -438,11 +372,11 @@
           <div class="col-lg-4 col-md-12">
             <div class="footer__widget">
               <!-- <h6>Join Our Newsletter Now</h6>
-                      <p>Get E-mail updates about our latest shop and special offers.</p>
-                      <form action="#">
-                          <input type="text" placeholder="Enter your mail">
-                          <button type="submit" class="site-btn">Subscribe</button>
-                      </form> -->
+						  <p>Get E-mail updates about our latest shop and special offers.</p>
+						  <form action="#">
+							  <input type="text" placeholder="Enter your mail">
+							  <button type="submit" class="site-btn">Subscribe</button>
+						  </form> -->
               <div class="footer__widget__social">
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-instagram"></i></a>
@@ -475,7 +409,6 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/adminlte.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
@@ -485,63 +418,5 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/axios.min.js"></script>
-
-    <script>
-      window.addEventListener('load', function () {
-        // 抓上面使用者輸入資訊
-        const account = document.querySelector('#account');
-        const password = document.querySelector('#password');
-        const name = document.querySelector('#name');
-        const idnumber = document.querySelector('#idnumber');
-        const email = document.querySelector('#email');
-        const phone = document.querySelector('#phone');
-        const holder = document.querySelector('#holder');
-        const holderid = document.querySelector('#holderid');
-        const mainaddress = document.querySelector('#mainaddress');
-        const description = document.querySelector('#description');
-
-        document.querySelector('#btn').addEventListener('click', () => {
-          if (
-            !account.value ||
-            !password.value ||
-            !name.value ||
-            !idnumber.value ||
-            !email.value ||
-            !phone.value ||
-            !holder.value ||
-            !holderid.value ||
-            !mainaddress.value ||
-            !description.value
-          ) {
-            return;
-          }
-
-          const url = 'http://localhost:8080/com/seller/register';
-          fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              account: account.value,
-              password: password.value,
-              name: name.value,
-              idnumber: idnumber.value,
-              email: email.value,
-              phone: phone.value,
-              holder: holder.value,
-              holderid: holderid.value,
-              mainaddress: mainaddress.value,
-              description: description.value,
-            }),
-          })
-            .then((resp) => resp.json())
-            .then((body) => {
-              const msg = body.errMsg ?? '登入成功';
-              alert(msg);
-            });
-        });
-      });
-    </script>
   </body>
 </html>

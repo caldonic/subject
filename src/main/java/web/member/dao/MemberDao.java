@@ -10,4 +10,12 @@ public interface MemberDao {
 
 	Member selectForLogin(Member member);
 
+	Member selectEmail(Member member);
+
+	Integer updatePassword(Member member);
+
+	Member selectAccount(Member member);
+
+	
+
 }

@@ -465,25 +465,45 @@
         // 抓上面使用者輸入資訊
         const account = document.querySelector('#account');
         const password = document.querySelector('#password');
+        const url = 'http://localhost:8080/com/seller/login';
+
+        account.onchange = function () {
+          account.classList.remove('is-invalid');
+          if (document.querySelector('#account').value.trim().length < 8) {
+            return;
+          }
+
+          axios
+            .post(url, {
+              account: account.value.trim(),
+            })
+            .then((response) => {
+              let msg = response?.data?.msg; //避免所有階段空值造成的錯誤
+              if (msg === 'success') {
+              } else {
+                account.classList.add('is-invalid');
+              }
+            });
+        };
 
         document.querySelector('#button').addEventListener('click', () => {
           if (!account.value || !password.value) {
             return;
           }
 
-          const url = 'http://localhost:8080/subject/seller/login';
           axios
             .post(url, {
-              account: account.value,
-              password: password.value,
+              account: account.value.trim(),
+              password: password.value.trim(),
             })
             .then((response) => {
-              let msg = response.data['msg'];
+              let msg = response.data.msg;
               console.log(response.data);
-              if (msg === 'success') {
-                let seller = response.data['seller'];
 
-                sessionStorage.setItem('serialnumber', seller['serialnumber']);
+              if (msg === 'success') {
+                let seller = response.data.seller;
+
+                sessionStorage.setItem('serialnumber', seller.serialnumber);
 
                 alert(`${seller.name}歡迎回來~`);
                 //TODO: index header show account
@@ -493,22 +513,6 @@
               }
             })
             .catch((error) => console.log(error));
-
-          // fetch(url, {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify({
-          //     account: account.value,
-          //     password: password.value,
-          //   }),
-          // })
-          //   .then((resp) => resp.json())
-          //   .then((body) => {
-          //     const msg = body.errMsg ?? '登入成功';
-          //     alert(msg);
-          //   });
         });
       });
     </script>
