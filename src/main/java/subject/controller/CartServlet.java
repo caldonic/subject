@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.orderMainFile.model.OrderMainFileServiceNew;
 
-import subject.service.OrderMainFileHibernateService;
-import subject.service.impl.OrderMainFileHibernateServiceImpl;
-import subject.vo.Coupon;
-import subject.vo.OrderMainFileHibernate;
 import suject.cart.Cart;
 import suject.cart.Cartlist;
 
@@ -38,14 +35,21 @@ public class CartServlet extends HttpServlet {
 //		}
 		
 //	    =======訂單生成於資料庫區============
+//		try {
+//			OrderMainFileHibernateService orderMainFileHibernateService = new OrderMainFileHibernateServiceImpl();
+//			String orderresult = orderMainFileHibernateService.orderMaininsert(cart.couponname);
+//			System.out.println("orderresult資料庫" + orderresult);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		try {
-			OrderMainFileHibernateService orderMainFileHibernateService = new OrderMainFileHibernateServiceImpl();
-			String orderresult = orderMainFileHibernateService.orderMaininsert(cart.couponname);
-			System.out.println("orderresult資料庫" + orderresult);
-		} catch (Exception e) {
+			 OrderMainFileServiceNew orderMainFileServiceNew = new OrderMainFileServiceNew();
+		String orderresultanddetail=orderMainFileServiceNew.insertWithOrderDetail();
+		System.out.println("orderresultanddetail="+orderresultanddetail);
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 //	    ======訂單生成於資料庫區結束========
-
+		
 	}
 }

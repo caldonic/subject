@@ -1,10 +1,14 @@
 package subject.service.impl;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+
+import com.orderDetail.model.OrderDetailDAO;
+import com.orderDetail.model.OrderDetailDAO_interface;
+import com.orderDetail.model.OrderDetailVO;
 
 import subject.dao.CouponDao;
 import subject.dao.OrderMainFileHibernateDao;
@@ -12,20 +16,22 @@ import subject.dao.impl.CouponDaoImpl;
 import subject.dao.impl.OrderMainFileHibernateDaoImpl;
 import subject.service.OrderMainFileHibernateService;
 import subject.vo.OrderMainFileHibernate;
-import suject.cart.Cart;
 
 public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernateService {
 	private CouponDao couponDao;
 	private OrderMainFileHibernateDao orderMainFileHibernateDao;
-	Cart cart;
 	Calendar calendar = Calendar.getInstance();
-
+	private OrderDetailDAO_interface orderdetaildao;
+	
 	public OrderMainFileHibernateServiceImpl() {
 		couponDao = new CouponDaoImpl();
 		orderMainFileHibernateDao = new OrderMainFileHibernateDaoImpl();
+		
+		orderdetaildao = new OrderDetailDAO();
 	}
-
+	
 	public String orderMaininsert(String couponname) {
+		
 //	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
 //		Date curtime= strToDateLong(dateFormat.format(calendar.getTime()));
 		if (couponname == null || Objects.equals(couponname, "")) {
@@ -40,8 +46,22 @@ public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernate
 //			orderMainFileHibernate.setMemberevaluationphoto();
 			orderMainFileHibernate.setOrderamount(9999999);
 			orderMainFileHibernate.setOrderdate(calendar.getTime());
-			orderMainFileHibernateDao.insert(orderMainFileHibernate);
-			return "新增成功!";
+			Serializable pk1= orderMainFileHibernateDao.insert(orderMainFileHibernate);
+			System.out.println("id1="+((OrderMainFileHibernate) pk1).getOrderserialnumber());
+//			return "新增成功";
+	//==============訂單細項同時新增============
+			OrderDetailVO odyy = new OrderDetailVO();   // orderdetail
+			List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>(); 
+			odyy.setOrderserialnumber(((OrderMainFileHibernate) pk1).getOrderserialnumber());
+			odyy.setItemserialnumber(87878702);
+			odyy.setOrderdetailprice(1000);
+			odyy.setOrderdetailquantity(1);
+			odyy.setRefundreason("");
+			odyy.setOrderdetailstatus(1);
+			testList.add(odyy);
+			orderdetaildao.insert(odyy);
+			return "新增成功";
+			
 		} else {
 			OrderMainFileHibernate orderMainFileHibernate = new OrderMainFileHibernate();
 			orderMainFileHibernate.setMemberserialnumber(1636001);
@@ -56,9 +76,22 @@ public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernate
             //	orderMainFileHibernate.setMemberevaluationphoto();
 			orderMainFileHibernate.setOrderamount(9999999);
 			orderMainFileHibernate.setOrderdate(calendar.getTime());
-			orderMainFileHibernateDao.insert(orderMainFileHibernate);
-			return "新增成功!";
+			Serializable pk2=orderMainFileHibernateDao.insert(orderMainFileHibernate);
+			System.out.println("id2="+((OrderMainFileHibernate) pk2).getOrderserialnumber());
+			
+			OrderDetailVO odyy = new OrderDetailVO();   // orderdetail
+			List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>(); 
+			odyy.setOrderserialnumber(((OrderMainFileHibernate) pk2).getOrderserialnumber());
+			odyy.setItemserialnumber(87878702);
+			odyy.setOrderdetailprice(1000);
+			odyy.setOrderdetailquantity(1);
+			odyy.setRefundreason("");
+			odyy.setOrderdetailstatus(1);
+			testList.add(odyy);
+			orderdetaildao.insert(odyy);
+			return "新增成功";
 		}
+		
 	}
 
 //	 public static Date strToDateLong(String strDate) {
