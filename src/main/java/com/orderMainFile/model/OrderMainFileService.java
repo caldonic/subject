@@ -89,7 +89,7 @@ public class OrderMainFileService {
 	}
 	
 	// 同時新增訂單主檔及訂單明細
-	public Integer insertWithOrderDetail(OrderMainFileVO orderMainFileVO , List<OrderDetailVO> list) {
-		return dao.insertWithOrderDetail(orderMainFileVO,list);
-	}
+//	public void insertWithOrderDetail(OrderMainFileVO orderMainFileVO , List<OrderDetailVO> list) {
+//		dao.insertWithOrderDetail();
+//	}
 }

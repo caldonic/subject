@@ -16,5 +16,5 @@ public interface OrderMainFileDAO_interface {
 		//public List<EmpVO> getAll(Map<String, String[]> map);
 		
 		// 同時新增訂單主檔及訂單明細
-		public Integer insertWithOrderDetail(OrderMainFileVO orderMainFileVO, List<OrderDetailVO> list);
+		public void insertWithOrderDetail(OrderMainFileVO orderMainFileVO, List<OrderDetailVO> list);
 }

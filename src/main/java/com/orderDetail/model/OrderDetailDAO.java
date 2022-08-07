@@ -19,7 +19,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/object");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +36,15 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		"DELETE FROM order_detail where order_detail_serial_number = ?";
 	private static final String UPDATE_OrderDetail = 
 		"UPDATE order_detail set order_serial_number = ?, item_serial_number = ?, order_detail_price = ?, order_detail_quantity = ?, refund_reason = ?, order_detail_status = ? where order_detail_serial_number = ?";
+	
+	private static final String GET_ItemName_Poto_ByOrderDetail = 
+		"SELECT d.order_detail_serial_number,d.order_serial_number,d.item_serial_number,d.order_detail_price,d.order_detail_quantity,d.refund_reason,d.order_detail_status,i.item_name,p.item_photo\r\n"
+		+ "from order_detail d join item i \r\n"
+		+ "on d.item_serial_number = i.item_serial_number\r\n"
+		+ "JOIN photo p on p.item_serial_number = i.item_serial_number\r\n"
+		+ "WHERE i.item_serial_number;";
 
+	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
 
@@ -238,7 +246,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_OrderDetail_STMT);
+			pstmt = con.prepareStatement(GET_ItemName_Poto_ByOrderDetail);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -251,6 +259,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOrderdetailquantity(rs.getInt("order_detail_quantity"));
 				orderDetailVO.setRefundreason(rs.getString("refund_reason"));
 				orderDetailVO.setOrderdetailstatus(rs.getInt("order_detail_status"));
+				orderDetailVO.setItemname(rs.getString("item_name"));
+				orderDetailVO.setItemphoto(rs.getBytes("item_photo"));
 				list.add(orderDetailVO); // Store the row in the list
 				
 			}
@@ -295,13 +305,13 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
      		pstmt = con.prepareStatement(INSERT_OrderDetail_STMT);
      		
-			pstmt.setInt(1, orderDetailVO.getOrderdetailserialnumber());
-			pstmt.setInt(2, orderDetailVO.getOrderserialnumber());
-			pstmt.setInt(3, orderDetailVO.getItemserialnumber());
-			pstmt.setInt(4, orderDetailVO.getOrderdetailprice());
-			pstmt.setInt(5, orderDetailVO.getOrderdetailquantity());
-			pstmt.setString(6, orderDetailVO.getRefundreason());
-			pstmt.setInt(7, orderDetailVO.getOrderdetailstatus());
+//			pstmt.setInt(1, orderDetailVO.getOrderdetailserialnumber());
+			pstmt.setInt(1, orderDetailVO.getOrderserialnumber());
+			pstmt.setInt(2, orderDetailVO.getItemserialnumber());
+			pstmt.setInt(3, orderDetailVO.getOrderdetailprice());
+			pstmt.setInt(4, orderDetailVO.getOrderdetailquantity());
+			pstmt.setString(5, orderDetailVO.getRefundreason());
+			pstmt.setInt(6, orderDetailVO.getOrderdetailstatus());
 
 
 Statement stmt=	con.createStatement();

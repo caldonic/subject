@@ -12,6 +12,26 @@ public class OrderDetailVO implements Serializable {
 	private String refundreason;
 	private Integer orderdetailstatus;
 	
+	//FK item
+	private String itemname;
+	public String getItemname() {
+		return itemname;
+	}
+
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
+	}
+	
+	//FK photo
+	private byte[] itemphoto;
+	public byte[] getItemphoto() {
+		return itemphoto;
+	}
+
+	public void setItemphoto(byte[] itemphoto) {
+		this.itemphoto = itemphoto;
+	}
+
 	public Integer getOrderdetailserialnumber() {
 		return orderdetailserialnumber;
 	}

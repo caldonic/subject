@@ -28,6 +28,7 @@ public class OrderMainFileController extends HttpServlet {
 		Map<String, String> map = new HashMap<>();
 		map.put("a", "已完成");
 		getServletContext().setAttribute("orderStatus", map);
+		
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
