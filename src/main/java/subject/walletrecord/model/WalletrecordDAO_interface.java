@@ -1,8 +1,9 @@
 package subject.walletrecord.model;
+import java.util.*;
 
-import java.util.List;
 
 public interface WalletrecordDAO_interface {
-	
-	public List<WalletrecordVO> getAll();
+			
+		public List<WalletrecordVO> getAll();
 }
+
