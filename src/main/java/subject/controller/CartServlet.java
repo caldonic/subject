@@ -44,7 +44,7 @@ public class CartServlet extends HttpServlet {
 //		}
 		try {
 			 OrderMainFileServiceNew orderMainFileServiceNew = new OrderMainFileServiceNew();
-		String orderresultanddetail=orderMainFileServiceNew.insertWithOrderDetail();
+		String orderresultanddetail=orderMainFileServiceNew.insertWithOrderDetail(cart.couponname);
 		System.out.println("orderresultanddetail="+orderresultanddetail);
 		}catch (Exception e) {
 			e.printStackTrace();
