@@ -428,13 +428,12 @@
                   </div> -->
                   <!-- 鎮鴻改-隱藏以上英文  -->         
                   <!-- <button type="submit" class="site-btn">結帳</button> -->
-                  <input type="button" class="site-btn" value="                                       回到上頁                                        " id="former_page"></input>
-                  <input type="button" class="site-btn" value="                                                                                                          結帳                                                                                               " id="checkoutgo" ></input>
+                  <!-- <input type="button" class="site-btn" value="                                       回到上頁                                        " id="former_page"></input> -->
+                 <input type="button" class="site-btn" value="                                                                                                                                                                                結帳                                                                                                                                                        " id="checkoutgo" ></input>
                  
                   <!-- <button type="submit" id="former_page" class="site-btn">
                     回到上頁
                   </button> -->
-                  <!-- 鎮鴻改-新增回到上頁按鈕  -->
                   <div class="col-lg-6">
                     <div class="shoping__continue" >
                       <div class="shoping__discount" style="display: flex">
@@ -442,7 +441,6 @@
                           <!-- <div class="shoping__discount"> -->
                           <div>
                           <h5>購物金</h5>
-                              <!-- 跟維爾比對2 -->
                               <input
                                 id="golden_val"
                                 name="goldremaining"  
@@ -593,7 +591,7 @@
           // console.log(memcart);
           var price = 0;
           var total = 0;
-          let a;
+          let a=parseInt($("#golden_val").val());
           // 要設定唯一值index才能刪除memcart_data
           for (var i = 0; i < memcart.length; i++) {
             var html = "";
@@ -603,9 +601,9 @@
             }</span></li>`;
 
             // 抓取購物車頁面時填入之購物金金額資料並且顯示
-            let goldadjustmentamount = sessionStorage.getItem(
+            let goldadjustmentamount = JSON.parse(sessionStorage.getItem(
               "golden_valback"
-            );
+            ));
             //顯示購物金於頁面
             $("#golden_use_thistime").text(goldadjustmentamount);
             //計算單項商品總價
@@ -617,7 +615,7 @@
           }
           //減掉購物金後總價
           total = total - a;
-          console.log(total);
+          // console.log(total);
           $("#total_checkout").html(total);
           //結帳按鈕儲存總價至local
           // $(".site-btn").on("click", () => {
@@ -629,8 +627,7 @@
 ////購物金使用按鈕連結sessionStorage
 $("#golden_use").on("click", () => {
           let golden_val = parseInt($("#golden_val").val()); //因會顯示於前端不能寫null
-          let golden_valback=parseInt($("#golden_val").val())||null;
-          
+          let golden_valback=parseInt($("#golden_val").val());
           // sessionStorage.setItem("goldadjustmentamount", golden_val);
         //傳送購物金到後端驗證
           const url = "GoldRemainingCheck";
@@ -648,8 +645,11 @@ $("#golden_use").on("click", () => {
             .then((body) => {
               const msg = body.Msg;
               alert(msg);
-              if(body.Msg="購物金使用成功"){
+              if(body.Msg=="購物金使用成功"){
                 sessionStorage.setItem("golden_valback", golden_valback);//金額存到local
+              }
+              if(body.Msg=="購物金額不足"){
+                sessionStorage.setItem("golden_valback", 0);//金額存到local
               }
             })
             location.reload(); //網頁重整
@@ -688,16 +688,22 @@ $("#golden_use").on("click", () => {
           "golden_valback"
         ); 
         $("#golden_val").val(goldadjustmentamount);
-        let couponname = sessionStorage.getItem("couponnamejstr");
-        $("#coupon_val").val(couponname);
+        // let couponname = sessionStorage.getItem("couponnamejstr");
+        // $("#coupon_val").val(couponname);
     
 
       // 結帳按鈕連結java
       $("#checkoutgo").on("click", () => {
+        if (sessionStorage.getItem("couponnamejstr")=="undefined" ||sessionStorage.getItem("couponnamejstr")==null ){
+          var couponnamejstr = null;
+          var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
+          var golden_valnum=JSON.parse(sessionStorage.getItem("golden_valback"))||0;
+        }
+        else{
         var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
-        // var couponserialnumberStr1 = JSON.stringify(sessionStorage.getItem("couponserialnumberStr"));
-        var couponnamejstr = sessionStorage.getItem("couponnamejstr")||null;
-        var golden_valnum=sessionStorage.getItem("golden_valback")||null;
+        var couponnamejstr = JSON.parse(sessionStorage.getItem("couponnamejstr"))||null;
+        var golden_valnum=JSON.parse(sessionStorage.getItem("golden_valback"))||0;
+      }
         fetch("CartServlet", {
           method: "post",
           headers: {

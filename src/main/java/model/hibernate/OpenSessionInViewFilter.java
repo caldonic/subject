@@ -24,12 +24,14 @@ public class OpenSessionInViewFilter implements Filter {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = null;
+//		System.out.println("OpenSessionInViewFilter-Start");
 		try {
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response); // 呼叫後端Servlet
 			transaction.commit();
-			
+//			System.out.println("OpenSessionInViewFilter-try");
 		} catch (Exception e) {
+//			System.out.println("OpenSessionInViewFilter-catch");
 			transaction.rollback();
 			chain.doFilter(request, response);
 			e.printStackTrace();
