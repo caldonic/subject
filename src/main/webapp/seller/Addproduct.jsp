@@ -316,6 +316,47 @@
 																			<input type="hidden" name="action"
 																				value="insert">
 																			<input class="btn  btn-primary" type="submit"  id="addBtn" value="新增商品">
+																			
+																					<script>
+																				    const myData = {
+																				      img: ''
+																				    }
+																				    document.querySelector('#Picfile').onchange = (e) => {
+																				      let reader = new FileReader();
+																				      reader.readAsDataURL(e.target.files[0]);
+																				      reader.onload = (e) => {
+																				        let img = document.createElement('img')
+																						    // 取得value
+																					        let res = {
+																					          data: [
+																					            { img: e.target.result.slice(23) },
+																					          ]
+																					        }
+																							 // base64存進filereader裡
+																							 //預覽圖(img.src)
+																					        img.src = e.target.result
+																					        myData.img = e.target.result
+																				        // 添加class
+																				        img.className = 'my-pic'
+																				
+																				        // 預覽
+																				        document.querySelector('#preview').append(img)
+																				      }
+																				    }
+																				
+																				    document.querySelector('#addBtn').onclick = () => {
+																				        //全路徑
+																				        axios.post('http://localhost:8080/subject/subject/seller', {
+																				          photo: myData.img.slice(23)
+																				        }).then((res) => {
+																				          console.log(res);
+																				        }).catch((err) => {
+																
+																				        });
+																				      
+																				    }
+																				  </script>
+																			
 																			</div>
 																			</FORM>					
 																			<button type="button"
@@ -390,45 +431,7 @@
 								src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 							<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 							<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-					<script>
-				    const myData = {
-				      img: ''
-				    }
-				    document.querySelector('#Picfile').onchange = (e) => {
-				      let reader = new FileReader();
-				      reader.readAsDataURL(e.target.files[0]);
-				      reader.onload = (e) => {
-				        let img = document.createElement('img')
-						    // 取得value
-					        let res = {
-					          data: [
-					            { img: e.target.result.slice(23) },
-					          ]
-					        }
-							 // base64存進filereader裡
-							 //預覽圖(img.src)
-					        img.src = e.target.result
-					        myData.img = `{ img: e.target.result.slice(23) }`
-				        // 添加class
-				        img.className = 'my-pic'
-				
-				        // 預覽
-				        document.querySelector('#preview').append(img)
-				      }
-				    }
-				
-				    document.querySelector('#addBtn').onclick = () => {
-				        //全路徑
-				        axios.post('http://localhost:8080/subject/seller/Addproduct', {
-				          photo: myData.img
-				        }).then((res) => {
-				          console.log(res);
-				        }).catch((err) => {
-
-				        });
-				      
-				    }
-				  </script>
+					
 
 
 						</body>
