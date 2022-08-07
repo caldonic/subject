@@ -14,7 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 @WebFilter(
-		urlPatterns = {"/*"}
+		urlPatterns = {"/1"}
 		)
 public class OpenSessionInViewFilter implements Filter {
 
