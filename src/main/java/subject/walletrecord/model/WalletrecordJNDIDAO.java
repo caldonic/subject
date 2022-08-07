@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 
 
-public class WalletrecordDAO implements WalletrecordDAO_interface{
+public class WalletrecordJNDIDAO implements WalletrecordDAO_interface{
 	private static DataSource ds = null;
 	static {
 		try {
@@ -24,7 +24,6 @@ public class WalletrecordDAO implements WalletrecordDAO_interface{
 			e.printStackTrace();
 		}
 	}
-
 	private static final String GET_ALL_STMT = 
 			"SELECT w.*, m.gold_remaining from wallet_record w join member m on w.member_serial_number = m.member_serial_number;";
 	
@@ -52,8 +51,7 @@ public class WalletrecordDAO implements WalletrecordDAO_interface{
 				walletrecordVO.setWalletrecordtime(rs.getDate("wallet_record_time"));
 				walletrecordVO.setGoldadjustmentamount(rs.getInt("gold_adjustment_amount"));
 				walletrecordVO.setWalletrecordnote(rs.getString("wallet_record_note"));
-				walletrecordVO.setGoldremaining(rs.getInt("gold_remaining"));		
-					
+				walletrecordVO.setGoldremaining(rs.getInt("gold_remaining"));	
 				list.add(walletrecordVO); // Store the row in the list
 			}
 
@@ -88,8 +86,19 @@ public class WalletrecordDAO implements WalletrecordDAO_interface{
 		return list;
 	}
 
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

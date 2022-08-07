@@ -1,34 +1,19 @@
 package subject.walletrecord.model;
+import java.util.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import subject.blacklist.model.BlacklistJDBCDAO;
+import subject.blacklist.model.BlacklistVO;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-
-
-public class WalletrecordDAO implements WalletrecordDAO_interface{
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/letitgo");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+import java.sql.*;
+public class WalletrecordJDBCDAO implements WalletrecordDAO_interface {
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://localhost:3306/letitgo?serverTimezone=Asia/Taipei";
+	String userid = "root";
+	String passwd = "aa128360877";
 
 	private static final String GET_ALL_STMT = 
 			"SELECT w.*, m.gold_remaining from wallet_record w join member m on w.member_serial_number = m.member_serial_number;";
-	
-	@Override
+
 	public List<WalletrecordVO> getAll() {
 		List<WalletrecordVO> list = new ArrayList<WalletrecordVO>();
 		WalletrecordVO walletrecordVO = null;
@@ -39,7 +24,8 @@ public class WalletrecordDAO implements WalletrecordDAO_interface{
 
 		try {
 
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -58,6 +44,10 @@ public class WalletrecordDAO implements WalletrecordDAO_interface{
 			}
 
 			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -86,10 +76,26 @@ public class WalletrecordDAO implements WalletrecordDAO_interface{
 			}
 		}
 		return list;
+
 	}
 
-	
-	
+	public static void main(String[] args) {
+
+		WalletrecordJDBCDAO dao = new WalletrecordJDBCDAO();
 
 
+		// 查詢
+		List<WalletrecordVO> list = dao.getAll();
+		for (WalletrecordVO xWalletrecord : list) {
+			System.out.print(xWalletrecord.getWalletrecordnumber() + ",");
+			System.out.print(xWalletrecord.getMemberserialnumber() + ",");
+			System.out.print(xWalletrecord.getOrderserialnumber() + ",");
+			System.out.print(xWalletrecord.getWalletrecordtime() + ",");
+			System.out.print(xWalletrecord.getGoldadjustmentamount() + ",");
+			System.out.print(xWalletrecord.getWalletrecordnote() + ",");
+			System.out.print(xWalletrecord.getGoldremaining() + ",");
+			
+			System.out.println();
+		}
+	}
 }
