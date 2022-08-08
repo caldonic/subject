@@ -29,7 +29,7 @@ public class OrderMainFileHibernateDaoImpl implements OrderMainFileHibernateDao 
 		System.out.println("merge-method");
 		Session session = getSession();
 		OrderMainFileHibernate vo = (OrderMainFileHibernate) session.merge(orderMainFileHibernate);
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		return vo;
 	}
 
