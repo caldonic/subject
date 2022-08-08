@@ -17,9 +17,9 @@ import javax.sql.DataSource;
 import com.orderDetail.model.OrderDetailDAO;
 import com.orderDetail.model.OrderDetailVO;
 
-import subject.dao.CouponDao;
-import subject.dao.impl.CouponDaoImpl;
-import suject.cart.Cart;
+//import subject.dao.CouponDao;
+//import subject.dao.impl.CouponDaoImpl;
+//import suject.cart.Cart;
 
 public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
@@ -73,6 +73,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_OrderDetail_STMT);
 
 			pstmt.setInt(1, orderserialnumber);
@@ -133,6 +134,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 //			pstmt.setInt(1, 1636001);
@@ -194,6 +196,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setInt(1, orderMainFileVO.getMemberserialnumber());
@@ -244,6 +247,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, orderserialnumber);
@@ -285,6 +289,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, orderserialnumber);
@@ -351,6 +356,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -402,7 +408,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		}
 		return list;
 	}
-	
+	 
 	
 	// 同時新增訂單主檔及訂單明細
 		@Override
@@ -414,6 +420,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 			try {
 				Class.forName(driver);
 				con = DriverManager.getConnection(url, userid, passwd);
+//				con = ds.getConnection();
 				// 1●設定於 pstm.executeUpdate()之前
 	    		con.setAutoCommit(false);
 				
@@ -466,7 +473,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 				} catch (ClassNotFoundException e) {
 					throw new RuntimeException("Couldn't load database driver. "
 							+ e.getMessage());
-					// Handle any SQL errors
+//					 Handle any SQL errors
 				} catch (SQLException se) {
 					if (con != null) {
 						try {
