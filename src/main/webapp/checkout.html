@@ -681,7 +681,7 @@ $("#golden_use").on("click", () => {
               alert(msg);
               const couponnamejstr=body.couponnamejstr;  //coupon流水號
               console.log("couponname="+couponnamejstr);
-              sessionStorage.setItem("couponnamejstr", couponnamejstr);//流水號存到local
+              sessionStorage.setItem("couponnamejstr",JSON.stringify(couponnamejstr))//流水號存到local
             })
         });
 
@@ -705,7 +705,7 @@ $("#golden_use").on("click", () => {
         else{
         var totaltotal=JSON.parse(sessionStorage.getItem("cart_total"));
         var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
-        var couponnamejstr = JSON.parse(sessionStorage.getItem("couponnamejstr"))||null;
+        var couponnamejstr = JSON.parse(sessionStorage.getItem("couponnamejstr"));
         var golden_valnum=JSON.parse(sessionStorage.getItem("golden_valback"))||0;
       }
         fetch("CartServlet", {
