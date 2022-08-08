@@ -591,7 +591,7 @@
           // console.log(memcart);
           var price = 0;
           var total = 0;
-          let a=parseInt($("#golden_val").val());
+          let a=parseInt($("#golden_val").val())||null;
           // 要設定唯一值index才能刪除memcart_data
           for (var i = 0; i < memcart.length; i++) {
             var html = "";
@@ -614,13 +614,15 @@
             $("#ul_order").append(html);
           }
           //減掉購物金後總價
-          total = total - a;
+          if(a!=null||a!=undefined){
+          total = total - a
+        };
           // console.log(total);
           $("#total_checkout").html(total);
           //結帳按鈕儲存總價至local
-          // $(".site-btn").on("click", () => {
-          //   sessionStorage.setItem("cart_total", total);
-          // });
+          $(".site-btn").on("click", () => {
+            sessionStorage.setItem("cart_total", total);
+          });
         }
       });
 
@@ -695,11 +697,13 @@ $("#golden_use").on("click", () => {
       // 結帳按鈕連結java
       $("#checkoutgo").on("click", () => {
         if (sessionStorage.getItem("couponnamejstr")=="undefined" ||sessionStorage.getItem("couponnamejstr")==null ){
+          var totaltotal=JSON.parse(sessionStorage.getItem("cart_total"));
           var couponnamejstr = null;
           var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
           var golden_valnum=JSON.parse(sessionStorage.getItem("golden_valback"))||0;
         }
         else{
+        var totaltotal=JSON.parse(sessionStorage.getItem("cart_total"));
         var memcart=JSON.parse(sessionStorage.getItem("memcart_data"))||null;
         var couponnamejstr = JSON.parse(sessionStorage.getItem("couponnamejstr"))||null;
         var golden_valnum=JSON.parse(sessionStorage.getItem("golden_valback"))||0;
@@ -710,6 +714,7 @@ $("#golden_use").on("click", () => {
             "Content-Type": "application/json;charset=UTF-8",
           },
           body: JSON.stringify({
+            carttotal:totaltotal,
             couponname:couponnamejstr,
             goldremaining:golden_valnum,
             cartlist: memcart,

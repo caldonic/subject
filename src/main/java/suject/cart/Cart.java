@@ -6,6 +6,7 @@ public class Cart {
 	public List<Cartlist> cartlist;
 	public String couponname;
 	public Integer goldremaining;
+	public Integer carttotal;
 	
 	@Override
 	public String toString() {

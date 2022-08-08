@@ -28,9 +28,9 @@ public class OpenSessionInViewFilter implements Filter {
 		try {
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response); // 呼叫後端Servlet
-			if (transaction.isActive()) {
+//			if (transaction.isActive()) {
 				transaction.commit();
-			}
+//			}
 			System.out.println("OpenSessionInViewFilter-try");
 		} catch (Exception e) {
 			System.out.println("OpenSessionInViewFilter-catch");
