@@ -1,6 +1,7 @@
 package com.orderDetail.model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,15 +16,20 @@ import javax.sql.DataSource;
 public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+//	private static DataSource ds = null;
+//	static {
+//		try {
+//			Context ctx = new InitialContext();
+//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
+//		} catch (NamingException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://localhost:3306/letitgo?serverTimezone=Asia/Taipei";
+	String userid = "root";
+	String passwd = "password";
 
 	private static final String INSERT_OrderDetail_STMT = 
 		"INSERT INTO order_detail (order_serial_number, item_serial_number, order_detail_price, order_detail_quantity, refund_reason, order_detail_status) VALUES (?, ?, ?, ?, ?, ?)";
@@ -52,8 +58,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 
 		try {
-
-			con = ds.getConnection();
+			
+			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_OrderDetail_STMT);
 
 			pstmt.setInt(1, orderDetailVO.getOrderserialnumber());
@@ -96,8 +103,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 
 		try {
-
-			con = ds.getConnection();
+			
+			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_OrderDetail);
 			
 			pstmt.setInt(1, orderDetailVO.getOrderserialnumber());
@@ -142,7 +150,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 
-			con = ds.getConnection();
+			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE_OrderDetail);
 
 			pstmt.setInt(1, orderdetailserialnumber);
@@ -183,7 +192,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 
-			con = ds.getConnection();
+			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_OrderDetail_STMT);
 
 			pstmt.setInt(1, orderdetailserialnumber);
@@ -245,7 +255,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 
-			con = ds.getConnection();
+			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ItemName_Poto_ByOrderDetail);
 			rs = pstmt.executeQuery();
 
