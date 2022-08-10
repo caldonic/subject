@@ -299,7 +299,11 @@
         <div class="col-6 row d-flex justify-content-center align-items-center">
           <div class="col-8 login p-5 rounded">
             <!-- <form> -->
-            <h2 class="d-flex justify-content-center mb-3">會員/賣家登入</h2>
+            <h2 class="d-flex justify-content-center mb-3">
+              <a href="./login.html">會員</a>/<span class="font-weight-bolder"
+                >賣家</span
+              >登入
+            </h2>
             <div class="form-group">
               <label for="account">帳號</label>
               <input
@@ -309,7 +313,9 @@
                 id="account"
                 aria-describedby="emailHelp"
               />
-              <div class="invalid-feedback">請輸入正確帳號</div>
+              <div class="invalid-feedback">
+                請輸入正確帳號格式(6個字以上，含至少一個英文字母大小寫)
+              </div>
             </div>
             <div class="form-group mt-3">
               <label for="password">密碼</label>
@@ -319,6 +325,9 @@
                 class="form-control"
                 id="password"
               />
+              <div class="invalid-feedback">
+                請輸入正確密碼格式(6個字以上，含至少一個英文字母大小寫)
+              </div>
             </div>
             <div class="form-group form-check">
               <input
@@ -342,10 +351,20 @@
               Submit
             </button>
             <div class="mt-2">
-              <span><a href="#" class="text-decoration-none">會員註冊</a></span>
-              <span><a href="#" class="text-decoration-none">賣家註冊</a></span>
               <span
-                ><a href="#" class="text-decoration-none">忘記密碼?</a></span
+                ><a href="./register-member.html" class="text-decoration-none"
+                  >會員註冊</a
+                ></span
+              >
+              <span
+                ><a href="./register-seller.html" class="text-decoration-none"
+                  >賣家註冊</a
+                ></span
+              >
+              <span
+                ><a href="./forget.jsp" class="text-decoration-none"
+                  >忘記密碼?</a
+                ></span
               >
             </div>
             <!-- </form> -->
@@ -465,26 +484,42 @@
         // 抓上面使用者輸入資訊
         const account = document.querySelector('#account');
         const password = document.querySelector('#password');
-        const url = 'http://localhost:8080/com/seller/login';
+        const url = 'http://localhost:8080/subject/seller/login';
+        const pattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-        account.onchange = function () {
+        account.onchange = () => {
           account.classList.remove('is-invalid');
-          if (document.querySelector('#account').value.trim().length < 8) {
-            return;
-          }
 
-          axios
-            .post(url, {
-              account: account.value.trim(),
-            })
-            .then((response) => {
-              let msg = response?.data?.msg; //避免所有階段空值造成的錯誤
-              if (msg === 'success') {
-              } else {
-                account.classList.add('is-invalid');
-              }
-            });
+          if (!pattern.test(account.value.trim())) {
+            account.classList.add('is-invalid');
+          }
         };
+
+        password.onchange = () => {
+          password.classList.remove('is-invalid');
+
+          if (!pattern.test(password.value.trim())) {
+            password.classList.add('is-invalid');
+          }
+        };
+        // account.onchange = function () {
+        //   account.classList.remove('is-invalid');
+        //   if (document.querySelector('#account').value.trim().length < 8) {
+        //     return;
+        //   }
+
+        //   axios
+        //     .post(url, {
+        //       account: account.value.trim(),
+        //     })
+        //     .then((response) => {
+        //       let msg = response?.data?.msg; //避免所有階段空值造成的錯誤
+        //       if (msg === 'success') {
+        //       } else {
+        //         account.classList.add('is-invalid');
+        //       }
+        //     });
+        // };
 
         document.querySelector('#button').addEventListener('click', () => {
           if (!account.value || !password.value) {
@@ -507,7 +542,7 @@
 
                 alert(`${seller.name}歡迎回來~`);
                 //TODO: index header show account
-                window.location.replace('./register-member.html');
+                window.location.replace('./index.jsp');
               } else {
                 alert('登入失敗!!請重新輸入正確帳號密碼!!');
               }
