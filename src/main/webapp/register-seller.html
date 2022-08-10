@@ -76,7 +76,9 @@
             </li>
             <!--自然改--><!--這個圖示用來做我的票券-->
             <li>
-              <a href="https://www.google.com.tw/"><i class="fa-solid fa-person"></i></a>
+              <a href="https://www.google.com.tw/"
+                ><i class="fa-solid fa-person"></i
+              ></a>
             </li>
             <!--自然改--><!--這個圖示用來做登入-->
           </ul>
@@ -282,101 +284,112 @@
 
     <section class="container mt-4 mb-5 content">
       <h1 class="d-flex justify-content-center mb-5">賣家註冊</h1>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="account">帳號</label>
-            <input
-              type="text"
-              class="form-control"
-              id="account"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label for="password">密碼</label>
-            <input type="password" class="form-control" id="password" />
+      <!-- <form> -->
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="account">帳號</label>
+          <input
+            type="text"
+            class="form-control"
+            id="account"
+            aria-describedby="emailHelp"
+          />
+          <small id="check-pattern" style="display: none; color: red">
+            請輸入正確帳號格式(6個字以上，含至少一個英文字母大小寫)
+          </small>
+          <div class="invalid-feedback">帳號已被使用，請重新輸入</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="password">密碼</label>
+          <input type="password" class="form-control" id="password" />
+          <div class="invalid-feedback">
+            請輸入正確密碼格式(6個字以上，含至少一個英文字母大小寫)
           </div>
         </div>
+      </div>
 
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="name">公司名稱</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              aria-describedby="emailHelp"
-            />
-          </div>
-
-          <div class="form-group col-6">
-            <label for="idnumber">統一編號</label>
-            <input
-              type="text"
-              class="form-control"
-              id="idnumber"
-              aria-describedby="emailHelp"
-            />
-          </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="name">公司名稱</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            aria-describedby="emailHelp"
+          />
         </div>
 
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-            />
-            <small id="emailHelp" class="form-text text-muted"
-              >We'll never share your email with anyone else.</small
-            >
-          </div>
+        <div class="form-group col-6">
+          <label for="idnumber">統一編號</label>
+          <input
+            type="text"
+            class="form-control"
+            id="idnumber"
+            aria-describedby="emailHelp"
+          />
+          <div class="invalid-feedback">請輸入正確統一編號</div>
+        </div>
+      </div>
 
-          <div class="form-group col-6">
-            <label for="phone">公司電話</label>
-            <input type="tel" class="form-control" id="phone" />
-            <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
-          </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+          />
+          <div class="invalid-feedback">請輸入正確e-mail格式</div>
+          <!-- <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          > -->
         </div>
 
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="holder">公司負責人</label>
-            <input type="text" class="form-control" id="holder" required />
-          </div>
+        <div class="form-group col-6">
+          <label for="phone">公司電話</label>
+          <input type="tel" class="form-control" id="phone" />
+          <div class="invalid-feedback">請輸入正確電話號碼格式</div>
+          <!-- <small id="emailHelp" class="form-text text-muted"></small> -->
+        </div>
+      </div>
 
-          <div class="form-group col-6">
-            <label for="holderid">負責人身分證字號</label>
-            <input type="text" class="form-control" id="holderid" required />
-          </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="holder">公司負責人</label>
+          <input type="text" class="form-control" id="holder" required />
         </div>
 
-        <div class="form-row">
-          <div class="form-group col-12">
-            <label for="mainaddress">登記地址</label>
-            <input type="text" class="form-control" id="mainaddress" required />
-            <div class="invalid-feedback">請輸入地址</div>
-          </div>
+        <div class="form-group col-6">
+          <label for="holderid">負責人身分證字號</label>
+          <input type="text" class="form-control" id="holderid" required />
+          <div class="invalid-feedback">請輸入正確身分證字號格式</div>
         </div>
+      </div>
 
-        <div class="form-row">
-          <div class="form-group col-12">
-            <label for="description">公司介紹</label>
-            <textarea
-              class="form-control"
-              name="introduce"
-              id="description"
-              cols="30"
-              rows="5"
-            ></textarea>
-          </div>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label for="mainaddress">登記地址</label>
+          <input type="text" class="form-control" id="mainaddress" required />
+          <div class="invalid-feedback">請輸入地址</div>
         </div>
+      </div>
 
-        <button class="btn btn-primary" id="btn" type="button">Submit</button>
-      </form>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label for="description">公司介紹</label>
+          <textarea
+            class="form-control"
+            name="introduce"
+            id="description"
+            cols="30"
+            rows="5"
+          ></textarea>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="btn" type="button">Submit</button>
+      <!-- </form> -->
     </section>
 
     <!-- Footer Section Begin -->
@@ -487,18 +500,86 @@
     <script src="js/axios.min.js"></script>
 
     <script>
-      window.addEventListener('load', function () {
-        // 抓上面使用者輸入資訊
-        const account = document.querySelector('#account');
-        const password = document.querySelector('#password');
+      // 抓上面使用者輸入資訊
+      const account = document.querySelector('#account');
+      const password = document.querySelector('#password');
+      // const name = document.querySelector('#name');
+      const idnumber = document.querySelector('#idnumber');
+      const email = document.querySelector('#email');
+      const phone = document.querySelector('#phone');
+      const holder = document.querySelector('#holder');
+      const holderid = document.querySelector('#holderid');
+      const mainaddress = document.querySelector('#mainaddress');
+      const description = document.querySelector('#description');
+      const url = 'http://localhost:8080/subject/seller/register';
+      const urlCheck = `http://localhost:8080/subject/seller/checkAccount?account=`;
+      const pattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
+      const patternEmail =
+        /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/;
+      const patternPhone = /^\d{10}$/;
+      const patternIdnumber = /^\d{8}$/;
+      const patternHolderid = /^[A-Z]\d{9}$/;
+      window.addEventListener('load', () => {
         const name = document.querySelector('#name');
-        const idnumber = document.querySelector('#idnumber');
-        const email = document.querySelector('#email');
-        const phone = document.querySelector('#phone');
-        const holder = document.querySelector('#holder');
-        const holderid = document.querySelector('#holderid');
-        const mainaddress = document.querySelector('#mainaddress');
-        const description = document.querySelector('#description');
+        account.onchange = () => {
+          const acct = document.querySelector('#account')?.value?.trim();
+          const isValid = pattern.test(acct);
+          if (isValid) {
+            document.getElementById('check-pattern').style.display = 'none';
+          } else {
+            document.getElementById('check-pattern').style.display = '';
+            return;
+          }
+
+          axios.get(urlCheck + acct).then((response) => {
+            let msg = response?.data?.msg; //避免所有階段空值造成的錯誤
+            if (msg === 'success') {
+              account.classList.add('is-invalid');
+            } else {
+              account.classList.remove('is-invalid');
+            }
+          });
+        };
+
+        password.onchange = () => {
+          password.classList.remove('is-invalid');
+
+          if (!pattern.test(password.value.trim())) {
+            password.classList.add('is-invalid');
+          }
+        };
+
+        idnumber.onchange = () => {
+          idnumber.classList.remove('is-invalid');
+
+          if (!patternIdnumber.test(idnumber.value.trim())) {
+            idnumber.classList.add('is-invalid');
+          }
+        };
+
+        holderid.onchange = () => {
+          holderid.classList.remove('is-invalid');
+
+          if (!patternHolderid.test(holderid.value.trim())) {
+            holderid.classList.add('is-invalid');
+          }
+        };
+
+        email.onchange = () => {
+          email.classList.remove('is-invalid');
+
+          if (!patternEmail.test(email.value.trim())) {
+            email.classList.add('is-invalid');
+          }
+        };
+
+        phone.onchange = () => {
+          phone.classList.remove('is-invalid');
+
+          if (!patternPhone.test(phone.value.trim())) {
+            phone.classList.add('is-invalid');
+          }
+        };
 
         document.querySelector('#btn').addEventListener('click', () => {
           if (
@@ -516,30 +597,30 @@
             return;
           }
 
-          const url = 'http://localhost:8080/com/seller/register';
-          fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              account: account.value,
-              password: password.value,
-              name: name.value,
-              idnumber: idnumber.value,
-              email: email.value,
-              phone: phone.value,
-              holder: holder.value,
-              holderid: holderid.value,
-              mainaddress: mainaddress.value,
-              description: description.value,
-            }),
-          })
-            .then((resp) => resp.json())
-            .then((body) => {
-              const msg = body.errMsg ?? '登入成功';
-              alert(msg);
-            });
+          axios
+            .post(url, {
+              account: account.value.trim(),
+              password: password.value.trim(),
+              name: name.value.trim(),
+              idnumber: idnumber.value.trim(),
+              email: email.value.trim(),
+              phone: phone.value.trim(),
+              holder: holder.value.trim(),
+              holderid: holderid.value.trim(),
+              mainaddress: mainaddress.value.trim(),
+              description: description.value.trim(),
+            })
+            .then((response) => {
+              let msg = response?.data?.msg;
+              //console.log(response.data);
+              if (msg === 'success') {
+                alert(`註冊成功~`);
+                window.location.replace('./login.html');
+              } else {
+                alert('註冊失敗!!請重新輸入正確資料!!');
+              }
+            })
+            .catch((error) => console.log(error));
         });
       });
     </script>
