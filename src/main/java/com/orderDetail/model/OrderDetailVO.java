@@ -23,13 +23,13 @@ public class OrderDetailVO implements Serializable {
 	}
 	
 	//FK photo
-	private byte[] itemphoto;
-	public byte[] getItemphoto() {
-		return itemphoto;
+	private byte[] photo;
+	public byte[] getPhoto() {
+		return photo;
 	}
 
-	public void setItemphoto(byte[] itemphoto) {
-		this.itemphoto = itemphoto;
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	public Integer getOrderdetailserialnumber() {

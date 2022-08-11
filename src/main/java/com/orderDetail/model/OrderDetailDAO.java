@@ -1,7 +1,6 @@
 package com.orderDetail.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,40 +13,42 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class OrderDetailDAO implements OrderDetailDAO_interface{
+//	private CouponDao couponDao;
+//	private Cart cart;
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
-//	private static DataSource ds = null;
-//	static {
-//		try {
-//			Context ctx = new InitialContext();
-//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/letitgo?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "password";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_OrderDetail_STMT = 
 		"INSERT INTO order_detail (order_serial_number, item_serial_number, order_detail_price, order_detail_quantity, refund_reason, order_detail_status) VALUES (?, ?, ?, ?, ?, ?)";
+	
 	private static final String GET_ALL_OrderDetail_STMT = 
 		"SELECT order_detail_serial_number, order_serial_number, item_serial_number, order_detail_price, order_detail_quantity, refund_reason, order_detail_status FROM order_detail order by order_detail_serial_number";
+	
 	private static final String GET_ONE_OrderDetail_STMT = 
-		"SELECT order_detail_serial_number, order_serial_number, item_serial_number, order_detail_price, order_detail_quantity, refund_reason, order_detail_status FROM order_detail where order_detail_serial_number = ?";
+	"SELECT d.order_detail_serial_number,d.order_serial_number,d.item_serial_number,d.order_detail_price,d.order_detail_quantity,d.refund_reason,d.order_detail_status,i.item_name,i.photo\r\n"
+	+ "from order_detail d join item i \r\n"
+	+ "on d.item_serial_number = i.item_serial_number\r\n"
+	+ "WHERE d.item_serial_number = ?";
 		
 	private static final String DELETE_OrderDetail = 
 		"DELETE FROM order_detail where order_detail_serial_number = ?";
+	
 	private static final String UPDATE_OrderDetail = 
 		"UPDATE order_detail set order_serial_number = ?, item_serial_number = ?, order_detail_price = ?, order_detail_quantity = ?, refund_reason = ?, order_detail_status = ? where order_detail_serial_number = ?";
 	
 	private static final String GET_ItemName_Poto_ByOrderDetail = 
-		"SELECT d.order_detail_serial_number,d.order_serial_number,d.item_serial_number,d.order_detail_price,d.order_detail_quantity,d.refund_reason,d.order_detail_status,i.item_name,p.item_photo\r\n"
+		"SELECT d.order_detail_serial_number,d.order_serial_number,d.item_serial_number,d.order_detail_price,d.order_detail_quantity,d.refund_reason,d.order_detail_status,i.item_name,i.photo\r\n"
 		+ "from order_detail d join item i \r\n"
 		+ "on d.item_serial_number = i.item_serial_number\r\n"
-		+ "JOIN photo p on p.item_serial_number = i.item_serial_number\r\n"
 		+ "WHERE i.item_serial_number;";
 
 	
@@ -59,8 +60,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 			
-			con = DriverManager.getConnection(url, userid, passwd);
-//			con = ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_OrderDetail_STMT);
 
 			pstmt.setInt(1, orderDetailVO.getOrderserialnumber());
@@ -104,8 +104,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 			
-			con = DriverManager.getConnection(url, userid, passwd);
-//			con = ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_OrderDetail);
 			
 			pstmt.setInt(1, orderDetailVO.getOrderserialnumber());
@@ -150,8 +149,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
-//			con = ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE_OrderDetail);
 
 			pstmt.setInt(1, orderdetailserialnumber);
@@ -192,8 +190,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
-//			con = ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_OrderDetail_STMT);
 
 			pstmt.setInt(1, orderdetailserialnumber);
@@ -210,6 +207,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOrderdetailquantity(rs.getInt("order_detail_quantity"));
 				orderDetailVO.setRefundreason(rs.getString("refund_reason"));
 				orderDetailVO.setOrderdetailstatus(rs.getInt("order_detail_status"));
+				orderDetailVO.setItemname(rs.getString("item_name"));
+				orderDetailVO.setPhoto(rs.getBytes("photo"));
 
 			}
 
@@ -255,8 +254,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
-//			con = ds.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ItemName_Poto_ByOrderDetail);
 			rs = pstmt.executeQuery();
 
@@ -271,7 +269,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setRefundreason(rs.getString("refund_reason"));
 				orderDetailVO.setOrderdetailstatus(rs.getInt("order_detail_status"));
 				orderDetailVO.setItemname(rs.getString("item_name"));
-				orderDetailVO.setItemphoto(rs.getBytes("item_photo"));
+				orderDetailVO.setPhoto(rs.getBytes("photo"));
 				list.add(orderDetailVO); // Store the row in the list
 				
 			}
@@ -315,8 +313,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		try {
 
      		pstmt = con.prepareStatement(INSERT_OrderDetail_STMT);
-     		
-//			pstmt.setInt(1, orderDetailVO.getOrderdetailserialnumber());
+
 			pstmt.setInt(1, orderDetailVO.getOrderserialnumber());
 			pstmt.setInt(2, orderDetailVO.getItemserialnumber());
 			pstmt.setInt(3, orderDetailVO.getOrderdetailprice());
