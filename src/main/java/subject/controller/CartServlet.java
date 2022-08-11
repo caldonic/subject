@@ -48,6 +48,9 @@ public class CartServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 //	    ======訂單生成於資料庫區結束========
+		
+//       郵件
+		
 
 	}
 }
