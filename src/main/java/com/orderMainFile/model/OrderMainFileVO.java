@@ -16,10 +16,45 @@ public class OrderMainFileVO implements Serializable {
 	private Integer memberevaluationstar;
 	private String sellerevaluationdescription;
 	private String memberevaluationdescription;
-//	private byte[] memberevaluationphoto;
 	private Integer orderamount;
 	private Date orderdate;
 	
+	// FK
+	private String companyname;
+	
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+	
+	// FK
+	private String couponname;
+
+	public String getCouponname() {
+		return couponname;
+	}
+
+	public void setCouponname(String couponname) {
+		this.couponname = couponname;
+	}
+	
+	// FK
+	private String memberaccount;
+	
+
+	public String getMemberaccount() {
+		return memberaccount;
+	}
+
+	public void setMemberaccount(String memberaccount) {
+		this.memberaccount = memberaccount;
+	}
+	
+	
+
 	public OrderMainFileVO() {
 	}
 
