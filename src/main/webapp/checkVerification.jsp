@@ -297,15 +297,19 @@
           class="col-4 p-5 rounded"
           style="background-color: white; margin-top: 30vh"
         >
-          <form action="<%=request.getContextPath()%>/checkVerification" method="get">
+        <div class="d-flex justify-content-center text-danger">${msg}</div>
+        
+          <form action="<%=request.getContextPath()%>/checkVerification" method="post" id="authCodeInfo">
             <h4 class="text-center mb-3">確認驗證碼</h4>
             <div class="d-flex justify-content-center">
               <label class="mr-2 mt-2" for="authCode">驗證碼: </label>
               <input type="text" name="authCode" id="authCode" />
-              <button class="btn btn-warning text-white" id="btn" type="submit">
+              <button class="btn btn-warning text-white" id="submitBtn" type="button">
                 Submit
               </button>
+              
             </div>
+            
           </form>
         </div>
       </div>
@@ -417,5 +421,22 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/axios.min.js"></script>
+    <script>
+      const authCode = document.getElementById('authCode');
+      const authCodeInfo = document.getElementById('authCodeInfo');
+      const submitBtn = document.getElementById('submitBtn');
+
+      submitBtn.onclick = () => {
+        let authCode = document.getElementById('authCode').value.trim();
+
+        if (authCode === '') {
+          alert('請勿空白!!');
+          return false;
+        }
+
+        //表單submit
+        document.getElementById('authCodeInfo').submit();
+      };
+    </script>
   </body>
 </html>

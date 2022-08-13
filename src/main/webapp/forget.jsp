@@ -298,12 +298,21 @@ pageEncoding="UTF-8"%>
           class="col-4 p-5 rounded"
           style="background-color: white; margin-top: 30vh"
         >
-          <form action="<%=request.getContextPath()%>/forget" method="get">
+          <form
+            action="<%=request.getContextPath()%>/forget"
+            method="post"
+            id="emailInfo"
+          >
             <h4 class="text-center mb-3">重新設定密碼</h4>
-            <div class="d-flex justify-content-center">
+            <div class="row justify-content-center">
               <label class="mr-2 mt-2" for="email">e-mail: </label>
               <input type="email" name="email" id="email" />
-              <button class="btn btn-warning text-white" id="btn" type="submit">
+              <!-- <div class="invalid-feedback">請輸入正確E-mail格式</div> -->
+              <button
+                class="btn btn-warning text-white"
+                id="submitBtn"
+                type="button"
+              >
                 Submit
               </button>
             </div>
@@ -418,5 +427,59 @@ pageEncoding="UTF-8"%>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/axios.min.js"></script>
+    <script>
+      const patternEmail =
+        /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/;
+      const email = document.getElementById('email');
+      const emailInfo = document.getElementById('emailInfo');
+      const submitBtn = document.getElementById('submitBtn');
+
+      submitBtn.onclick = () => {
+        let email = document.getElementById('email').value.trim();
+
+        if (email === '' || !patternEmail.test(email)) {
+          alert('請輸入正確信箱!!');
+          return false;
+        }
+
+        //表單submit
+        document.getElementById('emailInfo').submit();
+      };
+
+      // email.onchange = () => {
+      //   let email = document.getElementById('email');
+      //   email.classList.remove('is-invalid');
+
+      //   if (!patternEmail.test(email.value)) {
+      //     email.classList.add('is-invalid');
+      //     return;
+      //   }
+      // };
+
+      // document
+      //   .getElementById('email')
+      //   .addEventListener('change', validationEmail);
+
+      // function validationEmail() {
+      //   let email = document.getElementById('email');
+      //   email.classList.remove('is-invalid');
+
+      //   if (!patternEmail.test(email.value.trim())) {
+      //     email.classList.add('is-invalid');
+      //     return;
+      //   }
+      // }
+
+      // function validation() {
+      //   let email = document.getElementById('email').value.trim();
+
+      //   if (email === '') {
+      //     alert('請輸入信箱!!');
+      //     return false;
+      //   }
+      //   //表單submit
+      //   document.getElementById('emailInfo').submit();
+      // }
+    </script>
   </body>
 </html>

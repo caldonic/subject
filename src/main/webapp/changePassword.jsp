@@ -297,20 +297,26 @@
           class="col-4 p-5 rounded"
           style="background-color: white; margin-top: 20vh"
         >
-          <form action="<%=request.getContextPath()%>/changePassword" method="post">
+          <form action="<%=request.getContextPath()%>/changePassword" method="post" id="passwordInfo">
             <h4 class="text-center">重新設定密碼</h4>
             <div>
               <div>
                 <label class="mr-2 mt-2" for="newPassword">新密碼: </label>
                 <input class="w-100" type="text" name="newPassword" id="newPassword" />
+                <div class="invalid-feedback">
+                  請輸入正確密碼格式(6個字以上，含至少一個英文字母大小寫)
+                </div>
               </div>              
 
               <div>
                 <label class="mr-2 mt-2" for="checkPassword">確認密碼: </label>
                 <input class="w-100" type="text"  name="checkPassword" id="checkPassword" />
+                <div class="invalid-feedback">
+                  請輸入正確密碼格式(6個字以上，含至少一個英文字母大小寫)
+                </div>
               </div>
               
-              <button class="btn btn-warning text-white mt-3 w-100" id="btn" type="submit">
+              <button class="btn btn-warning text-white mt-3 w-100" id="submitBtn" type="submit">
                 Submit
               </button>
             </div>
@@ -425,5 +431,46 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/axios.min.js"></script>
+    <script>
+      const newPassword = document.getElementById('newPassword');
+      const checkPassword = document.getElementById('checkPassword');
+      const submitBtn = document.getElementById('submitBtn');
+      const passwordInfo = document.getElementById('passwordInfo');
+      const pattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
+
+      newPassword.onchange = () => {
+        newPassword.classList.remove('is-invalid');
+
+        if (!pattern.test(newPassword.value.trim())) {
+          newPassword.classList.add('is-invalid');
+        }
+      };
+
+      checkPassword.onchange = () => {
+        checkPassword.classList.remove('is-invalid');
+
+        if (!pattern.test(checkPassword.value.trim())) {
+          checkPassword.classList.add('is-invalid');
+        }
+      };
+
+      submitBtn.onclick = () => {
+        let newPassword = document.getElementById('newPassword').value.trim();
+        let checkPassword = document.getElementById('checkPassword').value.trim();
+
+        if (newPassword === '' || checkPassword === '') {
+          alert('請勿空白!!');
+          return false;
+        }
+
+        if (!(newPassword === checkPassword)) {
+          alert('請確認兩次密碼輸入相同!!');
+          return false;
+        }
+
+        //表單submit
+        document.getElementById('passwordInfo').submit();
+      };
+    </script>
   </body>
 </html>

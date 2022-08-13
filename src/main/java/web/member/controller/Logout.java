@@ -32,6 +32,7 @@ public class Logout extends HttpServlet {
 			return;
 		}
 		session.removeAttribute("memID");
+		session.removeAttribute("sellID");
 //		System.out.println(session.getAttribute("memID"));
 		resp.sendRedirect(req.getContextPath()+"/index.jsp");
 	}

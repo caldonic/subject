@@ -27,46 +27,93 @@ public class ForgetServlet extends HttpServlet {
 	private HttpSession session;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		String email = req.getParameter("email");
-		session = req.getSession();
-
-		MemberDao dao;
-		SellerDao dao2;
-		try {
-			dao = new MemberDaoImpl();
-			Member member = new Member();
-			member.setEmail(email);
-			member = dao.selectEmail(member);
-			
-			dao2 = new SellerDaoImpl();
-			Seller seller = new Seller();
-			seller.setEmail(email);
-			seller = dao2.selectEmail(seller);
-			
-			
-			MailService service = new MailServiceImpl();
-			String authCode = service.getAuthCode();
-			service.sendMail(email, " LETITGO樂易購 電子信箱驗證信函", "驗證碼: " + authCode);
-			session.setAttribute("authCode", authCode);
-			System.out.println("已寄出驗證信!!");
-			
-			if (member != null) {
-				session.setAttribute("account", member.getAccount());
-				System.out.println(member.getAccount());
-			} else {
-				session.setAttribute("account", seller.getAccount());
-				System.out.println(seller.getAccount());
-			}
-			req.getRequestDispatcher("/checkVerification.jsp").forward(req, resp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		req.setCharacterEncoding("UTF-8");
+//		String email = req.getParameter("email");
+//		if (email != null && email.trim().length() != 0) {
+//			
+//			
+//			session = req.getSession();
+//			
+//			MemberDao dao;
+//			SellerDao dao2;
+//			try {
+//				dao = new MemberDaoImpl();
+//				Member member = new Member();
+//				member.setEmail(email);
+//				member = dao.selectEmail(member);
+//				
+//				dao2 = new SellerDaoImpl();
+//				Seller seller = new Seller();
+//				seller.setEmail(email);
+//				seller = dao2.selectEmail(seller);
+//				
+//				
+//				MailService service = new MailServiceImpl();
+//				String authCode = service.getAuthCode();
+//				service.sendMail(email, " LETITGO樂易購 電子信箱驗證信函", "驗證碼: " + authCode);
+//				session.setAttribute("authCode", authCode);
+//				System.out.println("已寄出驗證信!!");
+//				
+//				if (member != null) {
+//					session.setAttribute("account", member.getAccount());
+//					System.out.println(member.getAccount());
+//				} else {
+//					session.setAttribute("account", seller.getAccount());
+//					System.out.println(seller.getAccount());
+//				}
+//				req.getRequestDispatcher("/checkVerification.jsp").forward(req, resp);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}else {
+//			System.out.println("請勿空白!");
+//			return;
+//		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(req, resp);
+		req.setCharacterEncoding("UTF-8");
+		String email = req.getParameter("email");
+		if (email != null && email.trim().length() != 0) {
+			
+			
+			session = req.getSession();
+			
+			MemberDao dao;
+			SellerDao dao2;
+			try {
+				dao = new MemberDaoImpl();
+				Member member = new Member();
+				member.setEmail(email);
+				member = dao.selectEmail(member);
+				
+				dao2 = new SellerDaoImpl();
+				Seller seller = new Seller();
+				seller.setEmail(email);
+				seller = dao2.selectEmail(seller);
+				
+				
+				MailService service = new MailServiceImpl();
+				String authCode = service.getAuthCode();
+				service.sendMail(email, " LETITGO樂易購 電子信箱驗證信函", "驗證碼: " + authCode);
+				session.setAttribute("authCode", authCode);
+				System.out.println("已寄出驗證信!!");
+				
+				if (member != null) {
+					session.setAttribute("account", member.getAccount());
+					System.out.println(member.getAccount());
+				} else {
+					session.setAttribute("account", seller.getAccount());
+					System.out.println(seller.getAccount());
+				}
+				req.getRequestDispatcher("/checkVerification.jsp").forward(req, resp);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("請勿空白!");
+			return;
+		}
 	}
 
 }

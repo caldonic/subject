@@ -10,7 +10,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>LETITGO</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -708,15 +708,15 @@ li:last-child > .widget-list-link2 {
             <div class="humberger__menu__overlay"></div>
             <div class="humberger__menu__wrapper">
                 <div class="humberger__menu__logo">
-                    <a href="#"><img src="https://fakeimg.pl/150x60/" alt=""></a><!--自然改-->
+                    <a href="#"><img src="/subject/src/main/webapp/img/logo.png" alt=""></a><!--自然改-->
                 </div>
                 <div class="humberger__menu__cart">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> </a></li><!--自然改-->
+                        <li><a href="./my_favorite.jsp"><i class="fa fa-heart"></i> </a></li><!--自然改-->
                         <li><a href="./index.jsp"><i class="fa-solid fa-house"></i> </a></li><!--自然改--><!--這個圖示用來做回首頁-->
                         <li><a href="./shoping-cart.html"><i class="fa-solid fa-cart-shopping"></i> </a></li><!--自然改--><!--這個圖示用來做購物車-->
-                        <li><a href="#"><i class="fa-solid fa-ticket"></i></a></li> <!--自然改--><!--這個圖示用來做我的票券-->
-                        <li><a href="./index.jsp"><i class="fa-solid fa-person"></i></a></li> <!--自然改--><!--這個圖示用來做登入-->
+                        <li><a href="./listAllTicket.jsp"><i class="fa-solid fa-ticket"></i></a></li> <!--自然改--><!--這個圖示用來做我的票券-->
+                        <li><a href="./logout"><i class="fa-solid fa-person"></i></a></li> <!--自然改--><!--這個圖示用來做登入-->
                     </ul>
                     <!-- <div class="header__cart__price">item: <span>$150.00</span></div> -->
                 </div>
@@ -740,23 +740,19 @@ li:last-child > .widget-list-link2 {
                         <li><a href="./shop-grid.html">Shop</a></li> -->
                         <li><a href="#">會員中心</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">帳戶管理</a></li> <!--自然改-->
-                                <li><a href="#">訂單查詢</a></li> <!--自然改-->
-                                <li><a href="#">我的錢包</a></li> <!--自然改-->
-                                <li><a href="#">我的最愛</a></li> <!--自然改-->
-                                <li><a href="#">會員權益</a></li> <!--自然改-->
-                                <li><a href="./contact.html">聯繫客服</a></li> <!--自然改-->
-                                <li><a href="#">買家FAQ</a></li> <!--自然改-->
+                                            <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> <!--自然改-->
+                                            <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> <!--自然改-->
+                                            <li><a href="./MemberBenefits.html">會員權益</a></li> <!--自然改-->
+                                            <li><a href="./CustomerService.html">聯繫客服</a></li> <!--自然改-->
+                                            <li><a href="./FAQ.html">買家FAQ</a></li> <!--自然改-->
                             </ul>
                         </li>
                         <li><a href="#">賣家中心</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="#">訂單管理</a></li> <!--自然改-->
-                                <li><a href="#">商品管理</a></li> <!--自然改-->
-                                <li><a href="#">財務管理</a></li> <!--自然改-->
-                                <li><a href="#">帳戶管理</a></li> <!--自然改-->
-                                <li><a href="#">我的報表</a></li> <!--自然改-->
-                                <li><a href="#">賣家FAQ</a></li> <!--自然改-->
+                                            <li><a href="./seller/Order">訂單管理</a></li> <!--自然改-->
+                                            <li><a href="./seller/product.jsp">商品管理</a></li> <!--自然改-->
+                                            <li><a href="./seller/Seller">帳戶管理</a></li> <!--自然改-->
+    
                             </ul>
                         </li>
                         <!-- <li><a href="./blog.html">Blog</a></li>
@@ -820,7 +816,7 @@ li:last-child > .widget-list-link2 {
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="header__logo">
-                                <a href="./index.jsp"><img src="https://fakeimg.pl/150x60/" alt=""></a><!--自然改-->
+                                <a href="./index.jsp"><img src="./img/Frame 6.svg" alt=""></a><!--自然改-->
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -828,24 +824,20 @@ li:last-child > .widget-list-link2 {
                                 <ul>
                                     <li><a href="#">會員中心</a>
                                         <ul class="header__menu__dropdown">
-                                            <li><a href="#">帳戶管理</a></li> <!--自然改-->
-                                            <li><a href="#">訂單查詢</a></li> <!--自然改-->
-                                            <li><a href="#">我的錢包</a></li> <!--自然改-->
-                                            <li><a href="#">我的最愛</a></li> <!--自然改-->
-                                            <li><a href="#">會員權益</a></li> <!--自然改-->
-                                            <li><a href="./contact.html">聯繫客服</a></li> <!--自然改-->
-                                            <li><a href="#">買家FAQ</a></li> <!--自然改-->
+                                            <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> <!--自然改-->
+                                            <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> <!--自然改-->
+                                            <li><a href="./MemberBenefits.html">會員權益</a></li> <!--自然改-->
+                                            <li><a href="./CustomerService.html">聯繫客服</a></li> <!--自然改-->
+                                            <li><a href="./FAQ.html">買家FAQ</a></li> <!--自然改-->
         
                                         </ul>
                                     </li>
                                     <li><a href="#">賣家中心</a>
                                         <ul class="header__menu__dropdown">
-                                            <li><a href="#">訂單管理</a></li> <!--自然改-->
-                                            <li><a href="#">商品管理</a></li> <!--自然改-->
-                                            <li><a href="#">財務管理</a></li> <!--自然改-->
-                                            <li><a href="#">帳戶管理</a></li> <!--自然改-->
-                                            <li><a href="#">我的報表</a></li> <!--自然改-->
-                                            <li><a href="#">賣家FAQ</a></li> <!--自然改-->
+                                            <li><a href="./seller/Order">訂單管理</a></li> <!--自然改-->
+                                            <li><a href="./seller/product.jsp">商品管理</a></li> <!--自然改-->
+                                            <li><a href="./seller/Seller">帳戶管理</a></li> <!--自然改-->
+
                                         </ul>
                                     </li>
                                 </ul>
@@ -854,11 +846,12 @@ li:last-child > .widget-list-link2 {
                         <div class="col-lg-3">
                             <div class="header__cart">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-heart"></i> </a></li><!--自然改-->
+                                    <li><a href="./my_favorite.jsp"><i class="fa fa-heart"></i> </a></li><!--自然改-->
                                     <li><a href="./index.jsp"><i class="fa-solid fa-house"></i> </a></li><!--自然改--><!--這個圖示用來做回首頁-->
                                     <li><a href="./shoping-cart.html"><i class="fa-solid fa-cart-shopping"></i> </a></li><!--自然改--><!--這個圖示用來做購物車-->
-                                    <li><a href="#"><i class="fa-solid fa-ticket"></i></a></li> <!--自然改--><!--這個圖示用來做我的票券-->
-                                    <li><a href="./index.jsp"><i class="fa-solid fa-person"></i></a></li> <!--自然改--><!--這個圖示用來做登入-->
+                                    <li><a href="./ticket/listAllTicket.jsp"><i class="fa-solid fa-ticket"></i></a></li> <!--自然改--><!--這個圖示用來做我的票券-->
+                                    <li><a href="./login.html"><i class="fa-solid fa-person"></i></a></li> <!--自然改--><!--這個圖示用來做登入-->
+                                    <li><a href="./logout"><i class="fa fa-sign-out"></i></a></li> <!--自然改--><!--這個圖示用來做登入-->
                                 </ul>
                                 <!-- <div class="header__cart__price">item: <span>$150.00</span></div> -->
                             </div>

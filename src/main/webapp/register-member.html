@@ -525,7 +525,7 @@
       // 抓上面使用者輸入資訊
       const account = document.querySelector('#account');
       const password = document.querySelector('#password');
-      const name = document.querySelector('#name');
+      // const name = document.querySelector('#name');
       const birthday = document.querySelector('#birthday');
       const email = document.querySelector('#email');
       const phone = document.querySelector('#phone');
@@ -537,6 +537,7 @@
         /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/;
       const patternPhone = /^(09)\d{8}$/;
       window.addEventListener('load', function () {
+        const name = document.querySelector('#name');
         account.onchange = () => {
           const acct = document.querySelector('#account')?.value?.trim();
           const isValid = pattern.test(acct);
@@ -610,6 +611,31 @@
             !phone.value ||
             !address.value
           ) {
+            // switch ('') {
+            //   case account.value:
+            //     alert('帳號請勿空白!');
+            //   break;
+            //   case password.value:
+            //     alert('密碼請勿空白!');
+            //     break;
+            //   case name.value:
+            //     alert('名字請勿空白!');
+            //     break;
+            //   case birthday.value:
+            //     alert('帳號請勿空白!');
+            //     break;
+            //   case email.value:
+            //     alert('帳號請勿空白!');
+            //     break;
+            //   case phone.value:
+            //     alert('帳號請勿空白!');
+            //     break;
+            //   case address.value:
+            //     alert('帳號請勿空白!');
+            //     break;
+            //   default:
+            //     break;
+            // }
             return;
           }
 
