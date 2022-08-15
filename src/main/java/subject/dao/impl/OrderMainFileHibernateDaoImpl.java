@@ -25,7 +25,12 @@ public class OrderMainFileHibernateDaoImpl implements OrderMainFileHibernateDao 
 	@Override
 	public OrderMainFileHibernate insert(OrderMainFileHibernate orderMainFileHibernate) {
 //		System.out.println("merge-method");
-		return (OrderMainFileHibernate) getSession().merge(orderMainFileHibernate);
+//		return (OrderMainFileHibernate) getSession().merge(orderMainFileHibernate);
+		System.out.println("merge-method");
+		Session session = getSession();
+		OrderMainFileHibernate vo = (OrderMainFileHibernate) session.merge(orderMainFileHibernate);
+//		session.getTransaction().commit();
+		return vo;
 	}
 
 }
