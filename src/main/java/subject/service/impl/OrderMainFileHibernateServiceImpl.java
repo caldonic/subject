@@ -35,7 +35,7 @@ public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernate
 //		Date curtime= strToDateLong(dateFormat.format(calendar.getTime()));
 		if (couponname == null || Objects.equals(couponname, "")) {
 			OrderMainFileHibernate orderMainFileHibernate = new OrderMainFileHibernate();
-			orderMainFileHibernate.setMemberserialnumber(1636010);
+			orderMainFileHibernate.setMemberserialnumber(1636001);
 			orderMainFileHibernate.setSellerserialnumber(1000);
 			orderMainFileHibernate.setOrderstatusnumber("1");
 			orderMainFileHibernate.setSellerevaluationstar(2);
@@ -65,7 +65,7 @@ public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernate
 
 		} else {
 			OrderMainFileHibernate orderMainFileHibernate = new OrderMainFileHibernate();
-			orderMainFileHibernate.setMemberserialnumber(1636010);
+			orderMainFileHibernate.setMemberserialnumber(1636001);
 			orderMainFileHibernate.setSellerserialnumber(1000);
 			orderMainFileHibernate.setOrderstatusnumber("1");
 			orderMainFileHibernate.setCouponserialnumber(couponDao.selectcouponserialnumber(couponname));
