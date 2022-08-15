@@ -72,6 +72,7 @@ public class OrderMainFileController extends HttpServlet {
 		}
 		
 		
+<<<<<<< HEAD
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -129,6 +130,9 @@ public class OrderMainFileController extends HttpServlet {
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+=======
+		if ("getOne_For_Update".equals(action)) { // 來自OrderMainFile.jsp的請求
+>>>>>>> Chris
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -200,8 +204,13 @@ public class OrderMainFileController extends HttpServlet {
 				// ,memberevaluationphoto
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("orderMainFileVO", orderMainFileVO); // 資料庫update成功後,正確的的orderMainFileVO物件,存入req
+<<<<<<< HEAD
 				String url = "/orderMainFile/listAllOrderMainFile.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+=======
+				String url = "/orderMainFile/OrderMainFile.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneOrderMainFlie.jsp
+>>>>>>> Chris
 				successView.forward(req, res);
 		}
 
@@ -313,7 +322,11 @@ public class OrderMainFileController extends HttpServlet {
 		}
 		
 		
+<<<<<<< HEAD
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+=======
+		if ("delete".equals(action)) { // 來自OrderMainFile.jsp
+>>>>>>> Chris
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -328,7 +341,7 @@ public class OrderMainFileController extends HttpServlet {
 				orderMainFileSvc.deleteOrderMainFile(orderserialnumber);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/orderMainFile/listAllOrderMainFile.jsp";
+				String url = "/orderMainFile/OrderMainFile.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}
