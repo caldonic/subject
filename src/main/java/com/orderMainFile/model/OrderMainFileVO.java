@@ -95,14 +95,6 @@ public class OrderMainFileVO implements Serializable {
 		this.memberevaluationdescription = memberevaluationdescription;
 	}
 
-//	public byte[] getMemberevaluationphoto() {
-//		return memberevaluationphoto;
-//	}
-//
-//	public void setMemberevaluationphoto(byte[] memberevaluationphoto) {
-//		this.memberevaluationphoto = memberevaluationphoto;
-//	}
-
 	public Integer getOrderamount() {
 		return orderamount;
 	}

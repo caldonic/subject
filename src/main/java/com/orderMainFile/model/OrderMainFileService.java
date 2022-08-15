@@ -25,7 +25,6 @@ public class OrderMainFileService {
 	public OrderMainFileVO addOrderMainFile(Integer memberserialnumber, Integer sellerserialnumber,
 			String orderstatusnumber, Integer couponserialnumber, Integer sellerevaluationstar,
 			Integer memberevaluationstar, String sellerevaluationdescription, String memberevaluationdescription, Integer orderamount, java.sql.Date orderdate) {
-			// ,byte[] memberevaluationphoto,
 		OrderMainFileVO orderMainFileVO = new OrderMainFileVO();
 
 		orderMainFileVO.setMemberserialnumber(memberserialnumber);
@@ -36,7 +35,6 @@ public class OrderMainFileService {
 		orderMainFileVO.setMemberevaluationstar(memberevaluationstar);
 		orderMainFileVO.setSellerevaluationdescription(sellerevaluationdescription);
 		orderMainFileVO.setMemberevaluationdescription(memberevaluationdescription);
-//		orderMainFileVO.setMemberevaluationphoto(memberevaluationphoto);
 		orderMainFileVO.setOrderamount(orderamount);
 		orderMainFileVO.setOrderdate(orderdate);
 		dao.insert(orderMainFileVO);
@@ -48,7 +46,6 @@ public class OrderMainFileService {
 	public OrderMainFileVO updateOrderMainFile(Integer orderserialnumber, Integer memberserialnumber, Integer sellerserialnumber,
 			String orderstatusnumber, Integer couponserialnumber, Integer sellerevaluationstar,
 			Integer memberevaluationstar, String sellerevaluationdescription, String memberevaluationdescription, Integer orderamount, java.sql.Date orderdate) {
-			// ,byte[] memberevaluationphoto
 		OrderMainFileVO orderMainFileVO = new OrderMainFileVO();
 
 		orderMainFileVO.setOrderserialnumber(orderserialnumber);
@@ -60,7 +57,6 @@ public class OrderMainFileService {
 		orderMainFileVO.setMemberevaluationstar(memberevaluationstar);
 		orderMainFileVO.setSellerevaluationdescription(sellerevaluationdescription);
 		orderMainFileVO.setMemberevaluationdescription(memberevaluationdescription);
-//		orderMainFileVO.setMemberevaluationphoto(memberevaluationphoto);
 		orderMainFileVO.setOrderamount(orderamount);
 		orderMainFileVO.setOrderdate(orderdate);
 		dao.update(orderMainFileVO);
@@ -89,7 +85,7 @@ public class OrderMainFileService {
 	}
 	
 	// 同時新增訂單主檔及訂單明細
-//	public void insertWithOrderDetail(OrderMainFileVO orderMainFileVO , List<OrderDetailVO> list) {
-//		dao.insertWithOrderDetail();
-//	}
+	public void insertWithOrderDetail(OrderMainFileVO orderMainFileVO , List<OrderDetailVO> list) {
+		
+	}
 }
