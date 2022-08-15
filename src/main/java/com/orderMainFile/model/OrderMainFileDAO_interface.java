@@ -19,5 +19,5 @@ public interface OrderMainFileDAO_interface {
 		Integer getOrderMail();
 		
 		// 同時新增訂單主檔及訂單明細
-		public void insertWithOrderDetail(OrderMainFileVO orderMainFileVO, List<OrderDetailVO> list);
+		void insertWithOrderDetail(OrderMainFileVO orderMainFileVO, List<OrderDetailVO> list);
 }

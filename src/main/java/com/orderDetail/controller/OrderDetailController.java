@@ -27,7 +27,7 @@ public class OrderDetailController extends HttpServlet {
 
 	Gson gs = new Gson();
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 //		req.setCharacterEncoding("UTF-8");
 //		// 重要
@@ -62,7 +62,7 @@ public class OrderDetailController extends HttpServlet {
 	////out.print(gs.toJson(listOrderDetail.get(0).getPhoto()));
 	//out.print(base64);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

@@ -1,105 +1,112 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.orderDetail.model.*"%>
 <%@ page import="com.orderMainFile.model.*"%>
+<%@ page import="com.orderDetail.model.*"%>
 
 <%
-OrderDetailService detailSvc = new OrderDetailService();
-List<OrderDetailVO> listOrderDetail = detailSvc.getAllOrderDetail();
-pageContext.setAttribute("listOrderDetail", listOrderDetail);
+OrderMainFileService orderMainFileSvc = new OrderMainFileService();
+List<OrderMainFileVO> list = orderMainFileSvc.getAll();
+pageContext.setAttribute("list", list);
+
+Map<String, String> test = orderMainFileSvc.test();
+pageContext.setAttribute("test", test);
 %>
 
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<meta charset="UTF-8" />
-<meta name="description" content="Ogani Template" />
-<meta name="keywords" content="Ogani, unica, creative, html" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>LetItGo | 會員中心</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LetItGo | 會員中心</title>
 
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet" />
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-	rel="stylesheet" />
-<!--自然改-->
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"><!--自然改-->
 
-<!-- Css Styles -->
-<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
-<link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
-<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
 
-<!-- Css OrderDetail datatables -->
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+	<!-- Css OrderMainFile datatables -->
+	<link rel="stylesheet"
+		href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+	<link rel="stylesheet"
+		href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" />
+	<link rel="stylesheet"
+		href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
 
 <style>
-	
 	h6 {
 		font-size: 28px;
 	}
 	
-	/* OrderDetail Css Styles */
 	h5 {
 		font-size: 24px;
 		color: #4e4c4c;
 	}
 	
-	/* all btn */
+    /* all btn */
     .btn {
 	    font-size: 10px;
 	    border-radius: 5px;
-	    background-color: #7fad39;
-	    border-color: #7fad39;
+ 	    background-color: #7fad39; 
+ 	    border-color: #7fad39;
     }
     
-    .btn:hover {
-	   	background-color: #688c32;
-	   	border-color: #688c32;
-    }
-	
-	/* datatables */
-	#orderdetail_tb {
-    	border-radius: 5px;
+    .btn:hover { 
+     	background-color: #688c32; 
+     	border-color: #688c32; 
+  	 } 
+    
+    button.dt-button,
+    .btn
+    .paginate_button,
+    .dataTables_wrapper .dataTables_filter input :hover{
+    	font-size: 10px;
+	    border-radius: 5px;
     }
     
-    #orderdetail_tb thead,
-	#orderdetail_tb th,
-	#orderdetail_tb td {
-		text-align: center;
-	} 
-	
+    /* datatables */
+   	#order_tb {
+       border-radius: 5px;
+    }
+    	
 	.dataTables_wrapper .dataTables_length,
     .dataTables_wrapper .dataTables_filter,
     .dataTables_wrapper .dataTables_info,
     .dataTables_wrapper .dataTables_processing,
     .dataTables_wrapper .dataTables_paginate {
-        font-size: 15px;
+        font-size: 10px;
         border-radius: 5px;
     }
     
+	.dataTables_wrapper .dataTables_paginate .paginate_button {
+		font-size: 10px;
+	    border-radius: 5px;
+	}
+      
 </style>
 
 </head>
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <!-- Header Section Begin -->
+<!-- Header Section Begin -->
 <header class="header">
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -135,15 +142,15 @@ pageContext.setAttribute("listOrderDetail", listOrderDetail);
             <ul>
                 <!-- <li class="active"><a href="./index.jsp">Home</a></li>
                 <li><a href="./shop-grid.html">Shop</a></li> -->
-                <li><a href="#">會員中心</a>
-                    <ul class="header__menu__dropdown">
-                                    <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> <!--自然改-->
-                                    <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> <!--自然改-->
-                                    <li><a href="./MemberBenefits.html">會員權益</a></li> <!--自然改-->
-                                    <li><a href="./CustomerService.html">聯繫客服</a></li> <!--自然改-->
-                                    <li><a href="./FAQ.html">買家FAQ</a></li> <!--自然改-->
-                    </ul>
-                </li>
+<!--                 <li><a href="#">會員中心</a> -->
+<!--                     <ul class="header__menu__dropdown"> -->
+<!--                                     <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> 自然改 -->
+<!--                                     <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> 自然改 -->
+<!--                                     <li><a href="./MemberBenefits.html">會員權益</a></li> 自然改 -->
+<!--                                     <li><a href="./CustomerService.html">聯繫客服</a></li> 自然改 -->
+<!--                                     <li><a href="./FAQ.html">買家FAQ</a></li> 自然改 -->
+<!--                     </ul> -->
+<!--                 </li> -->
                 <li><a href="#">賣家中心</a>
                     <ul class="header__menu__dropdown">
                                     <li><a href="./seller/Order">訂單管理</a></li> <!--自然改-->
@@ -213,22 +220,22 @@ pageContext.setAttribute("listOrderDetail", listOrderDetail);
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.jsp"><img src="./img/Frame 6.svg" alt=""></a><!--自然改-->
+                        <a href="../index.jsp"><img src="../img/Frame 6.svg" alt=""></a><!--自然改-->
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="#">會員中心</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> <!--自然改-->
-                                    <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> <!--自然改-->
-                                    <li><a href="./MemberBenefits.html">會員權益</a></li> <!--自然改-->
-                                    <li><a href="./CustomerService.html">聯繫客服</a></li> <!--自然改-->
-                                    <li><a href="./FAQ.html">買家FAQ</a></li> <!--自然改-->
+<!--                             <li><a href="#">會員中心</a> -->
+<!--                                 <ul class="header__menu__dropdown"> -->
+<!--                                     <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> 自然改 -->
+<!--                                     <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> 自然改 -->
+<!--                                     <li><a href="./MemberBenefits.html">會員權益</a></li> 自然改 -->
+<!--                                     <li><a href="./CustomerService.html">聯繫客服</a></li> 自然改 -->
+<!--                                     <li><a href="./FAQ.html">買家FAQ</a></li> 自然改 -->
 
-                                </ul>
-                            </li>
+<!--                                 </ul> -->
+<!--                             </li> -->
                             <li><a href="#">賣家中心</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./seller/Order">訂單管理</a></li> <!--自然改-->
@@ -261,6 +268,7 @@ pageContext.setAttribute("listOrderDetail", listOrderDetail);
     </header>
     <!-- Header Section End -->
 
+
 	<section class="hero">
 		<div class="container">
 			<div class="row">
@@ -271,70 +279,91 @@ pageContext.setAttribute("listOrderDetail", listOrderDetail);
 							<!--韋爾改-->
 						</div>
 						<ul>
-							<li><a href="listAllMemberupdate.jsp">帳戶管理</a></li>
+							<li><a href="../memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li>
 			                <!--韋爾改-->
-			                <li><a href="listAllOrderMainFile.jsp">訂單查詢</a></li>
+			                <li><a href="OrderMainFile.jsp">訂單查詢</a></li>
 			                <!--韋爾改-->
-			                <li><a href="./walletrecord/listAllWalletrecord.jsp">我的錢包</a></li>
-			                <!--韋爾改-->
-			                <li><a href="./ticket/listAllTicket.jsp">我的票夾</a></li>
+			                <li><a href="../ticket/listAllTicket.jsp">我的票夾</a></li>
 			                <li><a href="#">我的最愛</a></li>
 			                <!--韋爾改-->
-			                <li><a href="./MemberBenefits.html">會員權益</a></li>
+			                <li><a href="../MemberBenefits.html">會員權益</a></li>
 			                <!--韋爾改-->
-			                <li><a href="./CustomerService.html">聯繫客服</a></li>
+			                <li><a href="../CustomerService.html">聯繫客服</a></li>
 			                <!--韋爾改-->
-			                <li><a href="./FAQ.html">買家FAQ</a></li>
+			                <li><a href="../FAQ.html">會員FAQ</a></li>
 							<!-- <li><a href="#">Fresh Onion</a></li>
-           					<li><a href="#">Papayaya & Crisps</a></li>
-				            <li><a href="#">Oatmeal</a></li>
-				            <li><a href="#">Fresh Bananas</a></li> -->
+           <li><a href="#">Papayaya & Crisps</a></li>
+           <li><a href="#">Oatmeal</a></li>
+           <li><a href="#">Fresh Bananas</a></li> -->
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-9">
-					<!-- OrderDetail Begin -->
+					<!-- OrderMainFile Begin -->
 					<div class="card-header py-2">
-						<h5 class="m-0 font-weight-bold">訂 單 明 細</h5>
+						<h5 class="m-0 font-weight-bold">我 的 訂 單</h5>
 					</div>
-					<table id="orderdetail_tb"
-						class="table table-striped table-hover responsive nowrap">
+
+					<table id="order_tb"
+						class="table table-striped table-hover responsive nowrap"
+						cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th scope="row">訂單編號</th>
-								<th>商品名稱</th>
-								<th>商品數量</th>
-								<th>商品金額</th>
-								<th width="15%">商品圖片</th>
+								<th>訂單編號</th>
+							    <th>會員帳號</th>
+								<th>賣場名稱</th>
+								<th>訂單狀態</th>
+								<th>已使用優惠券名稱</th>
+								<th>訂單金額</th>
+								<th>訂單日期</th>							
+								<th>操作</th>
+								<th>評論此筆訂單</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="OrderDetailVO" items="${listOrderDetail}"
-								begin="${offset}" end="<%=listOrderDetail.size()%>">
-								<c:if
-									test="${OrderMainFileVO.orderserialnumber == OrderDetailVO.orderserialnumber}">
-
-									<tr>
-										<td>${OrderDetailVO.orderserialnumber}</td>
-										<td>${OrderDetailVO.itemname}</td>
-										<td>${OrderDetailVO.orderdetailquantity}</td>
-										<td>${OrderDetailVO.orderdetailprice}</td>
-										<td>
-										<img src ="<%=request.getContextPath()%>/OrderDetail/OrderDetail.img?action=getImg&itemNo=${OrderDetailVO.itemserialnumber}" alt="No image">
-										</td>
-									</tr>
-								</c:if>
+							<c:forEach var="orderMainFileVO" items="${list}" begin="0" step="1" varStatus="i">
+								<tr>
+									<td>${orderMainFileVO.orderserialnumber}</td>
+									<td>${orderMainFileVO.memberaccount}</td>
+									<td>${orderMainFileVO.companyname}</td>
+									<td>${test[orderMainFileVO.orderstatusnumber]}</td>							
+									<td>${orderMainFileVO.couponname}</td>
+									<td>${orderMainFileVO.orderamount}</td>
+									<td>${orderMainFileVO.orderdate}</td>
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/orderMainFile/orderMainFile.do"
+											style="margin-bottom: 0px;">
+											<input class="btn btn-primary" type="submit" value="查看">
+											<input type="hidden" name="orderserialnumber"
+												value="${orderMainFileVO.orderserialnumber}"> <input
+												type="hidden" name="action" value="getDetail_For_Display">
+										</FORM>
+									</td>
+									<td>${orderMainFileVO.memberevaluationdescription}
+										<c:if test="${orderMainFileVO.memberevaluationdescription eq ''}">
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/orderMainFile/orderMainFile.do"
+											style="margin-bottom: 0px;">
+											<input class="btn btn-primary" type="submit" value="評論"> <input
+												type="hidden" name="orderserialnumber"
+												value="${orderMainFileVO.orderserialnumber}"> <input
+												type="hidden" name="action" value="getOne_For_Update">
+										</FORM>
+										</c:if>
+								
+									</td>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-					<input type="button" value="回上一頁" class="btn btn-primary" onclick="location.href='OrderMainFile.jsp'">
-					<!-- OrderDetail End -->
+					<!-- OrderMainFile End -->
 				</div>
 			</div>
 		</div>
 	</section>
 	
-	<!-- Footer Section Begin -->
+	 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
         <div class="container">
             <div class="row">
@@ -353,14 +382,14 @@ pageContext.setAttribute("listOrderDetail", listOrderDetail);
                 <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                     <div class="footer__widget">
                         <h6>相關連結</h6>
-                        <ul class="header__menu__dropdown">
-                                            <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> <!--自然改-->
-                                            <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> <!--自然改-->
-                                            <li><a href="./MemberBenefits.html">會員權益</a></li> <!--自然改-->
-                                            <li><a href="./CustomerService.html">聯繫客服</a></li> <!--自然改-->
-                                            <li><a href="./FAQ.html">買家FAQ</a></li> <!--自然改-->
+<!--                         <ul class="header__menu__dropdown"> -->
+<!--                                             <li><a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a></li> 自然改 -->
+<!--                                             <li><a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a></li> 自然改 -->
+<!--                                             <li><a href="./MemberBenefits.html">會員權益</a></li> 自然改 -->
+<!--                                             <li><a href="./CustomerService.html">聯繫客服</a></li> 自然改 -->
+<!--                                             <li><a href="./FAQ.html">買家FAQ</a></li> 自然改 -->
 
-                        </ul>
+<!--                         </ul> -->
                         <ul class="header__menu__dropdown">
                                             <li><a href="./seller/Order">訂單管理</a></li> <!--自然改-->
                                             <li><a href="./seller/product.jsp">商品管理</a></li> <!--自然改-->
@@ -397,47 +426,66 @@ pageContext.setAttribute("listOrderDetail", listOrderDetail);
         </div>
    </footer>
    <!-- Footer Section End -->
-	
-	<!-- Footer Section Begin -->
-<%-- 	<jsp:include page="/footer.jsp"></jsp:include> --%>
-	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
-	<script src="../js/jquery-3.3.1.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/jquery.nice-select.min.js"></script>
-	<script src="../js/jquery-ui.min.js"></script>
-	<script src="../js/jquery.slicknav.js"></script>
-	<script src="../js/mixitup.min.js"></script>
-	<script src="../js/owl.carousel.min.js"></script>
-	<script src="../js/main.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
 
-	<!-- Js OrderDetail datatables -->
+	<!-- Js OrderMainFile datatables -->
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
 	<script>
-	$(document).ready( function () { 
-			$('#orderdetail_tb').DataTable({
-				responsive: true,
-				language: {
-	            	url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/zh-HANT.json",
-	            },
-	            lengthMenu: [
-	            	[5, 20, 50, -1],
-	                [5, 20, 50, "All"],
-	            ],
-// 	            "columns": [
-// 	            	null,
-// 	                null,
-// 	                null,
-// 	                null,
-// 	                { "width": "10%" }
+		$(document).ready(
+			function() {
+				$('#order_tb').DataTable({
+					responsive : true,
+					language : {
+					url : "https://cdn.datatables.net/plug-ins/1.12.1/i18n/zh-HANT.json",
+					},
+					lengthMenu : [
+									[ 5, 20, 50, -1 ],
+									[ 5, 20, 50, "All" ],
+								 ],
+// 				"columnDefs" : [
+// 			       {
+// 		                  targets: "_all",
+// 		                  className: "text-center",
+// 		           },
+// 			{
+// 				targets : [ 7 ],
+// 				responsivePriority : 1,
+// 			}, {
+// 				targets : [ 5 ],
+// 				responsivePriority : 2,
+// 			}, ],
+				dom : "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>"
+						+ "<'row'<'col-sm-12'tr>>"
+						+ "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				buttons : [ "copy","excel","pdf", "print" ],
 
-// 	              ],
+			});
+				
+				
 
-			});  
-		}); 
+
+
+		});
+		
 	</script>
+
 
 </body>
 </html>

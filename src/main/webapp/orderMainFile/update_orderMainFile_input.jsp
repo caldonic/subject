@@ -3,7 +3,7 @@
 <%@ page import="com.orderMainFile.model.*"%>
 
 <%
-	OrderMainFileVO orderMainFileVO = (OrderMainFileVO) request.getAttribute("orderMainFileVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+	OrderMainFileVO orderMainFileVO = (OrderMainFileVO) request.getAttribute("orderMainFileVO"); //OrderMainFileController 存入req的OrderMainFileVO物件 (包括幫忙取出的OrderMainFileVO, 也包括輸入資料錯誤時的OrderMainFileVO物件)
 %>
 
 <html lang="zxx">
@@ -27,14 +27,14 @@
 <!--自然改-->
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-<link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-<link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+<link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/style.css" type="text/css" />
 
 <!-- Css orderlist datatables -->
     <link
@@ -59,6 +59,18 @@
 	font-size: 24px;
 	color: #4e4c4c;
   }
+  
+  .btn {
+    font-size: 10px;
+    border-radius: 5px;
+    background-color: #7fad39;
+    border-color: #7fad39;
+   }
+    
+   .btn:hover {
+   	background-color: #688c32;
+   	border-color: #688c32;
+   }
 </style>
 
 </head>
@@ -413,8 +425,9 @@
 		<br>
 		<input type="hidden" name="action" value="update">
 		<input type="hidden" name="orderserialnumber" value="<%=orderMainFileVO.getOrderserialnumber()%>">
-		<input type="submit" value="送出">
-		<input type="submit" value="回上一頁" href="listAllOrderMainFile.jsp"></FORM>		
+		<input type="submit" value="送出" class="btn btn-primary">
+		<input type="submit" value="回上一頁" class="btn btn-primary" href="OrderMainFile.jsp">
+		</FORM>		
 		<!-- valuationdescription End -->
 			  </div>
 			</div>
@@ -517,14 +530,14 @@
 <!-- Footer Section End -->
       
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
       
 	<!-- Js oderlist datatables -->
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

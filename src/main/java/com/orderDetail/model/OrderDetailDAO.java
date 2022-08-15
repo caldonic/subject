@@ -13,8 +13,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class OrderDetailDAO implements OrderDetailDAO_interface{
-//	private CouponDao couponDao;
-//	private Cart cart;
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
