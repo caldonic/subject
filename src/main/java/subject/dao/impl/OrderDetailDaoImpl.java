@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 
 import model.hibernate.HibernateUtil;
 import subject.dao.OrderDetailDao;
-import subject.vo.OrderDetail;
+import subject.vo.OrderDetailHibernate;
 
 public class OrderDetailDaoImpl implements OrderDetailDao {
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory(); // 從controller移到這
@@ -17,7 +17,7 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
 	}
 
 	@Override
-	public Serializable insert(OrderDetail vo) {
+	public Serializable insert(OrderDetailHibernate vo) {
 		return getSession().save(vo);
 	}
 }

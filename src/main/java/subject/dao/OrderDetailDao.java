@@ -2,10 +2,10 @@ package subject.dao;
 
 import java.io.Serializable;
 
-import subject.vo.OrderDetail;
+import subject.vo.OrderDetailHibernate;
 
 public interface OrderDetailDao {
 
-	Serializable insert(OrderDetail vo);
+	Serializable insert(OrderDetailHibernate vo);
 
 }
