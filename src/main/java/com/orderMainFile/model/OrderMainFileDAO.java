@@ -1,7 +1,6 @@
 package com.orderMainFile.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,33 +16,24 @@ import javax.sql.DataSource;
 import com.orderDetail.model.OrderDetailDAO;
 import com.orderDetail.model.OrderDetailVO;
 
-import subject.dao.CouponDao;
-import subject.dao.impl.CouponDaoImpl;
-import suject.cart.Cart;
-
 public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
-//	private static DataSource ds = null;
-//	static {
-//		try {
-//			Context ctx = new InitialContext();
-//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/letitgo?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "password";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
-	// 暫時拿掉member_evaluation_photo, 
+
 	private static final String INSERT_STMT = 
 		"INSERT INTO order_main_file (member_serial_number, seller_serial_number, order_status_number, coupon_serial_number, seller_evaluation_star, member_evaluation_star, seller_evaluation_description, member_evaluation_description, order_amount, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT order_serial_number, member_serial_number, seller_serial_number, order_status_number, coupon_serial_number, seller_evaluation_star, member_evaluation_star, seller_evaluation_description, member_evaluation_description, order_amount, order_date FROM order_main_file order by order_serial_number";
+//	private static final String GET_ALL_STMT = 
+//		"SELECT order_serial_number, member_serial_number, seller_serial_number, order_status_number, coupon_serial_number, seller_evaluation_star, member_evaluation_star, seller_evaluation_description, member_evaluation_description, order_amount, order_date FROM order_main_file order by order_serial_number";
 	private static final String GET_ONE_STMT = 
 		"SELECT order_serial_number, member_serial_number, seller_serial_number, order_status_number, coupon_serial_number, seller_evaluation_star, member_evaluation_star, seller_evaluation_description, member_evaluation_description, order_amount, order_date FROM order_main_file where order_serial_number = ?";
 	private static final String DELETE = 
@@ -51,14 +41,124 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 	private static final String UPDATE = 
 		"UPDATE order_main_file set member_serial_number = ?, seller_serial_number = ?, order_status_number = ?, coupon_serial_number = ?, seller_evaluation_star = ?, member_evaluation_star = ?, seller_evaluation_description = ?, member_evaluation_description = ?, order_amount = ?, order_date = ? where order_serial_number = ?";
 
-	// 訂單流水編號join訂單明細
+	// 訂單流水編號join訂單明細(方法1)
 	private static final String GET_OrderDetail_STMT = 
 		"SELECT d.order_serial_number,d.item_serial_number,d.order_detail_price,d.order_detail_quantity,d.refund_reason,d.order_detail_status from order_main_file o join order_detail d on o.order_serial_number = d.order_serial_number\r\n"
 		+ "WHERE d.order_serial_number";
 	
 	// 訂單流水編號join訂單明細(方法2)
-//	private static final String GET_OD_ByOSN_STMT = "SELECT order_serial_number,item_serial_number,order_detail_price,order_detail_quantity,refund_reason,order_detail_status FROM order_detail where order_serial_number = ? order by order_detail_serial_number";
+	// private static final String GET_OD_ByOSN_STMT = "SELECT order_serial_number,item_serial_number,order_detail_price,order_detail_quantity,refund_reason,order_detail_status FROM order_detail where order_serial_number = ? order by order_detail_serial_number";
 	
+	//join賣場名稱、優惠券名稱
+//	private static final String GET_Companyname_Couponname = 
+//			"Select * from (SELECT o.order_serial_number,o.member_serial_number,o.seller_serial_number,o.order_status_number,o.coupon_serial_number,o.seller_evaluation_star,o.member_evaluation_star,o.seller_evaluation_description,o.member_evaluation_description,o.order_amount,o.order_date,s.company_name\r\n"
+//			+ "from order_main_file o \r\n"
+//			+ "join seller s on o.seller_serial_number = s.seller_serial_number\r\n"
+//			+ "WHERE o.seller_serial_number)\r\n"
+//			+ "ad JOIN coupon c ON ad.coupon_serial_number = c.coupon_serial_number";
+	
+	//join賣場名稱、優惠券名稱、會員帳號、會員帳號
+	private static final String GET_ALL_STMT = 
+			"select o.order_serial_number,o.member_serial_number,o.seller_serial_number,\r\n"
+			+ "o.order_status_number,o.coupon_serial_number,o.seller_evaluation_star,\r\n"
+			+ "o.member_evaluation_star,o.seller_evaluation_description,o.member_evaluation_description,\r\n"
+			+ "o.order_amount,o.order_date,s.company_name,c.coupon_name,m.member_account\r\n"
+			+ "from order_main_file o\r\n"
+			+ "join seller s\r\n"
+			+ "on o.seller_serial_number = s.seller_serial_number\r\n"
+			+ "join coupon c\r\n"
+			+ "on o.coupon_serial_number= c.coupon_serial_number\r\n"
+			+ "join member m\r\n"
+			+ "on o.member_serial_number= m.member_serial_number\r\n"
+			+ "where o.order_serial_number";
+	
+	
+	// 取得mail訂單編號
+	private static final String getOrderNumber = "SELECT order_serial_number FROM letitgo.order_main_file ORDER BY order_serial_number DESC LIMIT 0 , 1";
+	
+	@Override
+	public Integer getOrderMail() {
+		Integer newOrder = null;
+		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(getOrderNumber);) {
+			try (ResultSet rs = pstmt.executeQuery();) {
+				while (rs.next()) {
+					newOrder = rs.getInt("order_serial_number");
+				}
+				return newOrder;
+			} catch (Exception e) {
+			}
+		} catch (Exception e) {
+
+		}
+		return null;
+	}
+		
+	@Override
+	public List<OrderMainFileVO> getAll() {
+		List<OrderMainFileVO> list = new ArrayList<OrderMainFileVO>();
+		OrderMainFileVO orderMainFileVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// orderMainFileVO 也稱為 Domain objects
+				orderMainFileVO = new OrderMainFileVO();
+				orderMainFileVO.setOrderserialnumber(rs.getInt("order_serial_number"));
+				orderMainFileVO.setMemberserialnumber(rs.getInt("member_serial_number"));
+				orderMainFileVO.setSellerserialnumber(rs.getInt("seller_serial_number"));
+				orderMainFileVO.setOrderstatusnumber(rs.getString("order_status_number"));
+				orderMainFileVO.setCouponserialnumber(rs.getInt("coupon_serial_number"));
+				orderMainFileVO.setSellerevaluationstar(rs.getInt("seller_evaluation_star"));
+				orderMainFileVO.setMemberevaluationstar(rs.getInt("member_evaluation_star"));
+				orderMainFileVO.setSellerevaluationdescription(rs.getString("seller_evaluation_description"));
+				orderMainFileVO.setMemberevaluationdescription(rs.getString("member_evaluation_description"));
+				orderMainFileVO.setOrderamount(rs.getInt("order_amount"));
+				orderMainFileVO.setOrderdate(rs.getDate("order_date"));
+				orderMainFileVO.setCompanyname(rs.getString("company_name"));
+				orderMainFileVO.setCouponname(rs.getString("coupon_name"));
+				orderMainFileVO.setMemberaccount(rs.getString("member_account"));
+				
+				list.add(orderMainFileVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
 	// 訂單流水編號join訂單明細
 	@Override
@@ -72,7 +172,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_OrderDetail_STMT);
 
 			pstmt.setInt(1, orderserialnumber);
@@ -127,25 +227,11 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-//		Cart cart = new Cart();
-//		CouponDao couponDao=new CouponDaoImpl();
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
-			
-//			pstmt.setInt(1, 1636001);
-//			pstmt.setInt(2, 1000);
-//			pstmt.setString(3, "1");
-//			pstmt.setInt(4, couponDao.selectcouponserialnumber(cart.couponname));
-//			pstmt.setInt(5, 1);
-//			pstmt.setInt(6, 1);
-//			pstmt.setString(7, "121");
-//			pstmt.setString(8, "111");
-////			pstmt.setBytes(9, orderMainFileVO.getMemberevaluationphoto());
-//			pstmt.setInt(9, 99999);
-			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_STMT);	
 
 			pstmt.setInt(1, orderMainFileVO.getMemberserialnumber());
 			pstmt.setInt(2, orderMainFileVO.getSellerserialnumber());
@@ -155,7 +241,6 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 			pstmt.setInt(6, orderMainFileVO.getMemberevaluationstar());
 			pstmt.setString(7, orderMainFileVO.getSellerevaluationdescription());
 			pstmt.setString(8, orderMainFileVO.getMemberevaluationdescription());
-//			pstmt.setBytes(9, orderMainFileVO.getMemberevaluationphoto());
 			pstmt.setInt(9, orderMainFileVO.getOrderamount());
 			pstmt.setDate(10, orderMainFileVO.getOrderdate());
 
@@ -193,7 +278,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setInt(1, orderMainFileVO.getMemberserialnumber());
@@ -204,7 +289,6 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 			pstmt.setInt(6, orderMainFileVO.getMemberevaluationstar());
 			pstmt.setString(7, orderMainFileVO.getSellerevaluationdescription());
 			pstmt.setString(8, orderMainFileVO.getMemberevaluationdescription());
-//			pstmt.setBytes(9, orderMainFileVO.getMemberevaluationphoto());
 			pstmt.setInt(9, orderMainFileVO.getOrderamount());
 			pstmt.setDate(10, orderMainFileVO.getOrderdate());
 			pstmt.setInt(11, orderMainFileVO.getOrderserialnumber());
@@ -243,7 +327,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, orderserialnumber);
@@ -284,7 +368,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, orderserialnumber);
@@ -303,7 +387,6 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 				orderMainFileVO.setMemberevaluationstar(rs.getInt("member_evaluation_star"));
 				orderMainFileVO.setSellerevaluationdescription(rs.getString("seller_evaluation_description"));
 				orderMainFileVO.setMemberevaluationdescription(rs.getString("member_evaluation_description"));
-//				orderMainFileVO.setMemberevaluationphoto(rs.getBytes("member_evaluation_photo"));
 				orderMainFileVO.setOrderamount(rs.getInt("order_amount"));
 				orderMainFileVO.setOrderdate(rs.getDate("order_date"));
 			}
@@ -338,71 +421,6 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		}
 		return orderMainFileVO;
 	}
-
-	@Override
-	public List<OrderMainFileVO> getAll() {
-		List<OrderMainFileVO> list = new ArrayList<OrderMainFileVO>();
-		OrderMainFileVO orderMainFileVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// orderMainFileVO 也稱為 Domain objects
-				orderMainFileVO = new OrderMainFileVO();
-				orderMainFileVO.setOrderserialnumber(rs.getInt("order_serial_number"));
-				orderMainFileVO.setMemberserialnumber(rs.getInt("member_serial_number"));
-				orderMainFileVO.setSellerserialnumber(rs.getInt("seller_serial_number"));
-				orderMainFileVO.setOrderstatusnumber(rs.getString("order_status_number"));
-				orderMainFileVO.setCouponserialnumber(rs.getInt("coupon_serial_number"));
-				orderMainFileVO.setSellerevaluationstar(rs.getInt("seller_evaluation_star"));
-				orderMainFileVO.setMemberevaluationstar(rs.getInt("member_evaluation_star"));
-				orderMainFileVO.setSellerevaluationdescription(rs.getString("seller_evaluation_description"));
-				orderMainFileVO.setMemberevaluationdescription(rs.getString("member_evaluation_description"));
-//				orderMainFileVO.setMemberevaluationphoto(rs.getBytes("member_evaluation_photo"));
-				orderMainFileVO.setOrderamount(rs.getInt("order_amount"));
-				orderMainFileVO.setOrderdate(rs.getDate("order_date"));
-				list.add(orderMainFileVO); // Store the row in the list
-			}
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-	
 	
 	// 同時新增訂單主檔及訂單明細
 		@Override
@@ -412,8 +430,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 			PreparedStatement pstmt = null;
 			
 			try {
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				// 1●設定於 pstm.executeUpdate()之前
 	    		con.setAutoCommit(false);
 				
@@ -429,7 +446,6 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 				pstmt.setInt(6, orderMainFileVO.getMemberevaluationstar());
 				pstmt.setString(7, orderMainFileVO.getSellerevaluationdescription());
 				pstmt.setString(8, orderMainFileVO.getMemberevaluationdescription());
-//				pstmt.setBytes(9, orderMainFileVO.getMemberevaluationphoto());
 				pstmt.setInt(9, orderMainFileVO.getOrderamount());
 				pstmt.setDate(10, orderMainFileVO.getOrderdate());
 
@@ -462,11 +478,7 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 				System.out.println("新增訂單流水編號" + newOrderserialnumber + "時,共有訂單明細" + list.size()
 						+ "筆同時被新增");
 			
-					// Handle any driver errors
-				} catch (ClassNotFoundException e) {
-					throw new RuntimeException("Couldn't load database driver. "
-							+ e.getMessage());
-					// Handle any SQL errors
+				// Handle any SQL errors
 				} catch (SQLException se) {
 					if (con != null) {
 						try {
@@ -502,67 +514,45 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 		}
 		
 	
-	//測試
-	public static void main(String[] args) {
-
-		OrderMainFileDAO dao = new OrderMainFileDAO();
-
-		OrderMainFileVO orderMainFileVO = new OrderMainFileVO();
-
-		orderMainFileVO.setMemberserialnumber(1636001);
-		orderMainFileVO.setSellerserialnumber(1000);
-		orderMainFileVO.setOrderstatusnumber("1");
-		orderMainFileVO.setCouponserialnumber(1);
-		orderMainFileVO.setSellerevaluationstar(3);
-		orderMainFileVO.setMemberevaluationstar(3);
-		orderMainFileVO.setSellerevaluationdescription("");
-		orderMainFileVO.setMemberevaluationdescription("");
-		orderMainFileVO.setOrderamount(5555555);
-		orderMainFileVO.setOrderdate(java.sql.Date.valueOf("2022-08-06"));
+	//測試 同時新增訂單主檔及明細
+//	public static void main(String[] args) {
+//
+//		OrderMainFileDAO dao = new OrderMainFileDAO();
+//
+//		OrderMainFileVO orderMainFileVO = new OrderMainFileVO();
+//
+//		orderMainFileVO.setMemberserialnumber(1636001);
+//		orderMainFileVO.setSellerserialnumber(1000);
+//		orderMainFileVO.setOrderstatusnumber("1");
+//		orderMainFileVO.setCouponserialnumber(1);
+//		orderMainFileVO.setSellerevaluationstar(3);
+//		orderMainFileVO.setMemberevaluationstar(3);
+//		orderMainFileVO.setSellerevaluationdescription("");
+//		orderMainFileVO.setMemberevaluationdescription("");
+//		orderMainFileVO.setOrderamount(5555555);
+//		orderMainFileVO.setOrderdate(java.sql.Date.valueOf("2022-08-06"));
+//		
+//		
+//		List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>(); // 準備置入orderdetail筆數
+//		OrderDetailVO odXX = new OrderDetailVO();   // orderdetail1
+//		odXX.setItemserialnumber(87878701);
+//		odXX.setOrderdetailprice(2000);
+//		odXX.setOrderdetailquantity(2);
+//		odXX.setRefundreason("");
+//		odXX.setOrderdetailstatus(2);
+//
+//		OrderDetailVO odyy = new OrderDetailVO();   // orderdetail2
+//		odyy.setItemserialnumber(87878702);
+//		odyy.setOrderdetailprice(1000);
+//		odyy.setOrderdetailquantity(1);
+//		odyy.setRefundreason("");
+//		odyy.setOrderdetailstatus(1);
+//
+//		testList.add(odXX);
+//		testList.add(odyy);
+//		
+//		dao.insertWithOrderDetail(orderMainFileVO , testList);
 		
-		
-		List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>(); // 準備置入orderdetail筆數
-		OrderDetailVO odXX = new OrderDetailVO();   // orderdetail1
-		odXX.setItemserialnumber(87878701);
-		odXX.setOrderdetailprice(2000);
-		odXX.setOrderdetailquantity(2);
-		odXX.setRefundreason("");
-		odXX.setOrderdetailstatus(2);
-
-		OrderDetailVO odyy = new OrderDetailVO();   // orderdetail2
-		odyy.setItemserialnumber(87878702);
-		odyy.setOrderdetailprice(1000);
-		odyy.setOrderdetailquantity(1);
-		odyy.setRefundreason("");
-		odyy.setOrderdetailstatus(1);
-
-		testList.add(odXX);
-		testList.add(odyy);
-		
-		dao.insertWithOrderDetail(orderMainFileVO , testList);
-		
-		// 新增
-//		DeptVO deptVO1 = new DeptVO();
-//		deptVO1.setDname("製造部");
-//		deptVO1.setLoc("中國江西");
-//		dao.insert(deptVO1);
-
-		// 修改
-//		DeptVO deptVO2 = new DeptVO();
-//		deptVO2.setDeptno(10);
-//		deptVO2.setDname("財務部2");
-//		deptVO2.setLoc("臺灣台北2");
-//		dao.update(deptVO2);
-
-		// 刪除
-//		dao.delete(30);
-
-		// 查詢
-//		DeptVO deptVO3 = dao.findByPrimaryKey(10);
-//		System.out.print(deptVO3.getDeptno() + ",");
-//		System.out.print(deptVO3.getDname() + ",");
-//		System.out.println(deptVO3.getLoc());
-//		System.out.println("---------------------");
 
 		// 查詢所有訂單主檔
 //		List<OrderMainFileVO> list = dao.getAll();
@@ -581,18 +571,69 @@ public class OrderMainFileDAO implements OrderMainFileDAO_interface{
 //			System.out.print(aOrderMainFile.getOrderdate());
 //			System.out.println();
 //		}
-		
-		// 查詢某訂單的細項
-//		Set<OrderDetailVO> set = dao.getEmpsByDeptno(10);
-//		for (OrderDetailVO aOrderDetail : set) {
-//			System.out.print(aOrderDetail.getOrderserialnumber() + ",");
-//			System.out.print(aOrderDetail.getItemserialnumber() + ",");
-//			System.out.print(aOrderDetail.getOrderdetailprice() + ",");
-//			System.out.print(aOrderDetail.getOrderdetailquantity() + ",");
-//			System.out.print(aOrderDetail.getRefundreason() + ",");
-//			System.out.print(aOrderDetail.getOrderdetailstatus() + ",");
-//			System.out.println();
-//			
+//	
+//	}
+	
+//		@Override
+//		public List<OrderMainFileVO> getAll() {
+//			List<OrderMainFileVO> list = new ArrayList<OrderMainFileVO>();
+//			OrderMainFileVO orderMainFileVO = null;
+//
+//			Connection con = null;
+//			PreparedStatement pstmt = null;
+//			ResultSet rs = null;
+//
+//			try {
+//
+//				con = ds.getConnection();
+//				pstmt = con.prepareStatement(GET_ALL_STMT);
+//				rs = pstmt.executeQuery();
+//
+//				while (rs.next()) {
+//					// orderMainFileVO 也稱為 Domain objects
+//					orderMainFileVO = new OrderMainFileVO();
+//					orderMainFileVO.setOrderserialnumber(rs.getInt("order_serial_number"));
+//					orderMainFileVO.setMemberserialnumber(rs.getInt("member_serial_number"));
+//					orderMainFileVO.setSellerserialnumber(rs.getInt("seller_serial_number"));
+//					orderMainFileVO.setOrderstatusnumber(rs.getString("order_status_number"));
+//					orderMainFileVO.setCouponserialnumber(rs.getInt("coupon_serial_number"));
+//					orderMainFileVO.setSellerevaluationstar(rs.getInt("seller_evaluation_star"));
+//					orderMainFileVO.setMemberevaluationstar(rs.getInt("member_evaluation_star"));
+//					orderMainFileVO.setSellerevaluationdescription(rs.getString("seller_evaluation_description"));
+//					orderMainFileVO.setMemberevaluationdescription(rs.getString("member_evaluation_description"));
+//					orderMainFileVO.setOrderamount(rs.getInt("order_amount"));
+//					orderMainFileVO.setOrderdate(rs.getDate("order_date"));
+//					list.add(orderMainFileVO); // Store the row in the list
+//				}
+//
+//				// Handle any driver errors
+//			} catch (SQLException se) {
+//				throw new RuntimeException("A database error occured. "
+//						+ se.getMessage());
+//				// Clean up JDBC resources
+//			} finally {
+//				if (rs != null) {
+//					try {
+//						rs.close();
+//					} catch (SQLException se) {
+//						se.printStackTrace(System.err);
+//					}
+//				}
+//				if (pstmt != null) {
+//					try {
+//						pstmt.close();
+//					} catch (SQLException se) {
+//						se.printStackTrace(System.err);
+//					}
+//				}
+//				if (con != null) {
+//					try {
+//						con.close();
+//					} catch (Exception e) {
+//						e.printStackTrace(System.err);
+//					}
+//				}
+//			}
+//			return list;
 //		}
-	}
 }

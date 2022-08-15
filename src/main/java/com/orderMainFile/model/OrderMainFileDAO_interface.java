@@ -10,10 +10,13 @@ public interface OrderMainFileDAO_interface {
 		public void update(OrderMainFileVO orderMainFileVO);
 		public void delete(Integer orderserialnumber);
 		public OrderMainFileVO findByOrderPK(Integer orderserialnumber);
-		public List<OrderMainFileVO> getAll();
 		public List<OrderDetailVO> findByOrderDetail(Integer orderserialnumber);
-		//萬用複合查詢(傳入參數型態Map)(回傳 List)
-		//public List<EmpVO> getAll(Map<String, String[]> map);
+		
+		//get賣場名稱、優惠券名稱、會員帳號、會員帳號
+		public List<OrderMainFileVO> getAll();
+		
+		// Mail發送
+		Integer getOrderMail();
 		
 		// 同時新增訂單主檔及訂單明細
 		void insertWithOrderDetail(OrderMainFileVO orderMainFileVO, List<OrderDetailVO> list);
