@@ -12,7 +12,7 @@ import subject.dao.impl.CouponDaoImpl;
 import subject.dao.impl.OrderDetailDaoImpl;
 import subject.dao.impl.OrderMainFileHibernateDaoImpl;
 import subject.service.OrderMainFileHibernateService;
-import subject.vo.OrderDetail;
+import subject.vo.OrderDetailHibernate;
 import subject.vo.OrderMainFileHibernate;
 import suject.cart.Cart;
 import suject.cart.Cartlist;
@@ -50,7 +50,7 @@ public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernate
 			orderserialnumber = ((OrderMainFileHibernate) pk1).getOrderserialnumber();
 			if (orderserialnumber != null) {
 				for (Cartlist cartlist1 : cart.cartlist) {
-					OrderDetail oderitem2 = new OrderDetail(); // orderdetail1
+					OrderDetailHibernate oderitem2 = new OrderDetailHibernate(); // orderdetail1
 					oderitem2.setOrderserialnumber(orderserialnumber);
 					oderitem2.setItemserialnumber(cartlist1.itemserialnumber);
 					oderitem2.setOrderdetailprice(cartlist1.itemprice);
@@ -83,7 +83,7 @@ public class OrderMainFileHibernateServiceImpl implements OrderMainFileHibernate
 			/// ====================
 			if (orderserialnumber != null) {
 				for (Cartlist cartlist1 : cart.cartlist) {
-					OrderDetail oderitem = new OrderDetail(); // orderdetail1
+					OrderDetailHibernate oderitem = new OrderDetailHibernate(); // orderdetail1
 					oderitem.setOrderserialnumber(orderserialnumber);
 					oderitem.setItemserialnumber(cartlist1.itemserialnumber);
 					oderitem.setOrderdetailprice(cartlist1.itemprice);
