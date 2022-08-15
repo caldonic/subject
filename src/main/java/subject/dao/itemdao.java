@@ -1,6 +1,7 @@
 package subject.dao;
 
 import java.util.*;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,18 +10,21 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Part;
 import javax.sql.DataSource;
-
 import subject.vo.itemvo;
+
+
 
 
 public class itemdao implements Itemdaointerface{
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 			private static DataSource ds = null;
 			static {
-				try {
+				try{
 					Context ctx = new InitialContext();
-					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/letitgo");
+					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQL");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}
@@ -28,15 +32,17 @@ public class itemdao implements Itemdaointerface{
 			
 				
 				private static final String GET_ALL_STMT = 
-					"SELECT item_serial_number, item_name, item_description,item_price,item_stock, item_category_number from item order by item_serial_number;";
+					"SELECT item_serial_number, item_name, item_description,item_price,item_stock, item_category_number, photo from letitgo.item \r\n"
+					+ "where seller_serial_number = 1002 order by item_serial_number;";
 				private static final String GET_ONE_STMT = 
-					"SELECT item_serial_number, item_name, item_description,item_price,item_stock, item_category_number from item where item_serial_number=?;";
-				private static final String INSERT = "INSERT INTO letitgo.item(item_name,item_description,item_price,item_stock,item_category_number) VALUES(?,?,?,?,?);";
-				private static final String UPDATE ="UPDATE item set item_name=?, item_description=?, item_price=?,item_stock=?, item_category_number=?  where item_serial_number=?;";
-				private static final String DELETE ="DELETE FROM item where item_serial_number =? ;";
+					"SELECT item_serial_number, item_name, item_description,item_price,item_stock, item_category_number, photo from letitgo.item where item_serial_number=?";
+				private static final String INSERT = "INSERT INTO letitgo.item(item_name,item_description,item_price,item_stock,seller_serial_number,item_category_number,photo) VALUES(?,?,?,?,?,?,?)";
+				private static final String UPDATE ="UPDATE item set item_name=?, item_description=?, item_price=?,item_stock=?, item_category_number=?, photo=?  where item_serial_number=?";
+				private static final String DELETE ="DELETE FROM item where item_serial_number =?";
 				
 				
 			
+				
 				
 				@Override
 				public itemvo findByPrimaryKey(Integer serialnumber) {
@@ -64,6 +70,7 @@ public class itemdao implements Itemdaointerface{
 							itemvo.setPrice(rs.getInt("item_price"));
 							itemvo.setStock(rs.getInt("item_stock"));
 							itemvo.setCategoryno(rs.getString("item_category_number"));
+							itemvo.setPhoto(rs.getBytes("photo"));
 						}
 						// Handle any driver errors
 					} catch (SQLException se) {
@@ -98,6 +105,7 @@ public class itemdao implements Itemdaointerface{
 
 				
 				
+				
 				@Override
 				public List<itemvo> getAll() {
 					List<itemvo> list = new ArrayList<itemvo>();
@@ -122,7 +130,9 @@ public class itemdao implements Itemdaointerface{
 							itemvo.setPrice(rs.getInt("item_price"));
 							itemvo.setStock(rs.getInt("item_stock"));
 							itemvo.setCategoryno(rs.getString("item_category_number"));
-							list.add(itemvo); // Store the row in the list
+							itemvo.setPhoto(rs.getBytes("photo"));							
+							list.add(itemvo); // Store the row in the list							
+							
 						}
 						// Handle any driver errors
 					} catch (SQLException se) {
@@ -151,7 +161,9 @@ public class itemdao implements Itemdaointerface{
 						}
 					}
 					return list;
+					
 				}
+				
 				
 				
 				@Override
@@ -159,7 +171,7 @@ public class itemdao implements Itemdaointerface{
 
 					Connection con = null;
 					PreparedStatement pstmt = null;
-
+					System.out.println("111111111111");
 					try {
 
 						con = ds.getConnection();
@@ -169,8 +181,9 @@ public class itemdao implements Itemdaointerface{
 						pstmt.setString(2, itemvo.getDescription());
 						pstmt.setInt(3,itemvo.getPrice());
 						pstmt.setInt(4, itemvo.getStock());
-//						pstmt.setInt(5, itemvo.getSellerserialnumber());
-						pstmt.setString(5,itemvo.getCategoryno());
+						pstmt.setInt(5, itemvo.getSellerserialnumber());
+						pstmt.setString(6,itemvo.getCategoryno());
+						pstmt.setBytes(7, itemvo.getPhoto());
 
 						pstmt.executeUpdate();						
 					} catch (SQLException se) {
@@ -193,6 +206,7 @@ public class itemdao implements Itemdaointerface{
 					}
 				}
 
+				
 				@Override
 				public void update(itemvo itemvo) {
 
@@ -209,9 +223,11 @@ public class itemdao implements Itemdaointerface{
 						pstmt.setString(2, itemvo.getDescription());
 						pstmt.setInt(3,itemvo.getPrice());
 						pstmt.setInt(4, itemvo.getStock());
-//						pstmt.setInt(5, itemvo.getSellerserialnumber());
+						pstmt.setInt(5, itemvo.getSellerserialnumber());
 						pstmt.setString(5,itemvo.getCategoryno());
-						pstmt.setInt(6,itemvo.getSerialnumber());
+						pstmt.setBytes(6, itemvo.getPhoto());
+						pstmt.setInt(7,itemvo.getSerialnumber());
+						
 						
 						pstmt.executeUpdate();
 					} catch (SQLException se) {
@@ -235,6 +251,7 @@ public class itemdao implements Itemdaointerface{
 
 				}
 
+				
 				@Override
 				public void delete(Integer serialnumber) {
 
@@ -267,15 +284,10 @@ public class itemdao implements Itemdaointerface{
 							}
 						}
 					}
-
+					
+					
 				}
 				
-			
-			
-			
-			
-			
-			
 			
 	
 }
