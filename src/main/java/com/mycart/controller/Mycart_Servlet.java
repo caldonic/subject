@@ -1,4 +1,4 @@
-package com.item.controller;
+package com.mycart.controller;
 
 import java.io.IOException;
 import java.net.Authenticator;
@@ -11,21 +11,19 @@ import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.item.model.Item_Service;
-import com.item.model.Item_VO;
 import com.item_category.model.Item_category_Service;
 import com.item_category.model.Item_category_VO;
-
-
-@WebServlet("/Item_Servlet")
-public class Item_Servlet extends HttpServlet {
-
+import com.mycart.model.Mycart_Service;
+import com.mycart.model.Mycart_VO;
+import com.myfavorite.model.Myfavorite_Service;
+import com.myfavorite.model.Myfavorite_VO;
+@WebServlet("/Mycart_Servlet")
+public class Mycart_Servlet extends HttpServlet {
 	/**
 	 * 
 	 */
@@ -38,202 +36,148 @@ public class Item_Servlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-
+		System.out.println("123");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		  if ("VOUpdate".equals(action)) {
-			  res.setContentType("image/jpeg");
-			   ServletOutputStream out;
-			   out = res.getOutputStream();
-			   Integer item_serial_number = Integer.valueOf(req.getParameter("No"));
-			//   System.out.println(cruiseLineNo);
-			   Item_Service item_Service = new Item_Service();
-			   Item_VO Item_VO = item_Service.getOneEmp(item_serial_number);
-			//   byte[] img64 = Base64.encode(new String(cruiseLineVO.getCruiseLinePicture()));
-			   out.write(Item_VO.getPhoto());
-			  }
+//		if("getOne_For_Display_For_item_category".equals(action)) {
+//			System.out.println("getOne_For_Display_For_item_category in");
+//		}
 		
 		
-		if ("getOne_For_Display_for_item".equals(action)) { // 來自select_page.jsp的請求
-
+		if ("add_cart".equals(action)) { // 來自select_page.jsp的請求
+			System.out.println("abc");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("item_serial_number");
-				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入員工編號");
-				}
+				String add_cart_number = req.getParameter("add_cart_number");
+				String item_number_cart = req.getParameter("item_number_cart");
+				String member_number_cart = req.getParameter("member_number_cart");
+//				if (str == null || (str.trim()).length() == 0) {
+//					errorMsgs.add("請輸入員工編號");
+//				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/select_page.jsp");
-					System.out.println("0");
-
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
-				Integer item_serial_number = Integer.parseInt(str);
+				Integer add_cart_number1 = Integer.parseInt(add_cart_number);
+				Integer item_number_cart1 = Integer.parseInt(item_number_cart);
+				Integer member_number_cart1 = Integer.parseInt(member_number_cart);
 
 				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/select_page.jsp");
-					System.out.println("1");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
 				
-				/***************************2.開始查詢資料*****************************************/
-				Item_Service empSvc = new Item_Service();
-				Item_VO item_VO = empSvc.getOneEmp(item_serial_number);
-				if (item_VO == null) {
-					errorMsgs.add("查無資料");
-				}
+				Mycart_VO Mycart_VO = new Mycart_VO();
+				Mycart_VO.setMember_serial_number(member_number_cart1);
+				Mycart_VO.setItem_serial_number(item_number_cart1);
+				Mycart_VO.setNon_member_serial_number(1);
+				Mycart_VO.setCart_item_quantity(add_cart_number1);
 				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
 //					RequestDispatcher failureView = req
 //							.getRequestDispatcher("/select_page.jsp");
-//					System.out.println("2");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+				
+				/***************************2.開始查詢資料*****************************************/
+//				Mycart_Service cartSvc = new Mycart_Service();
+//				Mycart_VO Mycart_VO = cartSvc.getOneEmp(cart_serial_number);
+				
+				Mycart_Service cartSvc = new Mycart_Service();
+				Mycart_VO = cartSvc.addEmp( member_number_cart1, item_number_cart1, 1,add_cart_number1 );
+				
+//				
+//				if (Mycart_VO == null) {
+//					errorMsgs.add("查無資料");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/select_page.jsp");
 //					failureView.forward(req, res);
 //					return;//程式中斷
 //				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("Item_VO", item_VO); // 資料庫取出的empVO物件,存入req
-				String url = "/product_show.jsp";
-				System.out.println("3");
+				req.setAttribute("Mycart_VO", Mycart_VO); // 資料庫取出的Item_category_VO物件,存入req
+				String url = "/shoping-cart.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
 				successView.forward(req, res);
 		}
 		
-		if ("getOne_For_Display_for_item_show".equals(action)) { // 來自select_page.jsp的請求
+		
+		if ("add_myfavorite".equals(action)) { // 來自select_page.jsp的請求
+			System.out.println("abc");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-			String str = req.getParameter("temporary");
-			String item_serial_number_for_product_show = req.getParameter("item_serial_number");
-			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入員工編號");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/select_page.jsp");
-				System.out.println("0");
-				
-				failureView.forward(req, res);
-				return;//程式中斷
-			}
-			
-			Integer item_serial_number = Integer.parseInt(str);
-			Integer item_serial_number_for_product_show_photo = Integer.parseInt(item_serial_number_for_product_show);
+
+
+			Integer item_number = Integer.valueOf(req.getParameter("item_number"));
+			System.out.println("d");
+			Integer member_number = Integer.valueOf(req.getParameter("member_number"));
+			System.out.println("e");
+			System.out.println(item_number);
+			System.out.println(member_number);
 			
 			
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/select_page.jsp");
-				System.out.println("1");
-				failureView.forward(req, res);
-				return;//程式中斷
-			}
+
+			Myfavorite_VO Myfavorite_VO = new Myfavorite_VO();
+			Myfavorite_VO.setItem_serial_number(item_number);
+			Myfavorite_VO.setMember_serial_number(member_number);
+
+
+
 			
+			/***************************2.開始新增資料***************************************/
+			Myfavorite_Service myfavorite_Service = new Myfavorite_Service();
+			Myfavorite_VO = myfavorite_Service.addEmp(item_number, member_number);
+			
+			
+			
+//			Integer item_number = Integer.parseInt(item_number);
+			
+			
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;//程式中斷
+//			}
+//			
 			/***************************2.開始查詢資料*****************************************/
-			Item_Service empSvc = new Item_Service();
-			Item_VO item_VO = empSvc.getOneEmp(item_serial_number);
-			if (item_VO == null) {
-				errorMsgs.add("查無資料");
-			}
-			// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/select_page.jsp");
-//					System.out.println("2");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
+//			Item_category_Service empSvc = new Item_category_Service();
+//			Item_category_VO Item_category_VO = empSvc.getOneEmp(item_category_number);
+//			if (Item_category_VO == null) {
+//				errorMsgs.add("查無資料");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;//程式中斷
+//			}
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-			req.setAttribute("Item_VO", item_VO); // 資料庫取出的empVO物件,存入req
-			req.setAttribute("item_serial_number_for_product_show_photo", item_serial_number_for_product_show_photo); // 資料庫取出的empVO物件,存入req
-			
-			System.out.println("2");
-			System.out.println(item_serial_number_for_product_show_photo);
-			System.out.println("1");
-			String url = "/shopDtails.jsp";
+//			req.setAttribute("Item_category_VO", Item_category_VO); // 資料庫取出的Item_category_VO物件,存入req
+			String url = "/index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
-		
-		
-		
-		
-		if ("getOne_For_Display_for_item_seller".equals(action)) { // 來自select_page.jsp的請求
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-			String str1 = req.getParameter("seller");
-			if (str1 == null || (str1.trim()).length() == 0) {
-				errorMsgs.add("請輸入員工編號");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/select_page.jsp");
-				System.out.println("0");
-				
-				failureView.forward(req, res);
-				return;//程式中斷
-			}
-			
-			Integer item_serial_number = Integer.parseInt(str1);
-			
-			
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/select_page.jsp");
-				System.out.println("1");
-				failureView.forward(req, res);
-				return;//程式中斷
-			}
-			
-			/***************************2.開始查詢資料*****************************************/
-			Item_Service empSvc = new Item_Service();
-			Item_VO item_VO = empSvc.getOneEmp(item_serial_number);
-			if (item_VO == null) {
-				errorMsgs.add("查無資料");
-			}
-			// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/select_page.jsp");
-//					System.out.println("2");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
-			
-			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-			req.setAttribute("Item_VO", item_VO); // 資料庫取出的empVO物件,存入req
-			System.out.println(str1);
-			String url = "/shopDtails.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneEmp.jsp
-			successView.forward(req, res);
-		}
-		
-		
+//		
+//		
 //		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp 或  /dept/listEmps_ByDeptno.jsp 的請求
 //
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -244,14 +188,14 @@ public class Item_Servlet extends HttpServlet {
 //			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】		
 //			
 //				/***************************1.接收請求參數****************************************/
-//				Integer item_serial_number = Integer.valueOf(req.getParameter("item_serial_number"));
+//				Integer item_category_number = Integer.valueOf(req.getParameter("item_category_number"));
 //				
 //				/***************************2.開始查詢資料****************************************/
 //				Item_category_Service empSvc = new Item_category_Service();
-//				Item_category_VO empVO = empSvc.getOneEmp(item_serial_number);
+//				Item_category_VO Item_category_VO = empSvc.getOneEmp(item_category_number);
 //								
 //				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-//				req.setAttribute("empVO", empVO); // 資料庫取出的empVO物件,存入req
+//				req.setAttribute("Item_category_VO", Item_category_VO); // 資料庫取出的Item_category_VO物件,存入req
 //				String url = "/emp/update_emp_input.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 //				successView.forward(req, res);
@@ -309,16 +253,16 @@ public class Item_Servlet extends HttpServlet {
 //
 //				Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
 //
-//				EmpVO empVO = new EmpVO();
-//				empVO.setitem_serial_number(item_serial_number);
-//				empVO.setItem_category_main_name(item_category_main_name);
-//				empVO.setItem_category_area_name(item_category_area_name);
-//				empVO.setItem_category_detail_name(item_category_detail_name);
+//				Item_category_VO Item_category_VO = new Item_category_VO();
+//				Item_category_VO.setItem_category_number(item_category_number);
+//				Item_category_VO.setItem_category_main_name(item_category_main_name);
+//				Item_category_VO.setItem_category_area_name(item_category_area_name);
+//				Item_category_VO.setItem_category_detail_name(item_category_detail_name);
 //
 //
 //				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("empVO", empVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//					req.setAttribute("Item_category_VO", Item_category_VO); // 含有輸入格式錯誤的Item_category_VO物件,也存入req
 //					RequestDispatcher failureView = req
 //							.getRequestDispatcher("/emp/update_emp_input.jsp");
 //					failureView.forward(req, res);
@@ -327,7 +271,7 @@ public class Item_Servlet extends HttpServlet {
 //				
 //				/***************************2.開始修改資料*****************************************/
 //				EmpService empSvc = new EmpService();
-//				empVO = empSvc.updateEmp(item_serial_number, item_category_main_name, item_category_area_name, item_category_detail_name);
+//				Item_category_VO = empSvc.updateEmp(item_category_number, item_category_main_name, item_category_area_name, item_category_detail_name);
 //				
 //				/***************************3.修改完成,準備轉交(Send the Success view)*************/				
 //				DeptService deptSvc = new DeptService();
@@ -386,15 +330,15 @@ public class Item_Servlet extends HttpServlet {
 //				
 //				Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
 //
-//				EmpVO empVO = new EmpVO();
-//				empVO.setItem_category_main_name(item_category_main_name);
-//				empVO.setItem_category_area_name(item_category_area_name);
-//				empVO.setItem_category_detail_name(item_category_detail_name);
+//				Item_category_VO Item_category_VO = new Item_category_VO();
+//				Item_category_VO.setItem_category_main_name(item_category_main_name);
+//				Item_category_VO.setItem_category_area_name(item_category_area_name);
+//				Item_category_VO.setItem_category_detail_name(item_category_detail_name);
 //
 //
 //				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("empVO", empVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//					req.setAttribute("Item_category_VO", Item_category_VO); // 含有輸入格式錯誤的Item_category_VO物件,也存入req
 //					RequestDispatcher failureView = req
 //							.getRequestDispatcher("/emp/addEmp.jsp");
 //					failureView.forward(req, res);
@@ -403,7 +347,7 @@ public class Item_Servlet extends HttpServlet {
 //				
 //				/***************************2.開始新增資料***************************************/
 //				EmpService empSvc = new EmpService();
-//				empVO = empSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
+//				Item_category_VO = empSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
 //				
 //				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 //				String url = "/emp/listAllEmp.jsp";
@@ -412,32 +356,29 @@ public class Item_Servlet extends HttpServlet {
 //		}
 		
        
-//		if ("delete".equals(action)) { // 來自listAllEmp.jsp 或  /dept/listEmps_ByDeptno.jsp的請求
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			
-//			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
-//
-//				/***************************1.接收請求參數***************************************/
-//				Integer empno = Integer.valueOf(req.getParameter("empno"));
-//				
-//				/***************************2.開始刪除資料***************************************/
-//				EmpService empSvc = new EmpService();
-//				EmpVO empVO = empSvc.getOneEmp(empno);
-//				empSvc.deleteEmp(empno);
-//				
-//				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-//				DeptService deptSvc = new DeptService();
-//				if(requestURL.equals("/dept/listEmps_ByDeptno.jsp") || requestURL.equals("/dept/listAllDept.jsp"))
-//					req.setAttribute("listEmps_ByDeptno",deptSvc.getEmpsByDeptno(empVO.getDeptno())); // 資料庫取出的list物件,存入request
-//				
-//				String url = requestURL;
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
-//				successView.forward(req, res);
-//		}
+		if ("deletecart".equals(action)) { // 來自listAllEmp.jsp 或  /dept/listEmps_ByDeptno.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】
+
+				/***************************1.接收請求參數***************************************/
+				Integer my_cart_number = Integer.valueOf(req.getParameter("my_cart_number"));
+				System.out.println(my_cart_number);
+				
+				/***************************2.開始刪除資料***************************************/
+				Mycart_Service Mycart_Service = new Mycart_Service();
+//				Mycart_VO Mycart_VO = Mycart_Service.getOneEmp(my_cart_number);
+				Mycart_Service.DELETE(my_cart_number);
+				
+
+				String url = "/shoping-cart.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+		}
 		
 //		if ("listEmps_ByCompositeQuery".equals(action)) { // 來自select_page.jsp的複合查詢請求
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -472,3 +413,4 @@ public class Item_Servlet extends HttpServlet {
 //		}		
 	}
 }
+
