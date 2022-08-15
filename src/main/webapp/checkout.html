@@ -786,5 +786,25 @@ $("#golden_use").on("click", () => {
         })
       });
     </script>
+        <script>
+    $('.hero__categories1__all').on('click', function(){
+        $('.hero__categories1 ul').slideToggle(400);
+    });
+    $('.hero__categories2__all').on('click', function(){
+        $('.hero__categories2 ul').slideToggle(400);
+    });
+
+    $('.featured__controls1 li').on('click', function () {
+            $('.featured__controls1 li').removeClass('active');
+            $(this).addClass('active');
+        });
+        $('.featured__controls2 li').on('click', function () {
+            $('.featured__controls2 li').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        
+        
+    </script>
   </body>
 </html>
