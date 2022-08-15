@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.orderMainFile.model.OrderMailService;
@@ -22,6 +23,12 @@ public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+//		HttpSession httpSession = req.getSession();
+//		if ((boolean) httpSession.getAttribute("memID")) {
+//			Integer memID = (Integer) httpSession.getAttribute("memID");
+//			System.out.println(memID);
+//		}
 		res.setContentType("application/json;charset=UTF-8");
 		Gson gson = new Gson();
 		Cart cart = gson.fromJson(req.getReader(), Cart.class);
