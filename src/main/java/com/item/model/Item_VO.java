@@ -10,7 +10,14 @@ public class Item_VO implements java.io.Serializable{
 	private Integer item_stock;
 	private Integer seller_serial_number;
 	private String item_category_number;
-	private String item_status_number;
+	private byte[] photo;
+	
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 	
 	public Integer getItem_serial_number() {
 		return item_serial_number;
@@ -53,23 +60,6 @@ public class Item_VO implements java.io.Serializable{
 	}
 	public void setItem_category_number(String item_category_number) {
 		this.item_category_number = item_category_number;
-	}
-	public String getItem_status_number() {
-		return item_status_number;
-	}
-	public void setItem_status_number(String item_status_number) {
-		this.item_status_number = item_status_number;
-	}
-
-
-	
-	
-	@Override
-	public String toString() {
-		return "Item_VO [item_serial_number=" + item_serial_number + ", item_name=" + item_name + ", item_description="
-				+ item_description + ", item_price=" + item_price + ", item_stock=" + item_stock
-				+ ", seller_serial_number=" + seller_serial_number + ", item_category_number=" + item_category_number
-				+ ", item_status_number=" + item_status_number + "]";
 	}
 
 	
