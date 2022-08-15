@@ -19,6 +19,6 @@
 		<mapping class="subject.vo.MyFavorite" />
 		<mapping class="subject.vo.MemberHibernate" />
 		<mapping class="subject.vo.OrderMainFileHibernate" />
-		<mapping class="subject.vo.OrderDetail" />
+		<mapping class="subject.vo.OrderDetailHibernate" />
 	</session-factory>
 </hibernate-configuration>
