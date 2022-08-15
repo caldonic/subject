@@ -52,19 +52,18 @@
       <div class="humberger__menu__overlay"></div>
       <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-          <a href="#"><img src="https://fakeimg.pl/150x60/" alt="" /></a
+          <a href="#"
+            ><img src="/subject/src/main/webapp/img/logo.png" alt="" /></a
           ><!--自然改-->
         </div>
         <div class="humberger__menu__cart">
           <ul>
             <li>
-              <a href="http://localhost:8080/com/logout"
-                ><i class="fa fa-heart"></i>
-              </a>
+              <a href="./my_favorite.jsp"><i class="fa fa-heart"></i> </a>
             </li>
             <!--自然改-->
             <li>
-              <a href="./index.html"><i class="fa-solid fa-house"></i> </a>
+              <a href="./index.jsp"><i class="fa-solid fa-house"></i> </a>
             </li>
             <!--自然改--><!--這個圖示用來做回首頁-->
             <li>
@@ -74,15 +73,13 @@
             </li>
             <!--自然改--><!--這個圖示用來做購物車-->
             <li>
-              <a href="http://localhost:8080/com/logout"
+              <a href="./listAllTicket.jsp"
                 ><i class="fa-solid fa-ticket"></i
               ></a>
             </li>
             <!--自然改--><!--這個圖示用來做我的票券-->
             <li>
-              <a href="http://localhost:8080/com/logout"
-                ><i class="fa-solid fa-person"></i
-              ></a>
+              <a href="./logout"><i class="fa-solid fa-person"></i></a>
             </li>
             <!--自然改--><!--這個圖示用來做登入-->
           </ul>
@@ -104,41 +101,35 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
           <ul>
-            <!-- <li class="active"><a href="./index.html">Home</a></li>
+            <!-- <li class="active"><a href="./index.jsp">Home</a></li>
                   <li><a href="./shop-grid.html">Shop</a></li> -->
             <li>
               <a href="#">會員中心</a>
               <ul class="header__menu__dropdown">
-                <li><a href="#">帳戶管理</a></li>
+                <li>
+                  <a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a>
+                </li>
                 <!--自然改-->
-                <li><a href="#">訂單查詢</a></li>
+                <li>
+                  <a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a>
+                </li>
                 <!--自然改-->
-                <li><a href="#">我的錢包</a></li>
+                <li><a href="./MemberBenefits.html">會員權益</a></li>
                 <!--自然改-->
-                <li><a href="#">我的最愛</a></li>
+                <li><a href="./CustomerService.html">聯繫客服</a></li>
                 <!--自然改-->
-                <li><a href="#">會員權益</a></li>
-                <!--自然改-->
-                <li><a href="./contact.html">聯繫客服</a></li>
-                <!--自然改-->
-                <li><a href="#">買家FAQ</a></li>
+                <li><a href="./FAQ.html">買家FAQ</a></li>
                 <!--自然改-->
               </ul>
             </li>
             <li>
               <a href="#">賣家中心</a>
               <ul class="header__menu__dropdown">
-                <li><a href="#">訂單管理</a></li>
+                <li><a href="./seller/Order">訂單管理</a></li>
                 <!--自然改-->
-                <li><a href="#">商品管理</a></li>
+                <li><a href="./seller/product.jsp">商品管理</a></li>
                 <!--自然改-->
-                <li><a href="#">財務管理</a></li>
-                <!--自然改-->
-                <li><a href="#">帳戶管理</a></li>
-                <!--自然改-->
-                <li><a href="#">我的報表</a></li>
-                <!--自然改-->
-                <li><a href="#">賣家FAQ</a></li>
+                <li><a href="./seller/Seller">帳戶管理</a></li>
                 <!--自然改-->
               </ul>
             </li>
@@ -202,8 +193,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"
-                ><img src="https://fakeimg.pl/150x60/" alt="" /></a
+              <a href="./index.jsp"><img src="./img/Frame 6.svg" alt="" /></a
               ><!--自然改-->
             </div>
           </div>
@@ -213,36 +203,32 @@
                 <li>
                   <a href="#">會員中心</a>
                   <ul class="header__menu__dropdown">
-                    <li><a href="#">帳戶管理</a></li>
+                    <li>
+                      <a href="./memberupdate/listAllMemberupdate.jsp"
+                        >帳戶管理</a
+                      >
+                    </li>
                     <!--自然改-->
-                    <li><a href="#">訂單查詢</a></li>
+                    <li>
+                      <a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a>
+                    </li>
                     <!--自然改-->
-                    <li><a href="#">我的錢包</a></li>
+                    <li><a href="./MemberBenefits.html">會員權益</a></li>
                     <!--自然改-->
-                    <li><a href="#">我的最愛</a></li>
+                    <li><a href="./CustomerService.html">聯繫客服</a></li>
                     <!--自然改-->
-                    <li><a href="#">會員權益</a></li>
-                    <!--自然改-->
-                    <li><a href="./contact.html">聯繫客服</a></li>
-                    <!--自然改-->
-                    <li><a href="#">買家FAQ</a></li>
+                    <li><a href="./FAQ.html">買家FAQ</a></li>
                     <!--自然改-->
                   </ul>
                 </li>
                 <li>
                   <a href="#">賣家中心</a>
                   <ul class="header__menu__dropdown">
-                    <li><a href="#">訂單管理</a></li>
+                    <li><a href="./seller/Order">訂單管理</a></li>
                     <!--自然改-->
-                    <li><a href="#">商品管理</a></li>
+                    <li><a href="./seller/product.jsp">商品管理</a></li>
                     <!--自然改-->
-                    <li><a href="#">財務管理</a></li>
-                    <!--自然改-->
-                    <li><a href="#">帳戶管理</a></li>
-                    <!--自然改-->
-                    <li><a href="#">我的報表</a></li>
-                    <!--自然改-->
-                    <li><a href="#">賣家FAQ</a></li>
+                    <li><a href="./seller/Seller">帳戶管理</a></li>
                     <!--自然改-->
                   </ul>
                 </li>
@@ -253,11 +239,11 @@
             <div class="header__cart">
               <ul>
                 <li>
-                  <a href="#"><i class="fa fa-heart"></i> </a>
+                  <a href="./my_favorite.jsp"><i class="fa fa-heart"></i> </a>
                 </li>
                 <!--自然改-->
                 <li>
-                  <a href="./index.html"><i class="fa-solid fa-house"></i> </a>
+                  <a href="./index.jsp"><i class="fa-solid fa-house"></i> </a>
                 </li>
                 <!--自然改--><!--這個圖示用來做回首頁-->
                 <li>
@@ -267,11 +253,17 @@
                 </li>
                 <!--自然改--><!--這個圖示用來做購物車-->
                 <li>
-                  <a href="#"><i class="fa-solid fa-ticket"></i></a>
+                  <a href="./ticket/listAllTicket.jsp"
+                    ><i class="fa-solid fa-ticket"></i
+                  ></a>
                 </li>
                 <!--自然改--><!--這個圖示用來做我的票券-->
                 <li>
-                  <a href="./logout"><i class="fa-solid fa-person"></i></a>
+                  <a href="./login.html"><i class="fa-solid fa-person"></i></a>
+                </li>
+                <!--自然改--><!--這個圖示用來做登入-->
+                <li>
+                  <a href="./logout"><i class="fa fa-sign-out"></i></a>
                 </li>
                 <!--自然改--><!--這個圖示用來做登入-->
               </ul>
@@ -333,13 +325,7 @@
             
           </div> -->
         <label for="name">姓名</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          value="吳永志"
-          required
-        />
+        <input type="text" class="form-control" id="name" required />
       </div>
 
       <div class="form-group">
@@ -421,9 +407,7 @@
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer__about">
               <div class="footer__about__logo">
-                <a href="./index.html"
-                  ><img src="https://fakeimg.pl/150x60/" alt=""
-                /></a>
+                <a href="./index.jsp"><img src="./img/Frame 6.svg" alt="" /></a>
               </div>
               <ul>
                 <li>地址：100 台北市中正區濟南路一段321號</li>
@@ -439,33 +423,27 @@
             <div class="footer__widget">
               <h6>相關連結</h6>
               <ul class="header__menu__dropdown">
-                <li><a href="#">帳戶管理</a></li>
+                <li>
+                  <a href="./memberupdate/listAllMemberupdate.jsp">帳戶管理</a>
+                </li>
                 <!--自然改-->
-                <li><a href="#">訂單查詢</a></li>
+                <li>
+                  <a href="./orderMainFile/OrderMainFile.jsp">訂單查詢</a>
+                </li>
                 <!--自然改-->
-                <li><a href="#">我的錢包</a></li>
+                <li><a href="./MemberBenefits.html">會員權益</a></li>
                 <!--自然改-->
-                <li><a href="#">我的最愛</a></li>
+                <li><a href="./CustomerService.html">聯繫客服</a></li>
                 <!--自然改-->
-                <li><a href="#">會員權益</a></li>
-                <!--自然改-->
-                <li><a href="./contact.html">聯繫客服</a></li>
-                <!--自然改-->
-                <li><a href="#">買家FAQ</a></li>
+                <li><a href="./FAQ.html">買家FAQ</a></li>
                 <!--自然改-->
               </ul>
               <ul class="header__menu__dropdown">
-                <li><a href="#">訂單管理</a></li>
+                <li><a href="./seller/Order">訂單管理</a></li>
                 <!--自然改-->
-                <li><a href="#">商品管理</a></li>
+                <li><a href="./seller/product.jsp">商品管理</a></li>
                 <!--自然改-->
-                <li><a href="#">財務管理</a></li>
-                <!--自然改-->
-                <li><a href="#">帳戶管理</a></li>
-                <!--自然改-->
-                <li><a href="#">我的報表</a></li>
-                <!--自然改-->
-                <li><a href="#">賣家FAQ</a></li>
+                <li><a href="./seller/Seller">帳戶管理</a></li>
                 <!--自然改-->
               </ul>
             </div>
@@ -478,11 +456,11 @@
                           <input type="text" placeholder="Enter your mail">
                           <button type="submit" class="site-btn">Subscribe</button>
                       </form> -->
-              <div class="footer__widget__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa-solid fa-envelope"></i></a>
-              </div>
+              <!--                         <div class="footer__widget__social"> -->
+              <!--                             <a href="#"><i class="fa fa-facebook"></i></a> -->
+              <!--                             <a href="#"><i class="fa fa-instagram"></i></a> -->
+              <!--                             <a href="#"><i class="fa-solid fa-envelope"></i></a> -->
+              <!--                         </div> -->
             </div>
           </div>
         </div>
@@ -507,6 +485,7 @@
         </div>
       </div>
     </footer>
+
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
@@ -601,6 +580,56 @@
           }
         };
 
+        function checkNull() {
+          let checkName = document.getElementById('name');
+          if (!account.value) {
+            var accountCheck = '帳號';
+          } else {
+            var accountCheck = '';
+          }
+          if (!password.value) {
+            var passwordCheck = '密碼';
+          } else {
+            var passwordCheck = '';
+          }
+          if (!checkName.value) {
+            var nameCheck = '姓名';
+          } else {
+            var nameCheck = '';
+          }
+          if (!birthday.value) {
+            var birthdayCheck = '生日';
+          } else {
+            var birthdayCheck = '';
+          }
+          if (!email.value) {
+            var emailCheck = 'email';
+          } else {
+            var emailCheck = '';
+          }
+          if (!phone.value) {
+            var phoneCheck = '電話';
+          } else {
+            var phoneCheck = '';
+          }
+          if (!address.value) {
+            var addressCheck = '地址';
+          } else {
+            var addressCheck = '';
+          }
+          console.log(nameCheck);
+          let checked = [
+            accountCheck,
+            passwordCheck,
+            nameCheck,
+            birthdayCheck,
+            emailCheck,
+            phoneCheck,
+            addressCheck,
+          ];
+          return checked;
+        }
+
         document.querySelector('#btn').addEventListener('click', () => {
           if (
             !account.value ||
@@ -611,31 +640,13 @@
             !phone.value ||
             !address.value
           ) {
-            // switch ('') {
-            //   case account.value:
-            //     alert('帳號請勿空白!');
-            //   break;
-            //   case password.value:
-            //     alert('密碼請勿空白!');
-            //     break;
-            //   case name.value:
-            //     alert('名字請勿空白!');
-            //     break;
-            //   case birthday.value:
-            //     alert('帳號請勿空白!');
-            //     break;
-            //   case email.value:
-            //     alert('帳號請勿空白!');
-            //     break;
-            //   case phone.value:
-            //     alert('帳號請勿空白!');
-            //     break;
-            //   case address.value:
-            //     alert('帳號請勿空白!');
-            //     break;
-            //   default:
-            //     break;
-            // }
+            let msg = '';
+            let array = checkNull();
+            array.forEach((element) => {
+              msg += element + ' ';
+            });
+            console.log(`${msg}請勿空白`);
+            alert(`${msg}請勿空白`);
             return;
           }
 
