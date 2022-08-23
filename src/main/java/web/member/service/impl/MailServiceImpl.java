@@ -31,8 +31,8 @@ public class MailServiceImpl implements MailService {
 	private final static String AUTH = "true";
 	private final static String PORT = "587";
 	private final static String STARTTLE_ENABLE = "true";
-	private final static String SENDER = "dillon23090@gmail.com";
-	private final static String PASSWORD = "weommxhmgqxxjmgy";
+	private final static String SENDER = "xxx";
+	private final static String PASSWORD = "xxx";
 
 //  設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
 	@Override
